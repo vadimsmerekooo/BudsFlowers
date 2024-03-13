@@ -1,0 +1,89 @@
+.navbar-toggler:focus {
+    border: transparent;
+}
+
+.nav-item a {
+    color: #000;
+}
+
+.nav-item a.active {
+    color: #BF608C;
+    text-decoration: underline;
+}
+.color {
+    color: #BF608C;
+}
+
+.nav-item a:hover {
+    color: #BF608C;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-caption {
+    z-index: 10;
+}
+
+.carousel-item {
+    height: 32rem;
+}
+
+.slide-room img {
+    max-height: 18rem;
+}
+
+.carousel-control-item {
+    font-size: 40px;
+}
+.carousel-control-item:hover{
+    color: #BF608C;
+}
+.carousel-indicators .active{
+    background-color: #BF608C;
+}
+
+.bg-image{
+    position: relative;
+}
+.bg-image::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #1f2529;
+    opacity: .7;
+}
+.bg-image img{
+    object-fit: contain;
+}
+.img-icon{
+    width: 40px;
+}
+.bi-instagram { 
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  -webkit-background-clip: text;
+          /* Also define standard property for compatibility */
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+p a{
+    color: gray;
+}
+p a:hover {
+    color: #BF608C;
+}
+
+@media (min-width: 40em) {
+    .carousel-caption p {
+        margin-bottom: 1.25rem;
+        font-size: 1.25rem;
+        line-height: 1.4;
+    }
+}
