@@ -10,14 +10,52 @@
     color: #BF608C;
     text-decoration: underline;
 }
+
 .color {
     color: #BF608C;
+}
+
+.btn-outline-color {
+    border-color: #BF608C;
+}
+
+.btn-outline-color:hover {
+    background-color: #BF608C;
+    color: white;
 }
 
 .nav-item a:hover {
     color: #BF608C;
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+
+.card-group{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.card-group .card{
+    max-width: 280px;
+}
+
+.page-link{
+    color:#BF608C;
+}
+.active > .page-link{
+    background-color: #BF608C;
+    border-color: #BF608C;
+    color: #ffffff;
+}
+
+
+.star {
+    color: #FFD11A;
+}
+
+.card-img-top {
+    height: 250px;
 }
 
 .carousel {
@@ -39,16 +77,19 @@
 .carousel-control-item {
     font-size: 40px;
 }
-.carousel-control-item:hover{
+
+.carousel-control-item:hover {
     color: #BF608C;
 }
-.carousel-indicators .active{
+
+.carousel-indicators .active {
     background-color: #BF608C;
 }
 
-.bg-image{
+.bg-image {
     position: relative;
 }
+
 .bg-image::after {
     content: "";
     display: block;
@@ -60,22 +101,27 @@
     background: #1f2529;
     opacity: .7;
 }
-.bg-image img{
+
+.bg-image img {
     object-fit: contain;
 }
-.img-icon{
+
+.img-icon {
     width: 40px;
 }
-.bi-instagram { 
+
+.bi-instagram {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  -webkit-background-clip: text;
-          /* Also define standard property for compatibility */
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    /* Also define standard property for compatibility */
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
-p a{
+
+p a {
     color: gray;
 }
+
 p a:hover {
     color: #BF608C;
 }
