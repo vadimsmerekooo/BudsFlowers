@@ -1,14 +1,18 @@
+:root{
+    --main-color:  #BF608C;
+}
+
   .form__field {
     font-family: inherit;
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #BF608C;
+    border-bottom: 2px solid var(--main-color);
     outline: 0;
     background: transparent;
-    transition: border-color 0.2s;  
+    transition: border-color 0.2s;
   }
-  
-  .form__field:focus {   
+
+  .form__field:focus {
     font-weight: 700;
     border-width: 3px;
     border-image: linear-gradient(to right, #11998e,#38ef7d);
@@ -30,25 +34,86 @@
 }
 
 .nav-item a.active {
-    color: #BF608C;
+    color: var(--main-color);
     text-decoration: underline;
+}
+.notification{
+    background-color: var(--main-color);
 }
 
 .color {
-    color: #BF608C;
+    color: var(--main-color);
+}
+
+.number {
+	display: inline-block;
+	position: relative;
+	width: 100px;
+}
+.number input[type="number"] {
+	display: block;
+	height: 32px;
+	line-height: 32px;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	text-align: center;
+    border: none;
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+	appearance: textfield;
+}
+.number input[type="number"]::-webkit-outer-spin-button,
+.number input[type="number"]::-webkit-inner-spin-button {
+	display: none;
+}
+.number-minus {
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	bottom: 1px;
+	width: 20px;
+	padding: 0;
+	display: block;
+	text-align: center;
+	border: none;
+	font-size: 16px;
+	font-weight: 600;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: var(--main-color);
+    color: #fff;
+}
+.number-plus {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	bottom: 1px;
+	width: 20px;
+	padding: 0;
+	display: block;
+	text-align: center;
+	border: none;
+	font-size: 16px;
+	font-weight: 600;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: var(--main-color);
+    color: #fff;
 }
 
 .btn-outline-color {
-    border-color: #BF608C;
+    border-color: var(--main-color);
 }
 
 .btn-outline-color:hover {
-    background-color: #BF608C;
+    background-color: var(--main-color);
     color: white;
 }
 
 .nav-item a:hover {
-    color: #BF608C;
+    color: var(--main-color);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
@@ -63,12 +128,12 @@
 }
 
 .page-link {
-    color: #BF608C;
+    color: var(--main-color);
 }
 
 .active>.page-link {
-    background-color: #BF608C;
-    border-color: #BF608C;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
     color: #ffffff;
 }
 
@@ -92,7 +157,9 @@
     transition: .3s;
 }
 
-
+.flowers-card{
+    min-height: 360px;
+}
 .flowers-card:hover {
     -webkit-transform: scale(1.02);
     transform: scale(1.02);
@@ -143,11 +210,11 @@
 }
 
 .carousel-control-item:hover {
-    color: #BF608C;
+    color: var(--main-color);
 }
 
 .carousel-indicators .active {
-    background-color: #BF608C;
+    background-color: var(--main-color);
 }
 
 .bg-image {
@@ -187,7 +254,7 @@ p a {
 }
 
 p a:hover {
-    color: #BF608C;
+    color: var(--main-color);
 }
 
 @media (min-width: 40em) {

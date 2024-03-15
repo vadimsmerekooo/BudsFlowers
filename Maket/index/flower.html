@@ -9,6 +9,7 @@
     <link href="../../Maket/css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="../../resources/fav.png" rel="icon" type="image/x-icon">
+<link rel="stylesheet" href="../../Maket/css/smartphoto.min.css"></script>
 </head>
 
 <body>
@@ -109,9 +110,12 @@
                         <a class="nav-link" href="index.html"><i class="bi bi-person "
                                 style="font-size: 1.4rem;"></i></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html"><i class="bi bi-basket "
-                                style="font-size: 1.4rem;"></i></a>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="index.html">
+                            <div class="notification badge position-absolute rounded-circle text-white"
+                                style="top: 0.5rem; right: 0.5rem">1</div>
+                            <i class="bi bi-basket " style="font-size: 1.4rem;"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -132,121 +136,137 @@
                         Все категории
                     </a>
                 </li>
+                <li class="breadcrumb-item">
+                    <a class="link-secondary " href="#">
+                        Букеты из роз
+                    </a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Букеты из роз
+                    Букет роз "Прима" 15 роз
                 </li>
             </ol>
         </nav>
-        <hr>
+
         <div class="album bg-body-tertiary">
             <div class="container">
-                <div class="col">
-                    <div class="row border-bottom ">
-                        <div class="col">
-                            <h4>Название категории</h4>
+                <div class="row g-3 py-2">
+                    <div class="col-5 position-relative">
+                        <img src="../../resources/flowers_1.jpeg" class="img-fluid w-100" role="img" focusable="false">
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 1rem">
+                            Скидка</div>
+                    </div>
+                    <div class="col-7 px-2">
+                        <h3>Название букета</h3>
+                        <hr style="width: 100px; background-color: gray;">
+                        <h4 class="text-danger fw-bold "><span class="text-muted text-decoration-line-through">120
+                                руб.</span> 105 руб.</h4>
+                        <h6>Состав: описание состава</h6>
+                        <div class="number my-3">
+                            <button class="number-minus" type="button"
+                                onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                            <input type="number" min="1" max="100" value="1" readonly>
+                            <button class="number-plus" type="button"
+                                onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
                         </div>
-                        <div class="col">
-                            <label class="form-label">Цена от: </label>
-                            <input type="number" class="form__field" max placeholder="50" name="price_min"
-                                id='price_min' required style="width: 50px;" />
-                            <label class="form-label">до: </label>
-                            <input type="number" class="form__field" max placeholder="400" name="price_max"
-                                id='price_max' required style="width: 50px;" />
-                        </div>
-                        <div class="col justify-content-end text-end">
-                            <label class="form-label">Сортировать по: </label>
-                            <select class="form-selectw-50 ms-2 float-end">
-                                <option selected>По умолчанию</option>
-                                <option value="1">Сначала дешевле</option>
-                                <option value="2">Сначала дороже</option>
-                            </select>
+                        <a class="btn btn-outline-color color mt-auto" href="#">В
+                            корзину</a>
+                        <br>
+                        <span><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
+                                class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
+                                class="bi bi-star star"></i> 3 отзыва</span>
+                        <div class="accordion mt-3" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        выберите дополнение к цветам:
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <table class="table m-0 p-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a href="./assets/large-kuma.jpg" class="js-smartPhoto" data-caption="secondary" data-id="secondary">
+                                                            <img class="" src="../../resources/bear.jpg" width="35"
+                                                                height="35" data-group="second">
+                                                          </a>
+                                                    </td>
+                                                    <td class="text-secondary fw-bold">Мишка 100 см</td>
+                                                    <td class="fw-bold text-danger">110 руб.</td>
+                                                    <td class="text-end">
+                                                        <form>
+                                                            <div class="number">
+                                                                <button class="number-minus" type="button"
+                                                                    onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                                                                <input type="number" min="1" max="100" value="1" readonly>
+                                                                <button class="number-plus" type="button"
+                                                                    onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                                            </div>
+                                                            <a class="btn btn-outline-color color" href="#">В
+                                                                корзину</a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img class="" src="../../resources/bear.jpg" width="35"
+                                                            height="35">
+                                                    </td>
+                                                    <td class="text-secondary fw-bold">Мишка 100 см</td>
+                                                    <td class="fw-bold text-danger">110 руб.</td>
+                                                    <td class="text-end">
+                                                        <form>
+                                                            <div class="number">
+                                                                <button class="number-minus" type="button"
+                                                                    onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                                                                <input type="number" min="1" max="100" value="1"
+                                                                    readonly>
+                                                                <button class="number-plus" type="button"
+                                                                    onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                                            </div>
+                                                            <a class="btn btn-outline-color color" href="#">В
+                                                                корзину</a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img class="" src="../../resources/bear.jpg" width="35"
+                                                            height="35">
+                                                    </td>
+                                                    <td class="text-secondary fw-bold">Мишка 100 см</td>
+                                                    <td class="fw-bold text-danger">110 руб.</td>
+                                                    <td class="text-end">
+                                                        <form>
+                                                            <div class="number">
+                                                                <button class="number-minus" type="button"
+                                                                    onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                                                                <input type="number" min="1" max="100" value="1"
+                                                                    readonly>
+                                                                <button class="number-plus" type="button"
+                                                                    onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                                            </div>
+                                                            <a class="btn btn-outline-color color" href="#">В
+                                                                корзину</a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3 py-3">
-                        <div class="col ">
-                            <a href="#" class="flowers category-link">
-                                <div class="card flowers-card shadow-sm text-center justify-content-end   ">
-                                    <div class="card-img-top overflow-hidden h-100">
-                                        <img src="../../resources/flowers_1.jpeg" class="" width="100%" role="img"
-                                            focusable="false">
-                                    </div>
-                                    <div class="card-body px-0">
-                                        <h6>Букет роз "Вау12345678" 15 роз</h6>
-                                        <span><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
-                                                class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
-                                                class="bi bi-star-fill star"></i> 1 отзыва</span>
-                                        <p class="text-danger fw-bold">85 руб.</p>
-                                        <button class="btn btn-outline-color color mt-auto" href="#">Добавить в корзину</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="#" class="flowers category-link">
-                                <div class="card flowers-card shadow-sm text-center justify-content-end   ">
-                                    <div class="card-img-top overflow-hidden h-100">
-                                        <img src="../../resources/flowers_1.jpeg" class="" width="100%""
-                                            role=" img" focusable="false">
-                                    </div>
-                                    <div class="card-body px-0">
-                                        <h6>Букет роз "Прима" 15 роз</h6>
-                                        <span><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
-                                                class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
-                                                class="bi bi-star star"></i> 2 отзыва</span>
-                                        <p class="text-danger fw-bold">95 руб.</p>
-                                        <button class="btn btn-outline-color color mt-auto" href="#">Добавить в корзину</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="#" class="flowers category-link">
-                                <div class="card flowers-card shadow-sm text-center justify-content-end   ">
-                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
-                                        Скидка</div>
-                                    <div class="badge bg-warning  text-white position-absolute"
-                                        style="top: 2rem; right: 0.5rem">Популярное</div>
-                                    <div class="card-img-top overflow-hidden h-100">
-                                        <img src="../../resources/flowers_1.jpeg" class="" width="100%""
-                                            role=" img" focusable="false">
-                                    </div>
-                                    <div class="card-body px-0">
-                                        <h6>Букет роз "Глория" 15 роз</h6>
-                                        <span class="opacity-0"><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
-                                                class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i
-                                                class="bi bi-star star"></i> 3 отзыва</span>
-                                        <p class="text-danger fw-bold"><span class="text-muted text-decoration-line-through">120 руб.</span> 105 руб.</p>
-                                        <button class="btn btn-outline-color color mt-auto" href="#">Добавить в корзину</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <nav>
-                        <ul class="pagination pagination-sm  justify-content-center">
-                            <li class="page-item disabled ">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item active" aria-current="page">
-                                <span class="page-link">1</span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
         <hr>
         <div id="map" class="row featurette">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <h2 class="featurette-heading fw-normal lh-1 color">Мы тут!</h2>
                 <p><i class="bi bi-geo-alt"></i> Адрес: <a href="https://yandex.by/maps/-/CDu3F02L" target="_blank">г.
                         Гродно, ул. Максима Горького, д.86, Магазин цветов "BudsFlowers"</a></p>
@@ -258,7 +278,7 @@
                         href="mailto:budsflowers.grodno@gmail.com">budsflowers.grodno@gmail.com</a>
                 </p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div style="position:relative;overflow:hidden;"><a
                         href="https://yandex.by/maps/org/grodnenskiy_gosudarstvenny_kolledzh_tekhniki_tekhnologiy_i_dizayna/1586841958/?utm_medium=mapframe&utm_source=maps"
                         style="color:#eee;font-size:12px;position:absolute;top:0px;">Гродненский государственный колледж
@@ -266,7 +286,7 @@
                         href="https://yandex.by/maps/10274/grodno/category/college/184106236/?utm_medium=mapframe&utm_source=maps"
                         style="color:#eee;font-size:12px;position:absolute;top:14px;">Колледж в Гродно</a><iframe
                         src="https://yandex.by/map-widget/v1/?ll=23.816963%2C53.703606&mode=poi&poi%5Bpoint%5D=23.815695%2C53.704030&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1586841958&z=18.46"
-                        width="560" height="400" frameborder="1" allowfullscreen="true"
+                        width="500" height="500" frameborder="1" allowfullscreen="true"
                         style="position:relative;"></iframe>
                 </div>
             </div>
@@ -317,6 +337,7 @@
         </ul>
     </footer>
 
+    <script src="../../Maket/js/jquery-smartphoto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

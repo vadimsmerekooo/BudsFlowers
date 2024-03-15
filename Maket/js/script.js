@@ -10,3 +10,6 @@ document.getElementById("navbar-toggler").addEventListener('click', ev => {
         icon.classList.add('bi-list-nested');
     }
 });
+$(function(){
+    $(".js-smartPhoto").smartPhoto();
+});
