@@ -19,19 +19,19 @@
                     <a class="nav-link" href="index.html">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">Каталог</a>
+                    <a class="nav-link" href="catalog.html">Каталог</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">Доставка и оплата</a>
+                    <a class="nav-link" href="delivery.html">Доставка и оплата</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="poster.html">Контакты</a>
+                    <a class="nav-link" href="about.html">Контакты</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="blog.html">Блог</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="blog.html">Отзывы</a>
+                    <a class="nav-link" href="reviews.html">Отзывы</a>
                 </li>
             </ul>
             <hr>
@@ -127,142 +127,126 @@
                         <span class="visually-hidden">Главная</span>
                     </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Каталог
+                <li class="breadcrumb-item">
+                    <a class="link-secondary " href="#">
+                        Все категории
+                    </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Категории
+                    Букеты из роз
                 </li>
             </ol>
         </nav>
         <hr>
         <div class="album bg-body-tertiary">
-            <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="../../resources/flowers_1.jpeg"
-                                    class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                    role="img" focusable="false">
-                                    <div class="position-absolute w-100 category-block">
-                                        <h5 class="category-title">Букет из роз</h5>
+            <div class="container">                
+                <div class="col">
+                    <div class="row border-bottom ">
+                        <div class="col">
+                            <h4>Название категории</h4>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Цена от: </label>
+                            <input type="number" class="form__field" max placeholder="50" name="price_min" id='price_min' required style="width: 50px;"/>
+                            <label class="form-label">до: </label>
+                            <input type="number" class="form__field" max placeholder="400" name="price_max" id='price_max' required style="width: 50px;"/>
+                        </div>
+                        <div class="col justify-content-end text-end">
+                            <label class="form-label">Сортировать по: </label>
+                            <select class="form-selectw-50 ms-2 float-end">
+                                <option selected>По умолчанию</option>
+                                <option value="1">Сначала дешевле</option>
+                                <option value="2">Сначала дороже</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 py-3">
+                        <div class="col ">
+                            <a href="#" class="flowers category-link">
+                                <div class="card flowers-card shadow-sm text-center justify-content-end   ">
+                                    <div class="card-img-top overflow-hidden">
+                                        <img src="../../resources/flowers_1.jpeg" class="" width="100%""
+                                            role="img" focusable="false">
                                     </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
+                                    <div class="card-body ">
+                                        <h5>34 роз</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="flowers category-link">
+                                <div class="card flowers-card shadow-sm text-center justify-content-end   ">
+                                    <div class="card-img-top overflow-hidden">
+                                        <img src="../../resources/flowers_1.jpeg" class="" width="100%""
+                                            role="img" focusable="false">
+                                    </div>
+                                    <div class="card-body ">
+                                        <h5>34 роз</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="flowers category-link">
+                                <div class="card flowers-card shadow-sm text-center justify-content-end   ">
+                                    <div class="card-img-top overflow-hidden">
+                                        <img src="../../resources/flowers_1.jpeg" class="" width="100%""
+                                            role="img" focusable="false">
+                                    </div>
+                                    <div class="card-body ">
+                                        <h5>34 роз</h5>
+                                    </div>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <a href="#" class="category-link">
-                                <div class="card shadow-sm text-center justify-content-end ">
-                                    <img src="../../resources/flowers_1.jpeg"
-                                        class="bd-placeholder-img card-img-top position-relative " width="100%" height="225"
-                                        role="img" focusable="false">
-                                        <div class="position-absolute w-100 category-block">
-                                            <h5 class="category-title">Букет из роз</h5>
-                                        </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    <nav>
+                        <ul class="pagination pagination-sm  justify-content-center">
+                            <li class="page-item disabled ">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">1</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div id="map" class="row featurette">
+            <div class="col-md-8">
+                <h2 class="featurette-heading fw-normal lh-1 color">Мы тут!</h2>
+                <p><i class="bi bi-geo-alt"></i> Адрес: <a href="https://yandex.by/maps/-/CDu3F02L" target="_blank">г.
+                        Гродно, ул. Максима Горького, д.86, Магазин цветов "BudsFlowers"</a></p>
+                <p><i class="bi bi-clock"></i> Время работы: <b>пн-вс c 10.00 по 22.00</b></p>
+                <p><i class="bi bi-telephone"></i> Контакты: <a href="tel:+375291234567">+375291234567,</a> <a
+                        href="tel:+375331234567"> +375331234567</a>
+                </p>
+                <p><i class="bi bi-envelope"></i> Почта: <a
+                        href="mailto:budsflowers.grodno@gmail.com">budsflowers.grodno@gmail.com</a>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <div style="position:relative;overflow:hidden;"><a
+                        href="https://yandex.by/maps/org/grodnenskiy_gosudarstvenny_kolledzh_tekhniki_tekhnologiy_i_dizayna/1586841958/?utm_medium=mapframe&utm_source=maps"
+                        style="color:#eee;font-size:12px;position:absolute;top:0px;">Гродненский государственный колледж
+                        техники, технологий и дизайна</a><a
+                        href="https://yandex.by/maps/10274/grodno/category/college/184106236/?utm_medium=mapframe&utm_source=maps"
+                        style="color:#eee;font-size:12px;position:absolute;top:14px;">Колледж в Гродно</a><iframe
+                        src="https://yandex.by/map-widget/v1/?ll=23.816963%2C53.703606&mode=poi&poi%5Bpoint%5D=23.815695%2C53.704030&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1586841958&z=18.46"
+                        width="560" height="400" frameborder="1" allowfullscreen="true"
+                        style="position:relative;"></iframe>
                 </div>
             </div>
         </div>
@@ -277,8 +261,8 @@
         </div>
 
         <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">Главная</a>
+            li class="nav-item">
+            <a class="nav-link" href="index.html">Главная</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="catalog.html">Каталог</a>

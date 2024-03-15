@@ -1,3 +1,26 @@
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #BF608C;
+    outline: 0;
+    background: transparent;
+    transition: border-color 0.2s;  
+  }
+  
+  .form__field:focus {   
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e,#38ef7d);
+    border-image-slice: 1;
+  }
+  .form__field::-webkit-outer-spin-button,
+  .form__field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
 .navbar-toggler:focus {
     border: transparent;
 }
@@ -30,25 +53,24 @@
     transform: scale(1.1);
 }
 
-
-.card-group{
+.card-group {
     margin-left: 60px;
     margin-right: 60px;
 }
 
-.card-group .card{
+.card-group .card {
     max-width: 280px;
 }
 
-.page-link{
-    color:#BF608C;
+.page-link {
+    color: #BF608C;
 }
-.active > .page-link{
+
+.active>.page-link {
     background-color: #BF608C;
     border-color: #BF608C;
     color: #ffffff;
 }
-
 
 .star {
     color: #FFD11A;
@@ -56,6 +78,48 @@
 
 .card-img-top {
     height: 250px;
+}
+
+.category-link {
+    text-decoration: none;
+}
+
+.flowers-card,
+.flowers img,
+.category-link .bd-placeholder-img,
+.category-link .category-title,
+.nav-item a {
+    transition: .3s;
+}
+
+
+.flowers-card:hover {
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+.flowers:hover img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+
+.category-link:hover .bd-placeholder-img {
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
+}
+
+
+.category-link:hover .category-title {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.category-block {
+    background-color: #1f2529;
+    opacity: 0.7;
+    color: #ffffff;
+    padding: 20px;
 }
 
 .carousel {
