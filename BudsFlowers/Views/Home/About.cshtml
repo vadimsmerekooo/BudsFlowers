@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Контакты";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+            <li class="breadcrumb-item">
+                <a class="link-body-emphasis" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house"></i>
+                    <span class="visually-hidden">Главная</span>
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                @ViewData["Title"]
+            </li>
+        </ol>
+    </nav>
+    <partial name="../Partials/_MapPartial.cshtml" />
+    <hr>
+    <div class="card">
+        <div class="card-header text-start ">
+            Задать вопрос
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col ">
+                    <label class="form-label">Имя<sup class="text-danger ">*</sup></label>
+                    <input type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+                </div>
+                <div class="col ">
+                    <label class="form-label">Email<sup class="text-danger ">*</sup></label>
+                    <input type="email" class="form-control"
+                           placeholder="name@gmail.com">
+                </div>
+                <div class="col ">
+                    <label class="form-label">Телефон<sup class="text-danger ">*</sup></label>
+                    <input type="text" class="form-control"
+                           placeholder="+_(__)_______">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Текст сообщения<sup class="text-danger ">*</sup></label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+        </div>
+        <a class="btn btn-outline-color color mt-auto" href="#">Отправить</a>
+    </div>
+</div>

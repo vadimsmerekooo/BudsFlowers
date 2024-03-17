@@ -13,12 +13,34 @@ namespace BudsFlowers.Controllers
             _logger = logger;
         }
 
+        [Route("")]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [Route("catalog")]
+        public async Task<IActionResult> Catalog()
+        {
+            return View();
+        }
+        [Route("delivery-pay")]
+        public async Task<IActionResult> Delivery()
+        {
+            return View();
+        }
+        [Route("about")]
+        public async Task<IActionResult> About()
+        {
+            return View();
+        }
+        [Route("blog")]
+        public async Task<IActionResult> Blog()
+        {
+            return View();
+        }
+        [Route("reviews")]
+        public async Task<IActionResult> Reviews()
         {
             return View();
         }
