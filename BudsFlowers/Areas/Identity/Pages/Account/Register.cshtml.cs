@@ -66,6 +66,11 @@ namespace BudsFlowers.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [Phone]
+            [Display(Name = "Телефон")]
+            public string Phone { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]
