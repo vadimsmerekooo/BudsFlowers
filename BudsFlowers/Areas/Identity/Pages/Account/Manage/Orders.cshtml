@@ -1,0 +1,18 @@
+﻿@page "/account/orders"
+@model IndexModel
+@{
+    ViewData["Title"] = "Заказы";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h6>@ViewData["Title"]</h6>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
