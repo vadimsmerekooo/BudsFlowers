@@ -12,7 +12,7 @@ namespace  BudsFlowers.Areas.Identity.Pages.Account.Manage
         public static string Index => "Index";
         public static string Orders => "Orders";
         public static string ChangePassword => "ChangePassword";
-        /// </summary>
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
         public static string OrdersNavClass(ViewContext viewContext) => PageNavClass(viewContext, Orders);
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);

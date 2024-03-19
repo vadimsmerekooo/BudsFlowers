@@ -38,14 +38,15 @@ body{
     color: white;
 }
 
-.nav-item a.active {
-    color: var(--main-color);
-    text-decoration: underline;
-}
-
-    .notification {
-        background-color: var(--main-color);
+    .nav-item a.active {
+        color: var(--main-color);
+        text-decoration: underline;
     }
+
+
+.notification {
+    background-color: var(--main-color);
+}
 
 .color {
     color: var(--main-color);
