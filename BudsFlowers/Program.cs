@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BudsFlowers.Areas.Identity.Data;
+using BudsFlowers.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +33,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.Name = "budsflowers";
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(4320);
-    options.LoginPath = "/account/signin";
-    
+    options.LoginPath = "/account/signin";    
     options.SlidingExpiration = true;
 });
 
@@ -43,6 +43,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
 builder.Services.AddRazorPages();
+BasketService.Deserialize();
+
 
 var app = builder.Build();
 
@@ -74,4 +76,24 @@ app.UseEndpoints(endpoints =>
 });
 
 
+app.Use(async (context, next) =>
+{
+    if (context.Request.Cookies.ContainsKey("basket"))
+    {
+        string idBasket = context.Request.Cookies["basket"];
+    }
+    else
+    {
+        long code = BasketService.SetId();
+        if(code == 0)
+        {
+            context.Response.Cookies.Append("basket", "error");
+        }
+        else
+        {
+            context.Response.Cookies.Append("basket", code.ToString());
+        }
+    }
+    await next(context);
+});
 app.Run();
