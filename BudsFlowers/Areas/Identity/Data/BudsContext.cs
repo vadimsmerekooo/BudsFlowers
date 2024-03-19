@@ -7,6 +7,14 @@ namespace BudsFlowers.Areas.Identity.Data;
 
 public class BudsContext : IdentityDbContext<User>
 {
+    public DbSet<BlogNew> Blog { get;set; }
+    public DbSet<Flower> Flowers { get; set; }
+    public DbSet<FlowerCategory> FlowerCategories { get; set; }
+    public DbSet<Message> Messages { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<Review> Reviews { get; set; }
+
     public BudsContext(DbContextOptions<BudsContext> options)
         : base(options)
     {

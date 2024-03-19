@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿
 #nullable disable
 
 using System;
@@ -19,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using BudsFlowers.Services;
 
 namespace BudsFlowers.Areas.Identity.Pages.Account
 {
@@ -97,14 +97,13 @@ namespace BudsFlowers.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                await _userManager.SetPhoneNumberAsync(user, Input.Phone.Trim());
+                await _userStore.SetUserNameAsync(user, Input.FirstName.Trim(), CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, Input.Email.Trim(), CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -114,8 +113,10 @@ namespace BudsFlowers.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    EmailService emailService = new EmailService();
+                    await emailService.SendEmailAsync(Input.Email.Trim(), "Подтверждение почты", $"Пожалуйста, перейдите по ссылке для подтверждения почты на сайте интернет-магазина BudsFlowers. <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Подтвердить.</a>");
+
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -133,7 +134,6 @@ namespace BudsFlowers.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
 
@@ -145,9 +145,7 @@ namespace BudsFlowers.Areas.Identity.Pages.Account
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(User)}'. " +
-                    $"Ensure that '{nameof(User)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+                throw new InvalidOperationException($"Ошибка регистрации пользователя '{nameof(User)}'.");
             }
         }
 
@@ -155,7 +153,7 @@ namespace BudsFlowers.Areas.Identity.Pages.Account
         {
             if (!_userManager.SupportsUserEmail)
             {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
+                throw new NotSupportedException("EmailStore пуст");
             }
             return (IUserEmailStore<User>)_userStore;
         }

@@ -45,6 +45,11 @@ namespace BudsFlowers.Controllers
             return View();
         }
 
+        public void AddBasket()
+        {
+
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

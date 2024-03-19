@@ -6,9 +6,25 @@
         Publish,
         None
     }
+    public enum TypeCategory
+    {
+        Flowers,
+        Toys,
+        Сandies,
+        Other,
+        None
+    }
+    public enum TypeOrderStatus
+    {
+        Assembled,
+        Delivered,
+        Refusal,
+        None
+    }
     public enum TypeReview
     {
         Flower,
-        All
+        All,
+        None
     }
 }
