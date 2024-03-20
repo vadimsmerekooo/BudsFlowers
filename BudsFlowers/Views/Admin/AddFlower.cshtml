@@ -17,53 +17,65 @@
             <hr />
             <form id="category-form" method="post" asp-controller="Admin" asp-action="AddFlowerModel" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название цветы" required/>
+                <div class=" mb-3">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название цветов" required />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input id="previewPhoto" name="previewPhoto" asp-for="PhotoPath" class="form__field text-start text-light" type="file" accept="image/*" />
-                    <span asp-validation-for="PhotoPath" class="text-danger"></span>
-                </div>
-                <div class="form-floating d-flex mb-3">
+                <div class="d-flex mb-3">
                     <div class="col">
-                        <select class="form__field text-light" asp-for="Categories" asp-items="@Model.Categories">
+                        <label asp-for="PhotoPath" class="form-label"></label>
+                        <input id="previewPhoto" name="previewPhoto" asp-for="PhotoPath" class="form__field text-start text-light" type="file" accept="image/*" />
+                        <span asp-validation-for="PhotoPath" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="Article" class="form-label"></label>
+                        <input id="previewTitle" asp-for="Article" class="form__field text-start text-light" placeholder="Введите артикул" required />
+                        <span asp-validation-for="Article" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div class="col">
+                        <label asp-for="CategoryId" class="form-label"></label>
+                        <select id="categoryId" class="form__field text-light" asp-for="CategoryId" asp-items="ViewBag.Categories">
                         </select>
                         <span asp-validation-for="Categories" class="text-danger"></span>
                     </div>
                     <div class="col">
+                        <label asp-for="Status" class="form-label"></label>
                         <select class="form__field text-light" asp-for="Status" asp-items="Html.GetEnumSelectList<TypeStatus>()">
                         </select>
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-floating d-flex mb-3">
+                <div class=" d-flex mb-3">
                     <div class="col">
-                        <input id="priceInput" asp-for="Price" class="form__field text-start text-light" placeholder="1" required type="number" />
+                        <label asp-for="Price" class="form-label"></label>
+                        <input id="priceInput" asp-for="Price" class="form__field text-start text-light" placeholder="1" min="1" required type="number" />
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
                     <div class="col">
-                        <input id="saleInput" asp-for="Sale" class="form__field text-start text-light" placeholder="1" required type="number" />
+                        <label asp-for="Sale" class="form-label"></label>
+                        <input id="saleInput" asp-for="Sale" class="form__field text-start text-light" placeholder="0" max="100" required type="number" disabled />
                         <span asp-validation-for="Sale" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-floating mb-3">
+                <div class=" mb-3">
+                    <label asp-for="Compound" class="form-label"></label>
                     <input asp-for="Compound" class="form__field text-start text-light" placeholder="Введите состав цветов" required />
                     <span asp-validation-for="Compound" class="text-danger"></span>
                 </div>
-                <div class="form-floating d-flex mb-3">
-                    <div class="col">
-                        <label asp-for="IsInStock" class="form-label">
-                            <input class="form-check-input" asp-for="IsInStock" />
-                            @Html.DisplayNameFor(m => m.IsInStock)
-                        </label>
-                    </div>
-                    <div class="col">
-                        <label id="popularInput" asp-for="IsPopular" class="form-label">
-                            <input class="form-check-input" asp-for="IsPopular" />
-                            @Html.DisplayNameFor(m => m.IsPopular)
-                        </label>
-                    </div>
+                <div class=" d-flex mb-3">
+                    <label asp-for="IsInStock" class="form-label">
+                        <input class="form-check-input" asp-for="IsInStock" />
+                        @Html.DisplayNameFor(m => m.IsInStock)
+                    </label>
+                </div>
+                <div class=" d-flex mb-3">
+                    <label id="popularInput" asp-for="IsPopular" class="form-label">
+                        <input class="form-check-input" asp-for="IsPopular" />
+                        @Html.DisplayNameFor(m => m.IsPopular)
+                    </label>
                 </div>
                 <button type="submit" class="btn btn-outline-color text-light">Добавить</button>
                 <a asp-action="Flowers" class="btn btn-outline-danger text-light">Отмена</a>
@@ -93,11 +105,14 @@
                                 <div class="bi-star-fill"></div>
                                 <div class="bi-star"></div>
                             </div>
-                            <span id="previewSaleCheck" class="text-muted text-decoration-line-through d-none">
-                                -
-                            </span>
-                            <h5 id="previewPriceCheck">
-                                -</h5>
+                            <div class="d-flex justify-content-center">
+                                <span id="previewSaleCheck" class="text-muted text-decoration-line-through px-2 d-none">
+                                    -
+                                </span>
+                                <h5 id="previewPriceCheck">
+                                    -
+                                </h5>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -137,8 +152,50 @@
 <script>
     var titleField = document.getElementById("previewTitle");
     titleField.onkeyup = function () {
-        document.getElementById("previewTitleCheck").innerHTML = titleField.value;        
+        document.getElementById("previewTitleCheck").innerHTML = titleField.value;
     }
+
+    var priceField = document.getElementById("priceInput");
+    var saleField = document.getElementById("saleInput");
+    var previewPrice = document.getElementById("previewPriceCheck");
+    var previewSale = document.getElementById("previewSaleCheck");
+
+
+    priceField.onkeyup = function () {
+        if (priceField.value > 5) {
+            saleField.disabled = false;
+        }
+        else {
+            saleField.value = 0;
+            saleField.disabled = true;
+        }
+        if (saleField.value == 0) {
+            previewSale.classList.add("d-none");
+            previewPrice.innerHTML = priceField.value + " руб.";
+        }
+        else {
+            previewSale.classList.remove("d-none");
+            previewSale.innerHTML = priceField.value;
+            var totalPrice = (priceField.value * saleField.value) / 100;
+            previewPrice.innerHTML = priceField.value - totalPrice + " руб.";
+        }
+    }
+    saleField.onkeyup = function () {
+        if (saleField.value == 0) {
+            previewSale.classList.add("d-none");
+            previewPrice.innerHTML = priceField.value + " руб.";
+        }
+        else {
+            previewSale.classList.remove("d-none");
+            previewSale.innerHTML = priceField.value + " руб.";
+            var totalPrice = (priceField.value * saleField.value) / 100;
+            previewPrice.innerHTML = priceField.value - totalPrice + " руб.";
+        }
+    }
+
+
+
+
 
     var uploadField = document.getElementById("previewPhoto");
     var fileName = "";
@@ -174,6 +231,6 @@
     }
 
 </script>
-@section Scripts {  
+@section Scripts {
     <partial name="../Partials/_ValidationScriptsPartial" />
 }

@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BudsFlowers.Controllers
 {
@@ -45,15 +47,8 @@ namespace BudsFlowers.Controllers
         [Route("admin/flowers/add")]
         public async Task<IActionResult> AddFlower()
         {
-            Flower model = new Flower();
-            List<SelectListItem> items = new List<SelectListItem>();
-            List<FlowerCategory> categories = await _context.FlowerCategories.ToListAsync();
-            foreach (var item in categories)
-            {
-                items.Add(new SelectListItem() { Text = item.Title, Value = item.Id});
-            }
-            model.Categories = items;
-            return View(model);
+            ViewBag.Categories = new SelectList(await _context.FlowerCategories.ToListAsync(), "Id", "Title");
+            return View();
         }
         [Route("admin/flowers/{id}/edit")]
         public async Task<IActionResult> EditFlower(string id)
@@ -65,7 +60,7 @@ namespace BudsFlowers.Controllers
         public async Task<IActionResult> DeleteFlower(string id)
         {
             Flower flower = await _context.Flowers.FirstOrDefaultAsync(f => f.Id == id);
-            if(flower is null)
+            if (flower is null)
             {
                 StatusMessage = "Ошибка Цветы не найдены!";
                 return RedirectToAction(nameof(Flowers));
