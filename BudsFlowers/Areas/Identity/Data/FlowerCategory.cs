@@ -8,7 +8,8 @@ namespace BudsFlowers.Areas.Identity.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public string Id { get; set; }
-        [MaxLength(25)]
+        [Required]
+        [StringLength(25, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 3)]
         public string Title { get; set; }
         public string PreviewPhotoPath { get; set; }
         public TypeCategory TypeCategory { get; set; }

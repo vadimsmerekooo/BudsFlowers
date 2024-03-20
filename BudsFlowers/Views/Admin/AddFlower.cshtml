@@ -1,0 +1,179 @@
+﻿@using BudsFlowers.Views.Admin
+@using BudsFlowers.Areas.Identity.Data
+@model Flower
+@{
+    ViewData["Title"] = "Добавление цветов";
+    ViewData["ActivePage"] = AdminNavPages.Flowers;
+}
+
+<div class="p-3">
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AdminNavPartial" />
+        </div>
+        <div class="col-md-6 border-start text-white py-2">
+            <partial name="../Partials/_StatusMessage" model="@TempData["StatusMessage"]" />
+            <h5>@ViewData["Title"]</h5>
+            <hr />
+            <form id="category-form" method="post" asp-controller="Admin" asp-action="AddFlowerModel" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название цветы" required/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="previewPhoto" name="previewPhoto" asp-for="PhotoPath" class="form__field text-start text-light" type="file" accept="image/*" />
+                    <span asp-validation-for="PhotoPath" class="text-danger"></span>
+                </div>
+                <div class="form-floating d-flex mb-3">
+                    <div class="col">
+                        <select class="form__field text-light" asp-for="Categories" asp-items="@Model.Categories">
+                        </select>
+                        <span asp-validation-for="Categories" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <select class="form__field text-light" asp-for="Status" asp-items="Html.GetEnumSelectList<TypeStatus>()">
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating d-flex mb-3">
+                    <div class="col">
+                        <input id="priceInput" asp-for="Price" class="form__field text-start text-light" placeholder="1" required type="number" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <input id="saleInput" asp-for="Sale" class="form__field text-start text-light" placeholder="1" required type="number" />
+                        <span asp-validation-for="Sale" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Compound" class="form__field text-start text-light" placeholder="Введите состав цветов" required />
+                    <span asp-validation-for="Compound" class="text-danger"></span>
+                </div>
+                <div class="form-floating d-flex mb-3">
+                    <div class="col">
+                        <label asp-for="IsInStock" class="form-label">
+                            <input class="form-check-input" asp-for="IsInStock" />
+                            @Html.DisplayNameFor(m => m.IsInStock)
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label id="popularInput" asp-for="IsPopular" class="form-label">
+                            <input class="form-check-input" asp-for="IsPopular" />
+                            @Html.DisplayNameFor(m => m.IsPopular)
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-color text-light">Добавить</button>
+                <a asp-action="Flowers" class="btn btn-outline-danger text-light">Отмена</a>
+            </form>
+        </div>
+
+        <div class="col-md-4 border-start text-white py-2">
+            <h5>Предпросмотр</h5>
+            <hr />
+            <div class="col mb-5">
+                <div class="card" style="max-width: 300px;">
+                    <div id="previewSaleBadgeCheck" class="badge bg-dark text-white position-absolute d-none" style="top: 0.5rem; right: 0.5rem">
+                        Скидка
+                    </div>
+                    <div id="previewPopularBadgeCheck" class="badge bg-warning  text-white position-absolute d-none"
+                         style="top: 2rem; right: 0.5rem">
+                        Популярное
+                    </div>
+                    <img id="previewPhotoCheck" class="card-img-top" src="." />
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 id="previewTitleCheck" class="fw-bolder">-</h5>
+                            <div class="d-flex justify-content-center small star mb-2">
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star"></div>
+                            </div>
+                            <span id="previewSaleCheck" class="text-muted text-decoration-line-through d-none">
+                                -
+                            </span>
+                            <h5 id="previewPriceCheck">
+                                -</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-outline-color color mt-auto" href="#">
+                                В
+                                корзину
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="position-fixed right-0 p-3" style="z-index: 5; right: 0; top: 100px;">
+    <div id="successUploadImage" class="bg-dark toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+        <div class="toast-header">
+            <i class="bi bi-check-square text-success"></i>
+            <strong class="mr-auto pl-1">Изображение загружено</strong>
+        </div>
+        <div class="toast-body">
+            Изображение <small id="fileUploadName" class="text-small font-italic"></small> успешно прикреплено.
+        </div>
+    </div>
+    <div id="errorUploadImage" class="bg-dark toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+        <div class="toast-header">
+            <i class="bi bi-x-square check-square text-warning"></i>
+            <strong class="mr-auto pl-1">Ошибка загрузки изображения</strong>
+        </div>
+        <div class="toast-body">
+            Изображение <small id="fileUploadName" class="text-small font-italic"></small> не приреплено. Максимальный размер файла 1мб!
+        </div>
+    </div>
+</div>
+<script>
+    var titleField = document.getElementById("previewTitle");
+    titleField.onkeyup = function () {
+        document.getElementById("previewTitleCheck").innerHTML = titleField.value;        
+    }
+
+    var uploadField = document.getElementById("previewPhoto");
+    var fileName = "";
+    if (uploadField) {
+        uploadField.onchange = function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+            fileName = uploadField.files[0].name;
+            var parts = fileName.split('.')[1];
+            document.getElementById('fileUploadName').innerHTML = fileName;
+
+            if (parts == "img" || parts == "png" || parts == "jpeg" || parts == "jpg") {
+                if (this.files[0].size > 1042576) {
+                    this.value = "";
+                    $("#errorUploadImage").toast("show");
+                }
+                else {
+                    if (FileReader && files && files.length) {
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById("previewPhotoCheck").src = fr.result;
+                        }
+                        fr.readAsDataURL(files[0]);
+                    }
+                    $('#successUploadImage').toast('show');
+                }
+            } else {
+                $('#successUploadImage').toast('show');
+            }
+        }
+    } else {
+        $("#errorOpenInput").toast("show");
+    }
+
+</script>
+@section Scripts {  
+    <partial name="../Partials/_ValidationScriptsPartial" />
+}

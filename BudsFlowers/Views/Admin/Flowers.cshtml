@@ -1,4 +1,6 @@
 ﻿@using BudsFlowers.Views.Admin
+@using BudsFlowers.Areas.Identity.Data
+@model List<Flower>
 @{
     ViewData["Title"] = "Цветы";
     ViewData["ActivePage"] = AdminNavPages.Flowers;
@@ -10,7 +12,89 @@
             <partial name="_AdminNavPartial" />
         </div>
         <div class="col-md-9 border-start text-white py-2">
-            
+            <partial name="../Partials/_StatusMessage" for="@TempData["StatusMessage"]" />
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Цветы
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Артикул</th>
+                                <th>Фото</th>
+                                <th>Название</th>
+                                <th>Заказов</th>
+                                <th>Наличие</th>
+                                <th>Оценка</th>
+                                <th>Статус</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Артикул</th>
+                                <th>Фото</th>
+                                <th>Название</th>
+                                <th>Заказов</th>
+                                <th>Наличие</th>
+                                <th>Оценка</th>
+                                <th>Статус</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th>@item.Article</th>
+                                    <th>
+                                        <a href="#" onclick="PhotoLoad('@(item.Id)');">
+                                            <img src="@(item.PhotoPath)" width="45" alt="" />
+                                        </a>
+                                    </th>
+                                    <th>@item.Title</th>
+                                    <th>@item.Orders</th>
+                                    <th>
+                                        @(item.IsInStock ? "В наличии" : "Нет в наличии")
+                                    </th>
+                                    <td class="d-flex">
+                                        <partial name="../Partials/_StarPartial.cshtml" model="@item.GetStar()" />
+                                    </td>
+                                    <td>
+                                        @item.Status
+                                        @if (item.Status is TypeStatus.Не_опубликовано)
+                                        {
+                                            <a asp-controller="Admin" asp-action="ChangeStatusCategory" asp-route-id="@item.Id" class="btn btn-success" title="Опубликовать"><i class="bi bi-eye"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Admin" asp-action="ChangeStatusCategory" asp-route-id="@item.Id" class="btn btn-warning" title="Скрыть"><i class="bi bi-eye-slash"></i></a>
+                                        }
+                                    </td>
+                                    <th>
+                                        <a asp-controller="Admin" asp-action="EditFlower" asp-route-id="@item.Id" class="btn btn-primary" title="Изменить"><i class="bi bi-pencil"></i></a>
+                                    </th>
+                                    <th>
+                                        <a asp-controller="Admin" asp-action="DeleteFlower" asp-route-id="@item.Id" class="btn btn-danger" title="Удалить"><i class="bi bi-trash"></i></a>
+                                    </th>
+                                </tr>
+                                <a id="@item.Id" href="@(item.PhotoPath)" class="js-img-viewer-fit visually-hidden" data-caption="@(item.Title)" data-id="@(item.Id)">
+                                    <img src="@(item.PhotoPath)" width="5" alt="" />
+                                </a>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    function PhotoLoad(id) {
+        document.getElementById(id).click();
+    }
+</script>

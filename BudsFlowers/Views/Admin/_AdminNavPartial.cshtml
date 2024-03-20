@@ -6,7 +6,14 @@
     <li><hr class="mt-1 mb-1" /></li>
     <li class="nav-item"><a class="nav-link @AdminNavPages.OrdersNavClass(ViewContext)" id="orders" asp-action="Orders">Заказы</a></li>
     <li><hr class="mt-1 mb-1" /></li>
-    <li class="nav-item"><a class="nav-link @AdminNavPages.FlowersNavClass(ViewContext)" id="flowers" asp-action="Flowers">Цветы</a></li>
+    <li class="nav-item">
+        <a class="nav-link @AdminNavPages.FlowersNavClass(ViewContext)" id="flowers" asp-action="Flowers">
+            <i class="bi bi-arrow-90deg-down"></i> Цветы
+        </a>
+        <ul class="nav nav-pills flex-column ms-5">
+            <li><a class="nav-link" id="addflower" asp-action="AddFlower"> - Добавить цветы</a></li>
+        </ul>
+    </li>
     <li class="nav-item"><a class="nav-link @AdminNavPages.ToysNavClass(ViewContext)" id="toys" asp-action="Toys">Игрушки</a></li>
     <li class="nav-item"><a class="nav-link @AdminNavPages.CandiesNavClass(ViewContext)" id="сandies" asp-action="Candies">Конфеты</a></li>
     <li class="nav-item"><a class="nav-link @AdminNavPages.OtherNavClass(ViewContext)" id="other" asp-action="Other">Подарки</a></li>

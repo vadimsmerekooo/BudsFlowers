@@ -1,8 +1,8 @@
-﻿@using BudsFlowers.Views.Admin
-@using BudsFlowers.Areas.Identity.Data
+﻿@using BudsFlowers.Areas.Identity.Data;
+@using BudsFlowers.Views.Admin;
 @model FlowerCategory
 @{
-    ViewData["Title"] = "Добавление категории";
+    ViewData["Title"] = "Изменение категории";
     ViewData["ActivePage"] = AdminNavPages.Categoryes;
 }
 
@@ -13,17 +13,17 @@
         </div>
         <div class="col-md-6 border-start text-white py-2">
             <partial name="../Partials/_StatusMessage" model="@TempData["StatusMessage"]" />
-            <h5>Добавление категории</h5>
+            <h5>Изменение категории</h5>
             <hr />
-            <form id="category-form" method="post" asp-controller="Admin" asp-action="AddCategoryModel" enctype="multipart/form-data">
+            <form id="category-form" method="post" asp-controller="Admin" asp-action="EditCategoryModel" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <input asp-for="Id" class="d-none" value="@Model.Id"/>
                 <div class="form-floating mb-3">
-                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название категории" required/>
+                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название категории" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
                     <input id="previewPhoto" name="previewPhoto" asp-for="PreviewPhotoPath" class="form__field text-start text-light" type="file" accept="image/*" />
-                    <span asp-validation-for="PreviewPhotoPath" class="text-danger"></span>
                 </div>
                 <div class="form-floating d-flex mb-3">
                     <div class="col">
@@ -37,7 +37,7 @@
                         <span asp-validation-for="TypeStatus" class="text-danger"></span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-outline-color text-light">Добавить</button>
+                <button type="submit" class="btn btn-outline-color text-light">Обновить</button>
                 <a asp-action="Categoryes" class="btn btn-outline-danger text-light">Отмена</a>
             </form>
         </div>
@@ -48,11 +48,11 @@
             <div class="col">
                 <a href="#" class="category-link">
                     <div class="card shadow-sm text-center justify-content-end ">
-                        <img id="previewPhotoCheck" src="."
+                        <img id="previewPhotoCheck" src="@Model.PreviewPhotoPath"
                              class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
                              role="img" focusable="false">
                         <div class="position-absolute w-100 category-block">
-                            <h5 id="previewTitleCheck" class="category-title">-</h5>
+                            <h5 id="previewTitleCheck" class="category-title">@Model.Title</h5>
                         </div>
                     </div>
                 </a>
@@ -83,7 +83,7 @@
 <script>
     var titleField = document.getElementById("previewTitle");
     titleField.onkeyup = function () {
-        document.getElementById("previewTitleCheck").innerHTML = titleField.value;        
+        document.getElementById("previewTitleCheck").innerHTML = titleField.value;
     }
 
     var uploadField = document.getElementById("previewPhoto");
@@ -121,6 +121,5 @@
     }
 
 </script>
-@section Scripts {  
-    <partial name="../Partials/_ValidationScriptsPartial" />
-}
+
+
