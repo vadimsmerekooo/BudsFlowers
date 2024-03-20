@@ -4,5 +4,6 @@
     {
         public string FlowerId { get; set; }
         public int Count { get; set; }
+        public virtual Flower? Flower { get; set; }
     }
 }

@@ -8,11 +8,12 @@ namespace BudsFlowers.Areas.Identity.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public string Id { get; set; }
+        [MaxLength(25)]
         public string Title { get; set; }
         public string PreviewPhotoPath { get; set; }
+        public TypeCategory TypeCategory { get; set; }
+        public TypeStatus TypeStatus { get; set; }
 
-        public virtual FlowerCategory? ParentFlowerCategory { get; set; }
-        public virtual List<FlowerCategory> ChildFlowerCategories { get; set; } = new List<FlowerCategory>();
         public virtual List<Flower> Flowers { get; set; } = new List<Flower>();
 
     }

@@ -1,0 +1,30 @@
+﻿@using BudsFlowers.Views.Admin
+
+
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a class="nav-link @AdminNavPages.IndexNavClass(ViewContext)" id="index" asp-action="Index">Главная</a></li>
+    <li><hr class="mt-1 mb-1" /></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.OrdersNavClass(ViewContext)" id="orders" asp-action="Orders">Заказы</a></li>
+    <li><hr class="mt-1 mb-1" /></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.FlowersNavClass(ViewContext)" id="flowers" asp-action="Flowers">Цветы</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.ToysNavClass(ViewContext)" id="toys" asp-action="Toys">Игрушки</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.CandiesNavClass(ViewContext)" id="сandies" asp-action="Candies">Конфеты</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.OtherNavClass(ViewContext)" id="other" asp-action="Other">Подарки</a></li>
+    <li><hr class="mt-1 mb-1" /></li>
+    <li class="nav-item">
+        <a class="nav-link @AdminNavPages.CategoryesNavClass(ViewContext)" id="categoryes" asp-action="Categoryes">
+            <i class="bi bi-arrow-90deg-down"></i> Категории
+        </a>
+        <ul class="nav nav-pills flex-column ms-5">
+            <li><a class="nav-link" id="addcategory" asp-action="AddCategory"> - Добавить категорию</a></li>
+        </ul>
+    </li>
+    <li><hr class="mt-1 mb-1" /></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.BlogNavClass(ViewContext)" id="blog" asp-action="Blog">Блог</a></li>
+    <li><hr class="mt-1 mb-1" /></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.ReviewsNavClass(ViewContext)" id="reviews" asp-action="Reviews">Отзывы</a></li>
+    <li><hr class="mt-1 mb-1" /></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.UsersNavClass(ViewContext)" id="users" asp-action="Users">Пользователи</a></li>
+    <li><hr class="mt-1 mb-1" /></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.MessagesNavClass(ViewContext)" id="messages" asp-action="Messages">Сообщения</a></li>
+</ul>

@@ -1,0 +1,99 @@
+﻿@using BudsFlowers.Views.Admin
+
+@{
+    ViewData["Title"] = "Панель администрирования";
+    ViewData["ActivePage"] = AdminNavPages.Index;
+}
+
+<div class="p-3">
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AdminNavPartial" />
+        </div>
+        <div class="col-md-9 border-start text-white py-2">
+            <h5>Главная</h5>
+            <hr />
+            <div class="card">
+                <div class="card-body">
+                    <h6>Новые заказы</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Код</th>
+                                <th scope="col">Кол-во позиций</th>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Телефон</th>
+                                <th scope="col">Адрес</th>
+                                <th scope="col">Сумма</th>
+                                <th scope="col">Скидка</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr />
+            <div class="card">
+                <div class="card-body">
+                    <h6>Новые сообщения</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Почта</th>
+                                <th scope="col">Телефон</th>
+                                <th scope="col">Текст</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Vad</th>
+                                <td>213123</td>
+                                <td>444444</td>
+                                <td>asdasdasdasdas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+               
+
+            </div>
+            <hr />
+            <div class="card">
+                <div class="card-body">
+                    <h6>Новые отзывы</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Почта</th>
+                                <th scope="col">Телефон</th>
+                                <th scope="col">Оценка</th>
+                                <th scope="col">Текст</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Vad</th>
+                                <td>213123</td>
+                                <td>444444</td>
+                                <td class="d-flex">
+                                    <partial name="../Partials/_StarPartial.cshtml" model="3" />
+                                </td>
+                                <td>asdasdasdasdas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

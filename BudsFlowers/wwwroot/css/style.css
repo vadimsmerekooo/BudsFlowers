@@ -1,12 +1,12 @@
-:root{
-    --main-color:  #BF608C;
+:root {
+    --main-color: #BF608C;
 }
 
-body{
+body {
     color: white;
 }
 
-  .form__field {
+.form__field {
     text-align: center;
     font-family: inherit;
     width: 100%;
@@ -15,24 +15,26 @@ body{
     outline: 0;
     background: transparent;
     transition: border-color 0.2s;
-  }
-
-  .form__field:focus {
-    border-width: 3px;
-    border-image: linear-gradient(to right, #7e22d4,#c420ae);
-    border-image-slice: 1;
-  }
-  .form__field::-webkit-outer-spin-button,
-  .form__field::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }
 
+    .form__field:focus {
+        border-width: 3px;
+        border-image: linear-gradient(to right, #7e22d4,#c420ae);
+        border-image-slice: 1;
+    }
+
+    .form__field::-webkit-outer-spin-button,
+    .form__field::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
 
 
-.navbar-toggler:focus {
-    border: transparent;
-}
+
+    .navbar-toggler:focus {
+        border: transparent;
+    }
 
 .nav-item a {
     color: white;
@@ -53,57 +55,61 @@ body{
 }
 
 .number {
-	display: inline-block;
-	position: relative;
-	width: 100px;
+    display: inline-block;
+    position: relative;
+    width: 100px;
 }
-.number input[type="number"] {
-	display: block;
-	height: 32px;
-	line-height: 32px;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	text-align: center;
-    border: none;
-	-moz-appearance: textfield;
-	-webkit-appearance: textfield;
-	appearance: textfield;
-}
-.number input[type="number"]::-webkit-outer-spin-button,
-.number input[type="number"]::-webkit-inner-spin-button {
-	display: none;
-}
+
+    .number input[type="number"] {
+        display: block;
+        height: 32px;
+        line-height: 32px;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        text-align: center;
+        border: none;
+        -moz-appearance: textfield;
+        -webkit-appearance: textfield;
+        appearance: textfield;
+    }
+
+        .number input[type="number"]::-webkit-outer-spin-button,
+        .number input[type="number"]::-webkit-inner-spin-button {
+            display: none;
+        }
+
 .number-minus {
-	position: absolute;
-	top: 1px;
-	left: 1px;
-	bottom: 1px;
-	width: 20px;
-	padding: 0;
-	display: block;
-	text-align: center;
-	border: none;
-	font-size: 16px;
-	font-weight: 600;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    width: 20px;
+    padding: 0;
+    display: block;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: var(--main-color);
     color: #fff;
 }
+
 .number-plus {
-	position: absolute;
-	top: 1px;
-	right: 1px;
-	bottom: 1px;
-	width: 20px;
-	padding: 0;
-	display: block;
-	text-align: center;
-	border: none;
-	font-size: 16px;
-	font-weight: 600;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    width: 20px;
+    padding: 0;
+    display: block;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     background-color: var(--main-color);
@@ -114,10 +120,10 @@ body{
     border-color: var(--main-color);
 }
 
-.btn-outline-color:hover {
-    background-color: var(--main-color);
-    color: white;
-}
+    .btn-outline-color:hover {
+        background-color: var(--main-color);
+        color: white;
+    }
 
 .nav-item a:hover {
     color: var(--main-color);
@@ -130,15 +136,15 @@ body{
     margin-right: 60px;
 }
 
-.card-group .card {
-    max-width: 280px;
-}
+    .card-group .card {
+        max-width: 280px;
+    }
 
 .page-link {
     color: var(--main-color);
 }
 
-.active>.page-link {
+.active > .page-link {
     background-color: var(--main-color);
     border-color: var(--main-color);
     color: #ffffff;
@@ -156,21 +162,22 @@ body{
     text-decoration: none;
 }
 
-.flowers-card,
-.flowers img,
-.category-link .bd-placeholder-img,
-.category-link .category-title,
-.nav-item a {
-    transition: .3s;
-}
+    .flowers-card,
+    .flowers img,
+    .category-link .bd-placeholder-img,
+    .category-link .category-title,
+    .nav-item a {
+        transition: .3s;
+    }
 
-.flowers-card{
+.flowers-card {
     min-height: 360px;
 }
-.flowers-card:hover {
-    -webkit-transform: scale(1.02);
-    transform: scale(1.02);
-}
+
+    .flowers-card:hover {
+        -webkit-transform: scale(1.02);
+        transform: scale(1.02);
+    }
 
 .flowers:hover img {
     -webkit-transform: scale(1.1);
@@ -216,30 +223,30 @@ body{
     font-size: 40px;
 }
 
-.carousel-control-item:hover {
-    color: var(--main-color);
-}
+    .carousel-control-item:hover {
+        color: var(--main-color);
+    }
 
 
 .bg-image {
     position: relative;
 }
 
-.bg-image::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #1f2529;
-    opacity: .7;
-}
+    .bg-image::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #1f2529;
+        opacity: .7;
+    }
 
-.bg-image img {
-    object-fit: contain;
-}
+    .bg-image img {
+        object-fit: contain;
+    }
 
 .img-icon {
     width: 40px;
@@ -257,9 +264,9 @@ p a {
     color: gray;
 }
 
-p a:hover {
-    color: var(--main-color);
-}
+    p a:hover {
+        color: var(--main-color);
+    }
 
 @media (min-width: 40em) {
     .carousel-caption p {
@@ -269,7 +276,7 @@ p a:hover {
     }
 }
 
-.picker,.picker__holder {
+.picker, .picker__holder {
     width: 100%;
     position: absolute
 }
@@ -291,9 +298,9 @@ p a:hover {
     cursor: default
 }
 
-.picker__input.picker__input--active {
-    border-color: #0089ec
-}
+    .picker__input.picker__input--active {
+        border-color: #0089ec
+    }
 
 .picker__holder {
     overflow-y: auto;

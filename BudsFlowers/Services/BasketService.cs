@@ -11,7 +11,7 @@ namespace BudsFlowers.Services
         private static List<Basket> Baskets { get; set; } = new List<Basket>();
 
 
-        public static async Task<bool> Add(Basket basket)
+        public static bool Add(Basket basket)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace BudsFlowers.Services
                 return false;
             }
         }
-        public static async Task<bool> AddItem(long code, BasketFlower flower)
+        public static bool AddItem(long code, BasketFlower flower)
         {
             try
             {
@@ -54,11 +54,17 @@ namespace BudsFlowers.Services
                 return false;
             }
         }
-        public static async Task<bool> ClearBasket(long code)
+        public static bool ClearBasket(long code)
         {
             try
             {
+                if(Baskets.Any(b => b.Code.Equals(code)))
+                {
+                    Baskets.FirstOrDefault(c => c.Code.Equals(code)).Flowers.Clear();
+                    return true;
 
+                }
+                return false;
             }
             catch
             {
@@ -68,29 +74,37 @@ namespace BudsFlowers.Services
         }
         public static long SetId()
         {
-            long code = 0;
-            if (Count() >= 1)
+            try
             {
-                code = Baskets.Last().Code + 1;
+                long code = 0;
+                if (Count() >= 1)
+                {
+                    code = Baskets.Last().Code + 1;
+                }
+                else
+                {
+                    code = 1;
+                }
+                Basket basket = new Basket()
+                {
+                    Code = code
+                };
+                Baskets.Add(basket);
+                if (Serialize().Result)
+                {
+                    return code;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            else
-            {
-                code = 1;
-            }
-            Basket basket = new Basket()
-            {
-                Code = code
-            };
-            Baskets.Add(basket);
-            if (Serialize().Result)
-            {
-                return code;
-            }
-            else
+            catch
             {
                 return 0;
             }
         }
+        public static Basket GetBasketByCode(long code) => Baskets.FirstOrDefault(c => c.Code.Equals(code));
         public static int Count() => Baskets.Count();
 
         static async Task<bool> Serialize()
@@ -103,7 +117,7 @@ namespace BudsFlowers.Services
                 }
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }
@@ -122,7 +136,7 @@ namespace BudsFlowers.Services
                 }
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }

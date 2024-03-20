@@ -1,0 +1,122 @@
+﻿@using BudsFlowers.Views.Admin
+@using BudsFlowers.Areas.Identity.Data
+@model FlowerCategory
+@{
+    ViewData["Title"] = "Добавление категории";
+    ViewData["ActivePage"] = AdminNavPages.Categoryes;
+}
+
+<div class="p-3">
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AdminNavPartial" />
+        </div>
+        <div class="col-md-6 border-start text-white py-2">
+            <h5>Добавление категории</h5>
+            <hr />
+            <form id="category-form" method="post" asp-controller="Admin" asp-action="AddCategoryModel" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название категории"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="previewPhoto" name="previewPhoto" asp-for="PreviewPhotoPath" class="form__field text-start text-light" type="file" accept="image/*" />
+                    <span asp-validation-for="PreviewPhotoPath" class="text-danger"></span>
+                </div>
+                <div class="form-floating d-flex mb-3">
+                    <div class="col">
+                        <select class="form__field text-light" asp-for="TypeCategory" asp-items="Html.GetEnumSelectList<TypeCategory>()">
+                        </select>
+                        <span asp-validation-for="TypeCategory" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <select class="form__field text-light" asp-for="TypeStatus" asp-items="Html.GetEnumSelectList<TypeStatus>()">
+                        </select>
+                        <span asp-validation-for="TypeStatus" class="text-danger"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-color text-light">Добавить</button>
+                <a class="btn btn-outline-danger text-light">Отмена</a>
+            </form>
+        </div>
+
+        <div class="col-md-4 border-start text-white py-2">
+            <h5>Предпросмотр</h5>
+            <hr />
+            <div class="col">
+                <a href="#" class="category-link">
+                    <div class="card shadow-sm text-center justify-content-end ">
+                        <img id="previewPhotoCheck" src="."
+                             class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
+                             role="img" focusable="false">
+                        <div class="position-absolute w-100 category-block">
+                            <h5 id="previewTitleCheck" class="category-title">-</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="position-fixed right-0 p-3" style="z-index: 5; right: 0; top: 100px;">
+    <div id="successUploadImage" class="bg-dark toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+        <div class="toast-header">
+            <i class="bi bi-check-square text-success"></i>
+            <strong class="mr-auto pl-1">Изображение загружено</strong>
+        </div>
+        <div class="toast-body">
+            Изображение <small id="fileUploadName" class="text-small font-italic"></small> успешно прикреплено.
+        </div>
+    </div>
+    <div id="errorUploadImage" class="bg-dark toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+        <div class="toast-header">
+            <i class="bi bi-x-square check-square text-warning"></i>
+            <strong class="mr-auto pl-1">Ошибка загрузки изображения</strong>
+        </div>
+        <div class="toast-body">
+            Изображение <small id="fileUploadName" class="text-small font-italic"></small> не приреплено. Максимальный размер файла 1мб!
+        </div>
+    </div>
+</div>
+<script>
+    var titleField = document.getElementById("previewTitle");
+    titleField.onkeyup = function () {
+        document.getElementById("previewTitleCheck").innerHTML = titleField.value;        
+    }
+
+    var uploadField = document.getElementById("previewPhoto");
+    var fileName = "";
+
+    if (uploadField) {
+        uploadField.onchange = function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+            fileName = uploadField.files[0].name;
+            var parts = fileName.split('.')[1];
+            document.getElementById('fileUploadName').innerHTML = fileName;
+
+            if (parts == "img" || parts == "png" || parts == "jpeg" || parts == "jpg") {
+                if (this.files[0].size > 1042576) {
+                    this.value = "";
+                    $("#errorUploadImage").toast("show");
+                }
+                else {
+                    if (FileReader && files && files.length) {
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById("previewPhotoCheck").src = fr.result;
+                        }
+                        fr.readAsDataURL(files[0]);
+                    }
+                    $('#successUploadImage').toast('show');
+                }
+            } else {
+                $('#successUploadImage').toast('show');
+            }
+        }
+    } else {
+        $("#errorOpenInput").toast("show");
+    }
+
+</script>
