@@ -1,4 +1,6 @@
-﻿@{
+﻿@using BudsFlowers.Areas.Identity.Data
+@model List<FlowerCategory>
+@{
     ViewData["Title"] = "Категории";
 }
 <div class="container mt-2">
@@ -19,130 +21,21 @@
     <div class="album bg-dark">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <a href="#" class="category-link">
-                        <div class="card shadow-sm text-center justify-content-end ">
-                            <img src="~/resources/img/flowers_1.jpeg"
-                                 class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                 role="img" focusable="false">
-                            <div class="position-absolute w-100 category-block">
-                                <h5 class="category-title">Букет из роз</h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
+                @foreach (var item in Model)
+                {
+                    <div class="col">
                         <a href="#" class="category-link">
                             <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
+                                <img src="@item.PreviewPhotoPath"
                                      class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
                                      role="img" focusable="false">
                                 <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
+                                    <h5 class="category-title">@item.Title</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
-                                     class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                     role="img" focusable="false">
-                                <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
-                                     class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                     role="img" focusable="false">
-                                <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
-                                     class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                     role="img" focusable="false">
-                                <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
-                                     class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                     role="img" focusable="false">
-                                <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
-                                     class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                     role="img" focusable="false">
-                                <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
-                                     class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                     role="img" focusable="false">
-                                <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm text-center justify-content-end ">
-                        <a href="#" class="category-link">
-                            <div class="card shadow-sm text-center justify-content-end ">
-                                <img src="~/resources/img/flowers_1.jpeg"
-                                     class="bd-placeholder-img card-img-top position-relative " width="300" height="225"
-                                     role="img" focusable="false">
-                                <div class="position-absolute w-100 category-block">
-                                    <h5 class="category-title">Букет из роз</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

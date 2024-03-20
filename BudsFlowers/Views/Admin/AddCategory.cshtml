@@ -12,6 +12,7 @@
             <partial name="_AdminNavPartial" />
         </div>
         <div class="col-md-6 border-start text-white py-2">
+            <partial name="../Partials/_StatusMessage" model="@TempData["StatusMessage"]" />
             <h5>Добавление категории</h5>
             <hr />
             <form id="category-form" method="post" asp-controller="Admin" asp-action="AddCategoryModel" enctype="multipart/form-data">

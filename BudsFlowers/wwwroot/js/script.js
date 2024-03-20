@@ -10,12 +10,24 @@ document.getElementById("navbar-toggler").addEventListener('click', ev => {
         icon.classList.add('bi-list-nested');
     }
 });
-window.addEventListener('load',function(){
+window.addEventListener('load', function () {
+    const datatablesSimple = document.getElementById('datatablesSimple');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple, {
+            labels: {
+                placeholder: "Поиск...",
+                searchTitle: "Поиск в таблице",
+                perPage: "кол-во элементов",
+                noRows: "Не найдено элементов",
+                noResults: "Нет результатов, соответствующих вашему поисковому запросу",
+                info: "Отображение записей от {start} до {end} из {rows}.",
+            },
+            perPage: 25
+        });
+    }
     new SmartPhoto(".js-img-viewer");
     new SmartPhoto(".js-img-viewer-fit");
 });
 $(function() {
-
-    $('#pick-date').pickadate();
- 
+    $('#pick-date').pickadate(); 
  });

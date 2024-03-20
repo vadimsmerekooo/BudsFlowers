@@ -2,23 +2,23 @@
 {
     public enum TypeStatus
     {
-        NotVisible,
-        Publish,
+        Не_опубликовано,
+        Опубликовано,
         None
     }
     public enum TypeCategory
     {
-        Flowers,
-        Toys,
-        Сandies,
-        Other,
+        Цветы,
+        Игрушки,
+        Конфеты,
+        Другое,
         None
     }
     public enum TypeOrderStatus
     {
-        Assembled,
-        Delivered,
-        Refusal,
+        Собирается,
+        Доставлено,
+        Отказ,
         None
     }
     public enum TypeReview

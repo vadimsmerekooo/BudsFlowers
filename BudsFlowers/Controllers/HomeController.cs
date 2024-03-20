@@ -1,16 +1,18 @@
-﻿using BudsFlowers.Models;
+﻿using BudsFlowers.Areas.Identity.Data;
+using BudsFlowers.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace BudsFlowers.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly BudsContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(BudsContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         [Route("")]
@@ -22,7 +24,7 @@ namespace BudsFlowers.Controllers
         [Route("catalog")]
         public async Task<IActionResult> Catalog()
         {
-            return View();
+            return View(await _context.FlowerCategories.Where(c => c.TypeStatus == TypeStatus.Опубликовано).ToListAsync());
         }
         [Route("delivery-pay")]
         public async Task<IActionResult> Delivery()
