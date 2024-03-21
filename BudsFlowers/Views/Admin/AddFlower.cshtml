@@ -2,8 +2,8 @@
 @using BudsFlowers.Areas.Identity.Data
 @model Flower
 @{
-    ViewData["Title"] = "Добавление цветов";
-    ViewData["ActivePage"] = AdminNavPages.Flowers;
+    ViewData["Title"] = $"Добавление позиции: {Model.TypeCategory}";
+    ViewData["ActivePage"] = AdminNavPages.GetActivePage(Model.TypeCategory);
 }
 
 <div class="p-3">
@@ -13,13 +13,17 @@
         </div>
         <div class="col-md-6 border-start text-white py-2">
             <partial name="../Partials/_StatusMessage" model="@TempData["StatusMessage"]" />
+            @if(Model.Categories is null || Model.Categories.Count == 0)
+            {
+                <partial name="../Partials/_StatusMessage" model="@($"Ошибка Внимание! Для данного типа позиции: {Model.TypeCategory} не добавлена категория! Добавьте категорию {Model.TypeCategory}!")" />
+            }
             <h5>@ViewData["Title"]</h5>
             <hr />
             <form id="category-form" method="post" asp-controller="Admin" asp-action="AddFlowerModel" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class=" mb-3">
                     <label asp-for="Title" class="form-label"></label>
-                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название цветов" required />
+                    <input id="previewTitle" asp-for="Title" class="form__field text-start text-light" placeholder="Введите название" required />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="d-flex mb-3">
@@ -35,6 +39,8 @@
                     </div>
                 </div>
                 <div class="d-flex mb-3">
+                    <select class="d-none" asp-for="TypeCategory">
+                    </select>
                     <div class="col">
                         <label asp-for="CategorySelectId" class="form-label"></label>
                         <select id="categoryId" class="form__field text-light" asp-for="CategorySelectId" asp-items="ViewBag.Categories">

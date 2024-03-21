@@ -5,221 +5,255 @@
 <div class="container">
     <section>
         <h3 class="text-center">Популярные</h3>
-        <hr>
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            </div>
-            <div class="carousel-inner ">
+        <hr><div id="carouselExampleControls" class="carousel">
+            <div class="carousel-inner py-3">
                 <div class="carousel-item active">
-                    <div class="card-group justify-content-between ">
-                        <div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_1.jpeg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                Скидка
                             </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
+                            <div class="badge bg-warning  text-white position-absolute"
+                                 style="top: 2rem; right: 0.5rem">
+                                Популярное
                             </div>
-                        </div>
-                        <div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_2.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
                             </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_3.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 1</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
 
-                        <div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_1.jpeg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
+                                    <span class="text-muted text-decoration-line-through">100 руб.</span>
+
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
                             </div>
                         </div>
-                    </div>
-
+                    </a>
                 </div>
                 <div class="carousel-item">
-                    <div class="card-group justify-content-between ">
-                        <div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_1.jpeg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
                             </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
-                            </div>
-                        </div><div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_1.jpeg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
-                            </div>
-                        </div><div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_1.jpeg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
                             </div>
                         </div>
-                        <div class="card">
-                            <img class="card-img-top" src="~/resources/img/flowers_1.jpeg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Букет 100 роз</h5>
-                                    <div class="d-flex justify-content-center small star mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    105 руб.
-                                </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
                             </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-color color mt-auto" href="#">
-                                        В
-                                        корзину
-                                    </a>
-                                </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#" class="flowers category-link text-dark text-decoration-none">
+                        <div class="card flowers-card shadow-sm text-center justify-content-end">
+                            <div class="card-img-top overflow-hidden justify-content-center">
+                                <img src="~/resources/img/flowers_1.jpeg" class="h-100" style=" margin: 0 -100%;"
+                                     role="img" focusable="false">
+                            </div>
+                            <div class="card-body px-0">
+                                <h6>Букет 2</h6>
+                                <span class="d-flex text-warning justify-content-center">
+                                    <partial name="../Partials/_StarPartial" model="4" />  3 отзыва")
+                                </span>
+                                <p class="text-danger fw-bold">
+                                    @Html.Raw($"50 руб.")
+                                </p>
+
+                                <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="prev" style="margin-left: -80px;">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="next" style="margin-right: -80px;">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>

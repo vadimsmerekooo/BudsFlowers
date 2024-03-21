@@ -50,7 +50,7 @@
                     @foreach (var flower in Model.Category.Flowers.Where(s => s.Status is BudsFlowers.Areas.Identity.Data.TypeStatus.Опубликовано).OrderByDescending(p => p.IsPopular))
                     {
                         <div class="col">
-                            <a asp-controller="Flower" asp-action="Index" asp-route-id="@flower.Id" class="flowers category-link text-dark">
+                            <a asp-controller="Flower" asp-action="Index" asp-route-id="@flower.Id" class="flowers category-link text-dark text-decoration-none">
                                 <div class="card flowers-card shadow-sm text-center justify-content-end">
                                     @if (flower.IsSale())
                                     {
@@ -88,7 +88,7 @@
                                         </p>
                                         @if (flower.IsInStock)
                                         {
-                                            <a class="btn btn-outline-color color mt-auto" href="#">Добавить в корзину</a>
+                                            <a class="btn btn-outline-color color mt-auto" >Добавить в корзину</a>
                                         }
                                         else
                                         {

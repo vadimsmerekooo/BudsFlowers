@@ -6,6 +6,42 @@ body {
     color: white;
 }
 
+.carousel-item {
+    background-color: none;
+    width: 250px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: none;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (min-width: 768px) {
+    .carousel-item {
+        margin-right: 10px;
+        display: block;
+    }
+
+    .carousel-inner {
+        width: 90%;
+        margin-left: 5%;
+        display: flex;
+    }
+}
+@media (max-width: 767px) {
+    .carousel-inner {
+        width: 80%;
+        margin-left: 15%;
+        display: flex;
+    }
+}
+
+
 .form__field {
     text-align: center;
     font-family: inherit;
@@ -28,13 +64,13 @@ body {
         -webkit-appearance: none;
         margin: 0;
     }
-    
 
 
 
-    .navbar-toggler:focus {
-        border: transparent;
-    }
+
+.navbar-toggler:focus {
+    border: transparent;
+}
 
 .nav-item a {
     color: white;
@@ -178,6 +214,7 @@ body {
         -webkit-transform: scale(1.02);
         transform: scale(1.02);
     }
+
 .flowers:hover img {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
@@ -202,29 +239,12 @@ body {
     padding: 20px;
 }
 
-.carousel {
-    margin-bottom: 4rem;
-}
 
-.carousel-caption {
-    z-index: 10;
-}
-
-.carousel-item {
-    height: 32rem;
-}
 
 .slide-room img {
     max-height: 18rem;
 }
 
-.carousel-control-item {
-    font-size: 40px;
-}
-
-    .carousel-control-item:hover {
-        color: var(--main-color);
-    }
 
 
 .bg-image {
@@ -267,13 +287,6 @@ p a {
         color: var(--main-color);
     }
 
-@media (min-width: 40em) {
-    .carousel-caption p {
-        margin-bottom: 1.25rem;
-        font-size: 1.25rem;
-        line-height: 1.4;
-    }
-}
 
 .picker, .picker__holder {
     width: 100%;

@@ -34,6 +34,8 @@ namespace BudsFlowers.Areas.Identity.Data
         public bool IsPopular { get; set; }
         [Display(Name = "Статус")]
         public TypeStatus Status { get; set; }
+        [Display(Name = "Категория")]
+        public TypeCategory TypeCategory { get; set; }
         public bool IsSale() => this.Sale > 0 && this.Sale <= 100;
 
         public virtual FlowerCategory Category { get; set; }

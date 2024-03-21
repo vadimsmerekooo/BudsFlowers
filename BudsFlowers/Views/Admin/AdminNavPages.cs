@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using BudsFlowers.Areas.Identity.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BudsFlowers.Views.Admin
 {
@@ -32,6 +33,17 @@ namespace BudsFlowers.Views.Admin
             var activePage = viewContext.ViewData["ActivePage"] as string
                 ?? System.IO.Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
             return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;
+        }
+        public static string GetActivePage(TypeCategory type)
+        {
+            switch(type)
+            {
+                case TypeCategory.Цветы: return Flowers;
+                case TypeCategory.Игрушки: return Toys;
+                case TypeCategory.Конфеты: return Candies;
+                case TypeCategory.Другое: return Other;
+                default: return Flowers;
+            }
         }
     }
 }

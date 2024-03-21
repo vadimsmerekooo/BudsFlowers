@@ -24,8 +24,12 @@ namespace BudsFlowers.Controllers
         {
             CatalogViewModel model = new CatalogViewModel();
             model.Category = await _context.FlowerCategories.Include(f => f.Flowers).FirstOrDefaultAsync(c => c.Id == id);
-            model.PriceMin = Convert.ToInt32(model.Category.Flowers.Min(c => c.GetTotalPrice()));
-            model.PriceMax = Convert.ToInt32(model.Category.Flowers.Max(c => c.GetTotalPrice()));
+            if(model.Category.Flowers.Count >= 1)
+            {
+                model.PriceMin = Convert.ToInt32(model.Category.Flowers.Min(c => c.GetTotalPrice()));
+                model.PriceMax = Convert.ToInt32(model.Category.Flowers.Max(c => c.GetTotalPrice()));
+            }
+
             return View(model);
         }
     }

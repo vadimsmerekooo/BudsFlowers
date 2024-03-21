@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -113,13 +114,13 @@
                 </div>
                 <hr>
                 <partial name="_LoginPartial">
-                
+
             </div>
         </div>
     </nav>
 
     @RenderBody()
-    
+
 
     <footer class="container bg-dark d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-3 d-flex align-items-center">
@@ -192,6 +193,52 @@
     <script src="~/js/smartphoto.js?v=1"></script>
     <script src="~/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <script>
+        var multipleCardCarousel = document.querySelector(
+            "#carouselExampleControls"
+        );
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            var carousel = new bootstrap.Carousel(multipleCardCarousel, {
+                interval: false,
+            });
+            var carouselWidth = $(".carousel-inner")[0].scrollWidth;
+            var cardWidth = $(".carousel-item").width();
+            var scrollPosition = 0;
+            $("#carouselExampleControls .carousel-control-next").on("click", function () {
+                if (scrollPosition < carouselWidth - cardWidth * 4) {
+                    scrollPosition += cardWidth * 3;
+                    $("#carouselExampleControls .carousel-inner").animate(
+                        { scrollLeft: scrollPosition },
+                        600
+                    );
+                }
+                else {
+                    scrollPosition = 0;
+                    $("#carouselExampleControls .carousel-inner").animate(
+                        { scrollLeft: scrollPosition },
+                        600
+                    );
+                }
+            });
+            $("#carouselExampleControls .carousel-control-prev").on("click", function () {
+                if (scrollPosition > 0) {
+                    scrollPosition -= cardWidth * 3;
+                    $("#carouselExampleControls .carousel-inner").animate(
+                        { scrollLeft: scrollPosition },
+                        600
+                    );
+                }
+                else {
+                    scrollPosition = carouselWidth;
+                    $("#carouselExampleControls .carousel-inner").animate(
+                        { scrollLeft: scrollPosition },
+                        600
+                    );
+                }
+            });
+        } else {
+            $(multipleCardCarousel).addClass("slide");
+        }</script>
     @RenderSection("Scripts", required: false)
 </body>
 

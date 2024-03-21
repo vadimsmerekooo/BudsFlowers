@@ -47,22 +47,27 @@ namespace BudsFlowers.Controllers
 
         #region Flowers
         [Route("admin/flowers")]
-        public async Task<ActionResult> Flowers()
+        public async Task<ActionResult> Flowers(TypeCategory type)
         {
-            return View(await _context.Flowers.Include(c => c.Category).ToListAsync());
+            FlowersCategoryViewModel model = new FlowersCategoryViewModel()
+            {
+                Flowers = await _context.Flowers.Include(c => c.Category).Where(t => t.TypeCategory == type).ToListAsync(),
+                TypeCategory = type
+            };
+            return View(model);
         }
         [Route("admin/flowers/add")]
-        public async Task<IActionResult> AddFlower()
+        public async Task<IActionResult> AddFlower(TypeCategory type)
         {
-            ViewBag.Categories = new SelectList(await _context.FlowerCategories.ToListAsync(), "Id", "Title");
-            return View();
+            ViewBag.Categories = new SelectList(await _context.FlowerCategories.Where(t => t.TypeCategory == type).ToListAsync(), "Id", "Title");            
+            return View(new Flower() { TypeCategory = type});
         }
         [HttpPost]
         public async Task<IActionResult> AddFlowerModel(Flower model, IFormFile previewPhoto)
         {
             try
             {
-                ViewBag.Categories = new SelectList(await _context.FlowerCategories.ToListAsync(), "Id", "Title");
+                ViewBag.Categories = new SelectList(await _context.FlowerCategories.Where(t => t.TypeCategory == model.TypeCategory).ToListAsync(), "Id", "Title");
                 if (previewPhoto is null)
                 {
                     ModelState.AddModelError(string.Empty, $"Ошибка Выберите фото!");
@@ -70,8 +75,8 @@ namespace BudsFlowers.Controllers
                 }
                 if (await _context.Flowers.AnyAsync(c => c.Title.Equals(model.Title)))
                 {
-                    ModelState.AddModelError(string.Empty, $"Ошибка Цветы {model.Title} уже добавлены!");
-                    StatusMessage = $"Ошибка Цветы {model.Title} уже добавлены!";
+                    ModelState.AddModelError(string.Empty, $"Ошибка {model.TypeCategory} {model.Title} уже добавлены!");
+                    StatusMessage = $"Ошибка {model.TypeCategory} {model.Title} уже добавлены!";
                     return View("AddFlower", model);
                 }
                 if (await _context.Flowers.AnyAsync(f => f.Article.Equals(model.Article)))
@@ -97,18 +102,19 @@ namespace BudsFlowers.Controllers
                 }
                 model.PhotoPath = path;
                 model.Category = category;
+                model.TypeCategory = category.TypeCategory;
 
 
                 await _context.Flowers.AddAsync(model);
                 await _context.SaveChangesAsync();
-                StatusMessage = "Цветы успешно добавлены!";
+                StatusMessage = $"{model.TypeCategory} {model.Title} успешно добавлены!";
 
                 return RedirectToAction(nameof(Flowers));
 
             }
             catch
             {
-                StatusMessage = "Ошибка цветы не добавлены!";
+                StatusMessage = $"Ошибка {model.TypeCategory} не добавлены!";
                 return View("AddFlowers", model);
             }
         }
@@ -119,8 +125,8 @@ namespace BudsFlowers.Controllers
             Flower flower = await _context.Flowers.Include(c => c.Category).FirstOrDefaultAsync(f => f.Id == id);
             if (flower is null)
             {
-                ModelState.AddModelError(string.Empty, $"Ошибка Цветы не найдены!");
-                StatusMessage = $"Ошибка Цветы не найдены!";
+                ModelState.AddModelError(string.Empty, $"Ошибка {flower.TypeCategory} не найдены!");
+                StatusMessage = $"Ошибка {flower.TypeCategory} не найдены!";
                 return RedirectToAction("Flowers");
             }
             flower.CategorySelectId = flower.Category.Id;
@@ -136,8 +142,8 @@ namespace BudsFlowers.Controllers
                 FlowerCategory category = await _context.FlowerCategories.FirstOrDefaultAsync(c => c.Id == model.CategorySelectId);
                 if (await _context.Flowers.AnyAsync(c => c.Title.Equals(model.Title) && c.Id != model.Id))
                 {
-                    ModelState.AddModelError(string.Empty, $"Ошибка Цветы {model.Title} уже добавлены!");
-                    StatusMessage = $"Ошибка Цветы {model.Title} уже добавлены!";
+                    ModelState.AddModelError(string.Empty, $"Ошибка  {model.TypeCategory}  {model.Title} уже добавлены!");
+                    StatusMessage = $"Ошибка  {model.TypeCategory}  {model.Title} уже добавлены!";
                     return View("EditFlower", model);
                 }
                 if (category != null)
@@ -174,14 +180,14 @@ namespace BudsFlowers.Controllers
 
                 _context.Flowers.Update(flower);
                 await _context.SaveChangesAsync();
-                StatusMessage = $"Цветы {flower.Title} успешно обновлены!";
+                StatusMessage = $"{flower.TypeCategory} {flower.Title} успешно обновлены!";
 
                 return RedirectToAction(nameof(Flowers));
             }
             catch
             {
-                ModelState.AddModelError(string.Empty, $"Ошибка Цветы не обновлены!");
-                StatusMessage = "Ошибка Цветы не обновлены!";
+                ModelState.AddModelError(string.Empty, $"Ошибка Позиция не обновлена!");
+                StatusMessage = $"Ошибка Позиция не обновлена!";
                 return View("EditFlower", model);
             }
         }
@@ -192,7 +198,7 @@ namespace BudsFlowers.Controllers
             Flower flower = await _context.Flowers.FirstOrDefaultAsync(c => c.Id == id);
             if (flower == null)
             {
-                StatusMessage = "Ошибка Цветы не найдены!";
+                StatusMessage = $"Ошибка Позиция не найдены!";
                 return RedirectToAction(nameof(Flowers));
             }
 
@@ -209,7 +215,7 @@ namespace BudsFlowers.Controllers
             _context.Flowers.Update(flower);
             await _context.SaveChangesAsync();
 
-            StatusMessage = $"Цеты {flower.Title}  успешно обновлены!";
+            StatusMessage = $"{flower.TypeCategory} {flower.Title}  успешно обновлены!";
 
             return RedirectToAction(nameof(Flowers));
         }
@@ -219,41 +225,18 @@ namespace BudsFlowers.Controllers
             Flower flower = await _context.Flowers.FirstOrDefaultAsync(f => f.Id == id);
             if (flower is null)
             {
-                StatusMessage = "Ошибка Цветы не найдены!";
+                StatusMessage = "Ошибка Позиция не найдена!";
                 return RedirectToAction(nameof(Flowers));
             }
 
             _context.Flowers.Remove(flower);
             await _context.SaveChangesAsync();
 
-            StatusMessage = "Цветы успешно удалены.";
+            StatusMessage = $"{flower.TypeCategory} успешно удалены.";
             return RedirectToAction(nameof(Flowers));
         }
         #endregion
 
-        #region Toys
-        [Route("admin/toys")]
-        public ActionResult Toys()
-        {
-            return View();
-        }
-        #endregion
-
-        #region Candies
-        [Route("admin/candies")]
-        public ActionResult Candies()
-        {
-            return View();
-        }
-        #endregion]
-
-        #region Other
-        [Route("admin/other")]
-        public ActionResult Other()
-        {
-            return View();
-        }
-        #endregion
 
         #region Category
         [Route("admin/categoryes")]

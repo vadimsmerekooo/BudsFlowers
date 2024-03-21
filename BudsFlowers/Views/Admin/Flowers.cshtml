@@ -1,9 +1,9 @@
 ﻿@using BudsFlowers.Views.Admin
 @using BudsFlowers.Areas.Identity.Data
-@model List<Flower>
+@model FlowersCategoryViewModel
 @{
-    ViewData["Title"] = "Цветы";
-    ViewData["ActivePage"] = AdminNavPages.Flowers;
+    ViewData["Title"] = Model.TypeCategory;
+    ViewData["ActivePage"] = AdminNavPages.GetActivePage(Model.TypeCategory);
 }
 
 <div class="p-3">
@@ -16,7 +16,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Цветы
+                    @ViewData["Title"]
                 </div>
                 <div class="card-body">
                     <table id="datatablesSimple">
@@ -49,7 +49,7 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Flowers)
                             {
                                 <tr>
                                     <th>@item.Article</th>
