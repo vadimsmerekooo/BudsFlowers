@@ -21,11 +21,6 @@ namespace BudsFlowers.Controllers
             return View();
         }
 
-        [Route("catalog")]
-        public async Task<IActionResult> Catalog()
-        {
-            return View(await _context.FlowerCategories.Where(c => c.TypeStatus == TypeStatus.Опубликовано).ToListAsync());
-        }
         [Route("delivery-pay")]
         public async Task<IActionResult> Delivery()
         {

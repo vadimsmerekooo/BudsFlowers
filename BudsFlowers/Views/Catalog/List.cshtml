@@ -1,0 +1,127 @@
+﻿@model CatalogViewModel
+@{
+    ViewData["Title"] = Model.Category.Title;
+}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+            <li class="breadcrumb-item">
+                <a class="link-body-emphasis" href="#">
+                    <i class="bi bi-house"></i>
+                    <span class="visually-hidden">Главная</span>
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a class="link-secondary " asp-controller="Catalog" asp-action="Index">
+                    Все категории
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                @ViewData["Title"]
+            </li>
+        </ol>
+    </nav>
+    <hr>
+    <div class="album">
+        <div class="container">
+            <div class="col">
+                <div class="row border-bottom ">
+                    <div class="col">
+                        <h4>@ViewData["Title"]</h4>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Цена от: </label>
+                        <input type="number" class="form__field text-light" placeholder="@Model.PriceMin" min="@Model.PriceMin" name="price_min"
+                               id='price_min' required style="width: 50px;" />
+                        <label class="form-label">до: </label>
+                        <input type="number" class="form__field text-light" placeholder="@Model.PriceMax" max="@Model.PriceMax" name="price_max"
+                               id='price_max' required style="width: 50px;" />
+                    </div>
+                    <div class="col justify-content-end text-end">
+                        <label class="form-label">Сортировать по: </label>
+                        <select class="form__field w-50 ms-2 float-end text-center  text-light">
+                            <option selected>По умолчанию</option>
+                            <option value="1">Сначала дешевле</option>
+                            <option value="2">Сначала дороже</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3 py-3">
+                    @foreach (var flower in Model.Category.Flowers.Where(s => s.Status is BudsFlowers.Areas.Identity.Data.TypeStatus.Опубликовано).OrderByDescending(p => p.IsPopular))
+                    {
+                        <div class="col">
+                            <a asp-controller="Flower" asp-action="Index" asp-route-id="@flower.Id" class="flowers category-link text-dark">
+                                <div class="card flowers-card shadow-sm text-center justify-content-end">
+                                    @if (flower.IsSale())
+                                    {
+                                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                            Скидка
+                                        </div>
+                                    }
+                                    @if (flower.IsPopular)
+                                    {
+                                        <div class="badge bg-warning  text-white position-absolute"
+                                             style="top: 2rem; right: 0.5rem">
+                                            Популярное
+                                        </div>
+                                    }
+                                    <div class="card-img-top overflow-hidden justify-content-center">
+                                        <img src="@flower.PhotoPath" class="h-100" style=" margin: 0 -100%;"
+                                             role="img" focusable="false">
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <h6>@flower.Title</h6>
+                                        <span class="d-flex text-warning justify-content-center">
+                                            <partial name="../Partials/_StarPartial" model="@flower.GetStar()" />  @($" - {flower.Reviews.Count()} отзыва")
+                                        </span>
+                                        <p class="text-danger fw-bold">
+                                            @if (flower.IsSale())
+                                            {
+                                                <span class="text-muted text-decoration-line-through">@(flower.Price) руб.</span>
+
+                                                @Html.Raw($"{flower.GetTotalPrice()} руб.")
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw($"{flower.Price} руб.")
+                                            }
+                                        </p>
+                                        @if (flower.IsInStock)
+                                        {
+                                            <a class="btn btn-outline-color color mt-auto" href="#">Добавить в корзину</a>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-danger fw-bold">Нет в наличии</p>
+                                        }
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+
+                </div>
+                <nav>
+                    <ul class="pagination pagination-sm  justify-content-center">
+                        <li class="page-item disabled ">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">1</span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <partial name="../Partials/_MapPartial" />
+</div>

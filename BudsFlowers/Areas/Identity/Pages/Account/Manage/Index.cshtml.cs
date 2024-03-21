@@ -86,7 +86,7 @@ namespace BudsFlowers.Areas.Identity.Pages.Account.Manage
                 var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
                 if (!setPhoneResult.Succeeded || !setEmailResult.Succeeded)
                 {
-                    StatusMessage = "Непредвиденная ошибка при попытке установки номера телефона или почты.";
+                    StatusMessage = "Ошибка Непредвиденная ошибка при попытке установки номера телефона или почты.";
                     return RedirectToPage();
                 }
             }

@@ -13,6 +13,7 @@ namespace BudsFlowers.Areas.Identity.Data
         public string Description { get; set; }
         public int Star { get; set; }
         public TypeStatus Status { get; set; }
+        public DateTime Date { get; set; }
         public virtual Flower? Flower { get; set; }
         public virtual User? User { get; set; }
     }

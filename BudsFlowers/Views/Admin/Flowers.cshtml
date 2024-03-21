@@ -25,6 +25,7 @@
                                 <th>Артикул</th>
                                 <th>Фото</th>
                                 <th>Название</th>
+                                <th>Категория</th>
                                 <th>Заказов</th>
                                 <th>Наличие</th>
                                 <th>Оценка</th>
@@ -38,6 +39,7 @@
                                 <th>Артикул</th>
                                 <th>Фото</th>
                                 <th>Название</th>
+                                <th>Категория</th>
                                 <th>Заказов</th>
                                 <th>Наличие</th>
                                 <th>Оценка</th>
@@ -57,6 +59,7 @@
                                         </a>
                                     </th>
                                     <th>@item.Title</th>
+                                    <th>@item.Category.Title</th>
                                     <th>@item.Orders</th>
                                     <th>
                                         @(item.IsInStock ? "В наличии" : "Нет в наличии")
@@ -68,11 +71,11 @@
                                         @item.Status
                                         @if (item.Status is TypeStatus.Не_опубликовано)
                                         {
-                                            <a asp-controller="Admin" asp-action="ChangeStatusCategory" asp-route-id="@item.Id" class="btn btn-success" title="Опубликовать"><i class="bi bi-eye"></i></a>
+                                            <a asp-controller="Admin" asp-action="ChangeStatusFlower" asp-route-id="@item.Id" class="btn btn-success" title="Опубликовать"><i class="bi bi-eye"></i></a>
                                         }
                                         else
                                         {
-                                            <a asp-controller="Admin" asp-action="ChangeStatusCategory" asp-route-id="@item.Id" class="btn btn-warning" title="Скрыть"><i class="bi bi-eye-slash"></i></a>
+                                            <a asp-controller="Admin" asp-action="ChangeStatusFlower" asp-route-id="@item.Id" class="btn btn-warning" title="Скрыть"><i class="bi bi-eye-slash"></i></a>
                                         }
                                     </td>
                                     <th>

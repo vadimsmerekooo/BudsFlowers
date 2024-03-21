@@ -21,7 +21,7 @@
                     <a class="nav-link" asp-controller="Home" asp-action="Index">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Catalog">Каталог</a>
+                    <a class="nav-link" asp-controller="Catalog" asp-action="Index">Каталог</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Home" asp-action="Delivery">Доставка и оплата</a>
@@ -53,7 +53,7 @@
     </nav>
     <nav class="navbar bg-dark navbar-expand-lg shadow">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                 <img src="~/resources/img/logo.png" width="200">
             </a>
             <button id="navbar-toggler" class="navbar-toggler " type="button" data-bs-toggle="collapse"
@@ -131,22 +131,22 @@
 
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">Главная</a>
+                <a class="nav-link" asp-controller="Home" asp-action="Index">Главная</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="catalog.html">Каталог</a>
+                <a class="nav-link" asp-controller="Catalog" asp-action="Index">Каталог</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="delivery.html">Доставка и оплата</a>
+                <a class="nav-link" asp-controller="Home" asp-action="Delivery">Доставка и оплата</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="about.html">Контакты</a>
+                <a class="nav-link" asp-controller="Home" asp-action="About">Контакты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="blog.html">Блог</a>
+                <a class="nav-link" asp-controller="Home" asp-action="Blog">Блог</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="reviews.html">Отзывы</a>
+                <a class="nav-link" asp-controller="Home" asp-action="Reviews">Отзывы</a>
             </li>
         </ul>
 

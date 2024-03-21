@@ -10,14 +10,20 @@ namespace BudsFlowers.Areas.Identity.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public string Id { get; set; }
+        [Required]
         [Display(Name = "Артикул")]
         public long Article { get; set; }
+        [Required]
         [Display(Name = "Название")]
         public string Title { get; set; }
+        [Required]
+        [Range(0, 99999.99)]
         [Display(Name = "Цена")]
         public double Price { get; set; }
+        [Range(0, 100)]
         [Display(Name = "Скидка %")]
         public double Sale { get; set; } = 0;
+        [Required]
         [Display(Name = "Состав")]
         public string Compound { get; set; }
         [Display(Name = "Фото")]
@@ -38,7 +44,8 @@ namespace BudsFlowers.Areas.Identity.Data
         public int Orders { get; set; }
         [NotMapped]
         [Display(Name = "Категория")]
-        public string CategoryId { get; set; }
+        public string CategorySelectId { get; set; }
+        public int GetTotalPrice() => Convert.ToInt32( Price - ((Price * Sale) / 100));
         public int GetStar()
         {
             if (Reviews.Count == 0)

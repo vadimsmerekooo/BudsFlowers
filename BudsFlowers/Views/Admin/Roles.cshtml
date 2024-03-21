@@ -1,8 +1,9 @@
 ﻿@using BudsFlowers.Views.Admin
-
+@using Microsoft.AspNetCore.Identity
+@model List<IdentityRole>
 @{
-    ViewData["Title"] = "Отзывы";
-    ViewData["ActivePage"] = AdminNavPages.Reviews;
+    ViewData["Title"] = "Роли";
+    ViewData["ActivePage"] = AdminNavPages.Users;
 }
 
 <div class="p-3">
@@ -21,27 +22,21 @@
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th>Имя</th>
-                                <th>Почта</th>
-                                <th>Телефон</th>
-                                <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
-                                <th></th>
+                                <th>Название</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Имя</th>
-                                <th>Почта</th>
-                                <th>Телефон</th>
-                                <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
-                                <th></th>
+                                <th>Название</th>
                             </tr>
                         </tfoot>
                         <tbody>
+                            @foreach (var role in Model)
+                            {
+                                <tr>
+                                    <td>@role.Name</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

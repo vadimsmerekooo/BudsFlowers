@@ -1,1 +1,51 @@
-﻿
+﻿@using BudsFlowers.Views.Admin
+
+@{
+    ViewData["Title"] = "Заказы";
+    ViewData["ActivePage"] = AdminNavPages.Orders;
+}
+
+<div class="p-3">
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AdminNavPartial" />
+        </div>
+        <div class="col-md-9 border-start text-white py-2">
+            <partial name="../Partials/_StatusMessage" for="@TempData["StatusMessage"]" />
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    @ViewData["Title"]
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Имя</th>
+                                <th>Почта</th>
+                                <th>Телефон</th>
+                                <th>Заказы</th>
+                                <th>Отзывы</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Имя</th>
+                                <th>Почта</th>
+                                <th>Телефон</th>
+                                <th>Заказы</th>
+                                <th>Отзывы</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

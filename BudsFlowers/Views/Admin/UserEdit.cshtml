@@ -1,0 +1,33 @@
+﻿@using BudsFlowers.Views.Admin
+@using Microsoft.AspNetCore.Identity
+@model ChangeRoleViewModel
+@{
+    ViewData["Title"] = "РУД пользователя";
+    ViewData["ActivePage"] = AdminNavPages.Users;
+}
+
+<div class="p-3">
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AdminNavPartial" />
+        </div>
+        <div class="col-md-9 border-start text-white py-2">
+            <partial name="../Partials/_StatusMessage" for="@TempData["StatusMessage"]" />
+            <h5>@ViewData["Title"]</h5>
+            <hr />
+            <form id="category-form" method="post" asp-controller="Admin" asp-action="UserEditModel">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <input type="hidden" name="userId" value="@Model.UserId" />
+
+                @foreach (IdentityRole role in Model.AllRoles)
+                {
+                    <input type="checkbox" name="roles" value="@role.Name"
+                    @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+                    @role.Name <br />
+                }
+                <button type="submit" class="btn btn-outline-color text-light">Добавить</button>
+                <a asp-action="Users" class="btn btn-outline-danger text-light">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>

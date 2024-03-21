@@ -1,0 +1,274 @@
+﻿@model FlowerViewModel
+@{
+    ViewData["Title"] = Model.Flower.Title;
+}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+            <li class="breadcrumb-item">
+                <a class="link-body-emphasis" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house"></i>
+                    <span class="visually-hidden">Главная</span>
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a class="link-secondary " asp-controller="Catalog" asp-action="Index">
+                    Все категории
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a class="link-secondary " asp-controller="Catalog" asp-action="List" asp-route-id="@Model.Flower.Category.Id">
+                    @Model.Flower.Category.Title
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                @ViewData["Title"]
+            </li>
+        </ol>
+    </nav>
+    <hr>
+    <div class="album py-4">
+        <div class="row g-3 py-2">
+            <div class="col-5 position-relative">
+                <a id="@Model.Flower.Id" href="@Model.Flower.PhotoPath" class="js-img-viewer-fit" data-caption="@(Model.Flower.Title)" data-id="@(Model.Flower.Id)">
+                    <img src="@(Model.Flower.PhotoPath)" class="img-fluid w-100" role="img" focusable="false" />
+                </a>
+                @if (Model.Flower.IsSale())
+                {
+                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 1rem">
+                        Скидка
+                    </div>
+                }
+                @if (Model.Flower.IsPopular)
+                {
+                    <div class="badge bg-warning text-white position-absolute" style="top: 2rem; right: 1rem">
+                        Популярное
+                    </div>
+                }
+            </div>
+            <div class="col-7 px-2">
+                <div class="d-flex justify-content-between ">
+                    <h3>@Model.Flower.Title</h3>
+                    @if (Model.Flower.IsInStock)
+                    {
+                        <h6 class="bg-success text-white px-3 py-1 rounded-2">
+                            В наличии
+                        </h6>
+                    }
+                    else
+                    {
+                        <h6 class="bg-danger text-white px-3 py-1 rounded-2">
+                            Нет в наличии
+                        </h6>
+                    }
+                </div>
+                <hr style="width: 100px; background-color: gray;">
+                <h4 class="text-danger fw-bold ">
+                    @if (Model.Flower.IsSale())
+                    {
+                        <span class="text-secondary text-decoration-line-through me-2">
+                            @(Model.Flower.Price + " руб.")
+                        </span>
+                        @(Model.Flower.GetTotalPrice() + " руб.")
+                    }
+                    else
+                    {
+
+                    }
+                </h4>
+                <h6>Состав: @Model.Flower.Compound</h6>
+                <h6 class="text-secondary ">Артикул: @Model.Flower.Article</h6>
+                <div class="number my-3">
+                    <button class="number-minus" type="button"
+                            onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
+                        -
+                    </button>
+                    <input type="number" min="1" max="100" value="1" readonly class="bg-transparent text-light">
+                    <button class="number-plus" type="button"
+                            onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
+                        +
+                    </button>
+                </div>
+                <a class="btn btn-outline-color color mt-auto" href="#">
+                    В корзину
+                </a>
+                <br>
+                <span class="d-flex text-warning">
+                    <partial name="../Partials/_StarPartial" model="@Model.Flower.GetStar()" /> - @Model.Flower.Reviews.Count отзыва
+                </span>
+                <div class="accordion mt-3" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Выберите дополнение к цветам:
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table class="table m-0 p-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="../../resources/bear.jpg" class="js-img-viewer-fit"
+                                                   data-caption="Bear" data-id="bear">
+                                                    <img src="../../resources/bear.jpg" width="45" height="45"
+                                                         alt="" />
+                                                </a>
+                                            </td>
+                                            <td class="text-secondary fw-bold">Мишка 100 см</td>
+                                            <td class="fw-bold text-danger">110 руб.</td>
+                                            <td class="text-end">
+                                                <form>
+                                                    <div class="number">
+                                                        <button class="number-minus" type="button"
+                                                                onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
+                                                            -
+                                                        </button>
+                                                        <input type="number" min="1" max="100" value="1"
+                                                               readonly>
+                                                        <button class="number-plus" type="button"
+                                                                onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                    <a class="btn btn-outline-color color" href="#">
+                                                        В
+                                                        корзину
+                                                    </a>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="../../resources/bear.jpg" class="js-img-viewer-fit"
+                                                   data-caption="Bear" data-id="bear">
+                                                    <img src="../../resources/bear.jpg" width="45" height="45"
+                                                         alt="" />
+                                                </a>
+                                            </td>
+                                            <td class="text-secondary fw-bold">Мишка 100 см</td>
+                                            <td class="fw-bold text-danger">110 руб.</td>
+                                            <td class="text-end">
+                                                <form>
+                                                    <div class="number">
+                                                        <button class="number-minus" type="button"
+                                                                onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
+                                                            -
+                                                        </button>
+                                                        <input type="number" min="1" max="100" value="1"
+                                                               readonly>
+                                                        <button class="number-plus" type="button"
+                                                                onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                    <a class="btn btn-outline-color color" href="#">
+                                                        В
+                                                        корзину
+                                                    </a>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="../../resources/bear.jpg" class="js-img-viewer-fit"
+                                                   data-caption="Bear" data-id="bear">
+                                                    <img src="../../resources/bear.jpg" width="45" height="45"
+                                                         alt="" />
+                                                </a>
+                                            </td>
+                                            <td class="text-secondary fw-bold">Мишка 100 см</td>
+                                            <td class="fw-bold text-danger">110 руб.</td>
+                                            <td class="text-end">
+                                                <form>
+                                                    <div class="number">
+                                                        <button class="number-minus" type="button"
+                                                                onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
+                                                            -
+                                                        </button>
+                                                        <input type="number" min="1" max="100" value="1"
+                                                               readonly>
+                                                        <button class="number-plus" type="button"
+                                                                onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                    <a class="btn btn-outline-color color" href="#">
+                                                        В
+                                                        корзину
+                                                    </a>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Отзывы
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                @foreach (var review in Model.Flower.Reviews)
+                                {
+                                    <div class="card">
+                                        <div class="row g-0">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between ">
+                                                    <h5 class="card-title">
+                                                        @review.FirstName
+                                                        <span class="align-middle ">
+                                                            <partial name="../Partials/_StarPartial" model="@review.Star" />
+                                                        </span>
+                                                    </h5>
+                                                    <p class="text-end">
+                                                        <small class="text-body-secondary">
+                                                            <i class="bi bi-calendar"></i>
+                                                            @review.Date.ToString("d")
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                                <p class="card-text">@review.Description</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="card">
+                                    <div class="card-header text-start ">
+                                        Оставить отзыв
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col ">
+                                                <label class="form-label">Имя (необязательно)</label>
+                                                <input type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+                                            </div>
+                                            <div class="col ">
+                                                <label class="form-label">Email для обратной связи<sup class="text-danger ">*</sup></label>
+                                                <input type="email" class="form-control" id="exampleFormControlInput1"
+                                                       placeholder="name@gmail.com">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Текст<sup class="text-danger ">*</sup></label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <a class="btn btn-outline-color color mt-auto" href="#">Отправить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

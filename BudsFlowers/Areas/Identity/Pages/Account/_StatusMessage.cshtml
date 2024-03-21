@@ -19,10 +19,10 @@
                                     <div class="col-12">
                                         <div class="d-grid my-3">
                                             @{
-                                                var statusMessageClass = Model.StartsWith("Error") ? "danger" : "success";
+                                                var statusMessageClass = Model.StartsWith("Ошибка") ? "danger" : "success";
                                             }
                                             <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
-                                                @Model
+                                                @Model.Replace("Ошибка", "")
                                             </div>
                                             <a class="btn btn-outline-color color btn-lg" asp-area="Identity" asp-page="/Account/Login">Авторизация</a>
                                         </div>
