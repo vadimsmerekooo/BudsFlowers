@@ -162,7 +162,7 @@
             var cardWidth = $(".carousel-item").width();
             var scrollPosition = 0;
             $("#carouselExampleControls .carousel-control-next").on("click", function () {
-                if (scrollPosition < carouselWidth - cardWidth * 4) {
+                if (scrollPosition < carouselWidth - cardWidth * 3) {
                     scrollPosition += cardWidth * 3;
                     $("#carouselExampleControls .carousel-inner").animate(
                         { scrollLeft: scrollPosition },
@@ -214,6 +214,24 @@
                     },
                     0.5 * 1000
                 );
+            }
+        }
+        function addBasket(flowerId, count) {
+            console.log(flowerId);
+            console.log(count);
+            $.ajax({
+                url: "/basket/Add/" + flowerId + "/" + co,
+                data: { flowerId: flowerId, count: count },
+                method: "GET",
+                dataType: "json",
+                success: function (e) {
+                    console.log("success");
+
+
+                },
+                error: function (e) {
+                    console.log("error");
+                }
             }
         }
     </script>

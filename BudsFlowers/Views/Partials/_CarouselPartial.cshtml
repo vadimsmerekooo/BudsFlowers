@@ -6,8 +6,8 @@
         @foreach (var item in Model.Flowers)
         {
             <div class="carousel-item active">
-                <a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id" class="flowers category-link text-dark text-decoration-none">
-                    <div class="card flowers-card shadow-sm text-center justify-content-end" style="width: 250px;">
+                <div class="card flowers-card shadow-sm text-center justify-content-end" style="width: 250px;">
+                    <a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id" class="flowers category-link text-dark text-decoration-none">
                         @if (item.IsSale())
                         {
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem; z-index: 99999;">
@@ -35,27 +35,27 @@
                             <img src="@item.PhotoPath" class="h-100" style=" margin: 0 -100%;"
                                  role="img" focusable="false">
                         </div>
-                        <div class="card-body px-0">
-                            <h6>@item.Title</h6>
-                            <span class="d-flex text-warning justify-content-center">
-                                <partial name="../Partials/_StarPartial" model="@item.GetStar()" />  - @item.Reviews.Count() отзыва
-                            </span>
-                            <p class="text-danger fw-bold">
-                                @if (item.IsSale())
-                                {
-                                    <span class="text-muted text-decoration-line-through">@item.Price руб.</span>
-                                    @Html.Raw($"{item.GetTotalPrice()} руб.")
-                                }
-                                else
-                                {
-                                    @Html.Raw($"{item.Price} руб.")
-                                }
-                            </p>
+                    </a>
+                    <div class="card-body px-0">
+                        <h6>@item.Title</h6>
+                        <span class="d-flex text-warning justify-content-center">
+                            <partial name="../Partials/_StarPartial" model="@item.GetStar()" />  - @item.Reviews.Count() отзыва
+                        </span>
+                        <p class="text-danger fw-bold">
+                            @if (item.IsSale())
+                            {
+                                <span class="text-muted text-decoration-line-through">@item.Price руб.</span>
+                                @Html.Raw($"{item.GetTotalPrice()} руб.")
+                            }
+                            else
+                            {
+                                @Html.Raw($"{item.Price} руб.")
+                            }
+                        </p>
 
-                            <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
-                        </div>
+                        <a class="btn btn-outline-color color mt-auto" href="javascript:addBasket(`@item.Id`, `1`);">Добавить в корзину</a>
                     </div>
-                </a>
+                </div>
             </div>
         }
 

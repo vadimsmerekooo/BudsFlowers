@@ -51,7 +51,7 @@ namespace BudsFlowers.Controllers
         {
             FlowersCategoryViewModel model = new FlowersCategoryViewModel()
             {
-                Flowers = await _context.Flowers.Include(c => c.Category).Where(t => t.TypeCategory == type).ToListAsync(),
+                Flowers = await _context.Flowers.Include(c => c.Category).Where(t => t.TypeCategory == type).OrderBy(a => a.Article).ToListAsync(),
                 TypeCategory = type
             };
             return View(model);
@@ -60,9 +60,11 @@ namespace BudsFlowers.Controllers
         public async Task<IActionResult> AddFlower(TypeCategory type)
         {
             List<FlowerCategory> categories = await _context.FlowerCategories.Where(t => t.TypeCategory == type).ToListAsync();
+            long lastArticle = _context.Flowers.OrderByDescending(a => a.Article).First().Article;
             ViewBag.Categories = new SelectList(categories, "Id", "Title");            
-            return View(new Flower() { TypeCategory = type, Categories = categories });
+            return View(new Flower() { TypeCategory = type, Categories = categories, Article = lastArticle + 1 });
         }
+        [Route("admin/flowers/add/model")]
         [HttpPost]
         public async Task<IActionResult> AddFlowerModel(Flower model, IFormFile previewPhoto)
         {
@@ -104,15 +106,14 @@ namespace BudsFlowers.Controllers
                 }
                 model.PhotoPath = path;
                 model.Category = category;
-                model.TypeCategory = category.TypeCategory;
                 model.Categories = categories;
 
                 await _context.Flowers.AddAsync(model);
                 await _context.SaveChangesAsync();
                 StatusMessage = $"{model.TypeCategory} {model.Title} успешно добавлены!";
 
-                return RedirectToAction(nameof(Flowers));
 
+                return RedirectToAction(nameof(Flowers), new { type = model.TypeCategory } );
             }
             catch
             {
@@ -184,7 +185,7 @@ namespace BudsFlowers.Controllers
                 await _context.SaveChangesAsync();
                 StatusMessage = $"{flower.TypeCategory} {flower.Title} успешно обновлены!";
 
-                return RedirectToAction(nameof(Flowers));
+                return RedirectToAction(nameof(Flowers), new { type = model.TypeCategory });
             }
             catch
             {
@@ -219,7 +220,7 @@ namespace BudsFlowers.Controllers
 
             StatusMessage = $"{flower.TypeCategory} {flower.Title}  успешно обновлены!";
 
-            return RedirectToAction(nameof(Flowers));
+            return RedirectToAction(nameof(Flowers), new { type = flower.TypeCategory });
         }
         [Route("admin/flowers/{id}/delete")]
         public async Task<IActionResult> DeleteFlower(string id)
@@ -235,7 +236,7 @@ namespace BudsFlowers.Controllers
             await _context.SaveChangesAsync();
 
             StatusMessage = $"{flower.TypeCategory} успешно удалены.";
-            return RedirectToAction(nameof(Flowers));
+            return RedirectToAction(nameof(Flowers), new { type = flower.TypeCategory });
         }
         #endregion
 

@@ -25,6 +25,7 @@ namespace BudsFlowers.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                basket.Flowers = new List<BasketFlower>();
 
                 BasketViewModel model = new BasketViewModel()
                 {
@@ -42,7 +43,7 @@ namespace BudsFlowers.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Route("basket/add/{flowerId}/{count}")]
         public IActionResult Add(string flowerId, int count = 1)
         {
             try

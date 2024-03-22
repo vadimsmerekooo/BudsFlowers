@@ -39,8 +39,7 @@
                     </div>
                 </div>
                 <div class="d-flex mb-3">
-                    <select class="d-none" asp-for="TypeCategory">
-                    </select>
+                    <input class="d-none" asp-for="TypeCategory"/>
                     <div class="col">
                         <label asp-for="CategorySelectId" class="form-label"></label>
                         <select id="categoryId" class="form__field text-light" asp-for="CategorySelectId" asp-items="ViewBag.Categories">

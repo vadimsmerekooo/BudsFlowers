@@ -18,7 +18,7 @@ namespace BudsFlowers.Controllers
         [Route("")]
         public async Task<IActionResult> Index()
         {
-            List<Flower> allItem = await _context.Flowers.Include(r => r.Reviews).ToListAsync();
+            List<Flower> allItem = await _context.Flowers.Include(r => r.Reviews).Where(f => f.IsInStock && f.TypeCategory == TypeCategory.Цветы).ToListAsync();
             List<Flower> popularFlower = allItem.Where(p => p.IsPopular && !p.IsSale()).Take(10).ToList();
             popularFlower.ForEach(f => allItem.Remove(f));
             List<Flower> saleFlower = allItem.Where(s => s.IsSale()).Take(10).ToList();
