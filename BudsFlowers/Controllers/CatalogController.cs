@@ -2,6 +2,7 @@
 using BudsFlowers.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace BudsFlowers.Controllers
 {
@@ -16,7 +17,7 @@ namespace BudsFlowers.Controllers
         [Route("catalog")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.FlowerCategories.Where(c => c.TypeStatus == TypeStatus.Опубликовано).ToListAsync());
+            return View(await _context.FlowerCategories.Where(c => c.TypeStatus == TypeStatus.Опубликовано).OrderBy(t => t.TypeCategory).ToListAsync());
         }
 
         [Route("catalog/{id}/flowers")]
@@ -31,6 +32,20 @@ namespace BudsFlowers.Controllers
             }
 
             return View(model);
+        }
+
+        [Route("catalog/search/{query}")]
+        public async Task<IActionResult> Search(string query)
+        {
+            try
+            {
+                List<Flower> flowers = await _context.Flowers.Where(f => f.Title.Contains(query)).Take(5).ToListAsync();
+                return PartialView("../Partials/_SearchResultPartial", flowers);
+            }
+            catch
+            {
+                return PartialView("../Partials/_SearchResultPartial", new List<Flower>());
+            }
         }
     }
 }

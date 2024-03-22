@@ -16,9 +16,25 @@ namespace BudsFlowers.Controllers
         }
 
         [Route("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<Flower> allItem = await _context.Flowers.Include(r => r.Reviews).ToListAsync();
+            List<Flower> popularFlower = allItem.Where(p => p.IsPopular && !p.IsSale()).Take(10).ToList();
+            popularFlower.ForEach(f => allItem.Remove(f));
+            List<Flower> saleFlower = allItem.Where(s => s.IsSale()).Take(10).ToList();
+            saleFlower.ForEach(f => allItem.Remove(f));
+            List<Flower> newFlower = allItem.OrderByDescending(d => d.Create).Take(10).ToList();
+            newFlower.ForEach(f => allItem.Remove(f));
+
+
+
+            IndexViewModel model = new IndexViewModel()
+            {
+                PopularCarousel = new CarouselViewModel() { Type = TypeCarousel.Popular, Flowers = popularFlower },
+                NewCarousel = new CarouselViewModel() { Type = TypeCarousel.Popular, Flowers = newFlower },
+                SaleCarousel = new CarouselViewModel() { Type = TypeCarousel.Popular, Flowers = saleFlower }
+            };
+            return View(model);
         }
 
         [Route("delivery-pay")]

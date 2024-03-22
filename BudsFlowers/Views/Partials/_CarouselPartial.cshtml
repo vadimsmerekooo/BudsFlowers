@@ -1,0 +1,71 @@
+﻿@using BudsFlowers.Areas.Identity.Data
+@model CarouselViewModel
+
+<div id="carouselExampleControls" class="carousel">
+    <div class="carousel-inner py-3">
+        @foreach (var item in Model.Flowers)
+        {
+            <div class="carousel-item active">
+                <a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id" class="flowers category-link text-dark text-decoration-none">
+                    <div class="card flowers-card shadow-sm text-center justify-content-end" style="width: 250px;">
+                        @if (item.IsSale())
+                        {
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem; z-index: 99999;">
+                                Скидка
+                            </div>
+                        }
+                        @if (item.IsPopular)
+                        {
+                            @if (item.IsSale())
+                            {
+                                <div class="badge bg-warning  text-white position-absolute"
+                                     style="top: 2rem; right: 0.5rem; z-index: 99999;">
+                                    Популярное
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="badge bg-warning  text-white position-absolute"
+                                     style="top: 0.5rem; right: 0.5rem; z-index: 99999;">
+                                    Популярное
+                                </div>
+                            }
+                        }
+                        <div class="card-img-top overflow-hidden justify-content-center">
+                            <img src="@item.PhotoPath" class="h-100" style=" margin: 0 -100%;"
+                                 role="img" focusable="false">
+                        </div>
+                        <div class="card-body px-0">
+                            <h6>@item.Title</h6>
+                            <span class="d-flex text-warning justify-content-center">
+                                <partial name="../Partials/_StarPartial" model="@item.GetStar()" />  - @item.Reviews.Count() отзыва
+                            </span>
+                            <p class="text-danger fw-bold">
+                                @if (item.IsSale())
+                                {
+                                    <span class="text-muted text-decoration-line-through">@item.Price руб.</span>
+                                    @Html.Raw($"{item.GetTotalPrice()} руб.")
+                                }
+                                else
+                                {
+                                    @Html.Raw($"{item.Price} руб.")
+                                }
+                            </p>
+
+                            <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Предыдущее</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Следующее</span>
+    </button>
+</div>

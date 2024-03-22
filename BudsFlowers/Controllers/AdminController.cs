@@ -59,15 +59,17 @@ namespace BudsFlowers.Controllers
         [Route("admin/flowers/add")]
         public async Task<IActionResult> AddFlower(TypeCategory type)
         {
-            ViewBag.Categories = new SelectList(await _context.FlowerCategories.Where(t => t.TypeCategory == type).ToListAsync(), "Id", "Title");            
-            return View(new Flower() { TypeCategory = type});
+            List<FlowerCategory> categories = await _context.FlowerCategories.Where(t => t.TypeCategory == type).ToListAsync();
+            ViewBag.Categories = new SelectList(categories, "Id", "Title");            
+            return View(new Flower() { TypeCategory = type, Categories = categories });
         }
         [HttpPost]
         public async Task<IActionResult> AddFlowerModel(Flower model, IFormFile previewPhoto)
         {
             try
             {
-                ViewBag.Categories = new SelectList(await _context.FlowerCategories.Where(t => t.TypeCategory == model.TypeCategory).ToListAsync(), "Id", "Title");
+                List<FlowerCategory> categories = await _context.FlowerCategories.Where(t => t.TypeCategory == model.TypeCategory).ToListAsync();
+                ViewBag.Categories = new SelectList(categories, "Id", "Title");
                 if (previewPhoto is null)
                 {
                     ModelState.AddModelError(string.Empty, $"Ошибка Выберите фото!");
@@ -94,7 +96,7 @@ namespace BudsFlowers.Controllers
                 }
                 string idFileGuid = Guid.NewGuid().ToString();
 
-                string path = $"/resources/img/{idFileGuid}_{previewPhoto.FileName}";
+                string path = $"/resources/img/flowers/{idFileGuid}_{previewPhoto.FileName}";
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
@@ -103,7 +105,7 @@ namespace BudsFlowers.Controllers
                 model.PhotoPath = path;
                 model.Category = category;
                 model.TypeCategory = category.TypeCategory;
-
+                model.Categories = categories;
 
                 await _context.Flowers.AddAsync(model);
                 await _context.SaveChangesAsync();
@@ -168,7 +170,7 @@ namespace BudsFlowers.Controllers
                     }
 
                     string idFileGuid = Guid.NewGuid().ToString();
-                    string path = $"/resources/img/{idFileGuid}_{previewPhoto.FileName}";
+                    string path = $"/resources/img/flowers/{idFileGuid}_{previewPhoto.FileName}";
 
                     using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                     {
@@ -267,7 +269,7 @@ namespace BudsFlowers.Controllers
                 }
                 string idFileGuid = Guid.NewGuid().ToString();
 
-                string path = $"/resources/img/{idFileGuid}_{previewPhoto.FileName}";
+                string path = $"/resources/img/categoryes/{idFileGuid}_{previewPhoto.FileName}";
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
@@ -346,7 +348,7 @@ namespace BudsFlowers.Controllers
                     }
 
                     string idFileGuid = Guid.NewGuid().ToString();
-                    string path = $"/resources/img/{idFileGuid}_{previewPhoto.FileName}";
+                    string path = $"/resources/img/categoryes/{idFileGuid}_{previewPhoto.FileName}";
 
                     using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                     {

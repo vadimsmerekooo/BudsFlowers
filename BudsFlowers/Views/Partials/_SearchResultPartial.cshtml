@@ -1,0 +1,32 @@
+﻿@using BudsFlowers.Areas.Identity.Data
+@model List<Flower>
+
+@foreach(var item in Model)
+{
+    <li>
+        <a class="dropdown-item d-flex " asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id">
+            <div class="col-md-1">
+                <img src="@item.PhotoPath" class="img-fluid rounded" alt="...">
+            </div>
+            <div class="col ms-3">
+                <h5 class="card-title align-middle ">@item.Title</h5>
+                <span class="d-flex text-warning">
+                    <partial name="../Partials/_StarPartial" model="@item.GetStar()" /> - @item.Reviews.Count() отзыва
+                </span>
+
+            </div>
+            <div class="col justify-content-end text-end ">
+                <h5 class="text-danger ">@item.Price руб.</h5>
+            </div>
+        </a>
+    </li>
+    <li>
+        <hr class="dropdown-divider ">
+    </li>
+}
+@if(Model.Count == 0)
+{
+    <li class="text-center">
+        По вашему запросу ничего не найдено.
+    </li>
+}

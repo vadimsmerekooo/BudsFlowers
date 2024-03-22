@@ -64,52 +64,9 @@
             </button>
             <div id="navbarSupportedContent" class="collapse navbar-collapse col">
                 <div class="dropdown col w-50">
-                    <input class="form-control me-2" type="search" data-bs-toggle="dropdown" aria-expanded="false"
-                           placeholder="Поиск цветов" aria-label="Поиск цветов">
-                    <ul class="dropdown-menu w-100">
-                        <li>
-                            <a class="dropdown-item d-flex " href="#">
-                                <div class="col-md-1">
-                                    <img src="~/resources/img/flowers_1.jpeg" class="img-fluid rounded" alt="...">
-                                </div>
-                                <div class="col ms-3">
-                                    <h5 class="card-title align-middle ">Букет 100 роз</h5>
-                                    <span>
-                                        <i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i class="bi bi-star star"></i> 3 отзыва
-                                    </span>
-
-                                </div>
-                                <div class="col justify-content-end text-end ">
-                                    <h5 class="text-danger ">105 руб.</h5>
-                                    <p class="text-secondary ">
-                                        <smal>~35$</smal>
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider ">
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex " href="#">
-                                <div class="col-md-1">
-                                    <img src="~/resources/img/flowers_2.jpg" class="img-fluid rounded" alt="...">
-                                </div>
-                                <div class="col ms-3">
-                                    <h5 class="card-title align-middle ">Букет 51 розa</h5>
-                                    <span>
-                                        <i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i><i class="bi bi-star-fill star"></i> 1 отзыв
-                                    </span>
-
-                                </div>
-                                <div class="col justify-content-end text-end ">
-                                    <h5 class="text-danger ">95 руб.</h5>
-                                    <p class="text-secondary ">
-                                        <smal>~30$</smal>
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
+                    <input id="searchInput" class="form-control me-2" type="search" data-bs-toggle="dropdown" aria-expanded="false"
+                           placeholder="Поиск цветов" aria-label="Поиск цветов" onkeyup="search();">
+                    <ul id="searchBox" class="dropdown-menu w-100 d-none" style="z-index: 999999999;">
                     </ul>
                 </div>
                 <hr>
@@ -238,7 +195,28 @@
             });
         } else {
             $(multipleCardCarousel).addClass("slide");
-        }</script>
+        }
+        function search() {
+            const search = document.getElementById('searchInput').value;
+            const searchBox = document.getElementById('searchBox');
+            if (search.trim() == "") {
+                document.getElementById("searchBox").classList.add("d-none");
+            }
+            else {
+                document.getElementById("searchBox").classList.remove("d-none");
+                searchBox.innerHTML = `
+                                            <li class="text-center"><div id="loadSpinner" class="spinner-border color" role="status">
+                                                </div></li>`;
+                setTimeout(
+                    () => {
+                        $('#searchBox').load('@Url.ActionLink("Search", "Catalog")/' + search.trim(), function (response, status, xhr) {
+                        });
+                    },
+                    0.5 * 1000
+                );
+            }
+        }
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 

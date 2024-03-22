@@ -50,23 +50,33 @@
                     @foreach (var flower in Model.Category.Flowers.Where(s => s.Status is BudsFlowers.Areas.Identity.Data.TypeStatus.Опубликовано).OrderByDescending(p => p.IsPopular))
                     {
                         <div class="col">
-                            <a asp-controller="Flower" asp-action="Index" asp-route-id="@flower.Id" class="flowers category-link text-dark text-decoration-none">
+                            <a asp-controller="Flower" asp-action="Index" asp-route-id="@flower.Id" class="flowers category-link text-dark text-decoration-none position-relative">
                                 <div class="card flowers-card shadow-sm text-center justify-content-end">
                                     @if (flower.IsSale())
                                     {
-                                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem; z-index: 9999;">
                                             Скидка
                                         </div>
                                     }
                                     @if (flower.IsPopular)
                                     {
-                                        <div class="badge bg-warning  text-white position-absolute"
-                                             style="top: 2rem; right: 0.5rem">
-                                            Популярное
-                                        </div>
+                                        @if (flower.IsSale())
+                                        {
+                                            <div class="badge bg-warning  text-white position-absolute"
+                                                 style="top: 2rem; right: 0.5rem; z-index: 9999;">
+                                                Популярное
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge bg-warning  text-white position-absolute"
+                                                 style="top: 0.5rem; right: 0.5rem; z-index: 9999;">
+                                                Популярное
+                                            </div>
+                                        }
                                     }
                                     <div class="card-img-top overflow-hidden justify-content-center">
-                                        <img src="@flower.PhotoPath" class="h-100" style=" margin: 0 -100%;"
+                                        <img src="@flower.PhotoPath" class="h-100 w-100" style=" margin: 0 -100%;"
                                              role="img" focusable="false">
                                     </div>
                                     <div class="card-body px-0">

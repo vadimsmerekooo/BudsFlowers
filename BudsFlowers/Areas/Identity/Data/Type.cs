@@ -27,4 +27,10 @@
         All,
         None
     }
+    public enum TypeCarousel
+    {
+        Popular,
+        New,
+        Sale
+    }
 }

@@ -36,12 +36,13 @@ namespace BudsFlowers.Areas.Identity.Data
         public TypeStatus Status { get; set; }
         [Display(Name = "Категория")]
         public TypeCategory TypeCategory { get; set; }
+        public DateTime Create { get; set; } = DateTime.Now;
         public bool IsSale() => this.Sale > 0 && this.Sale <= 100;
 
         public virtual FlowerCategory Category { get; set; }
         public virtual List<Review> Reviews { get; set; } = new List<Review>();
         [NotMapped]
-        public virtual List<SelectListItem> Categories { get; set; }
+        public virtual List<FlowerCategory> Categories { get; set; }
         [NotMapped]
         public int Orders { get; set; }
         [NotMapped]
