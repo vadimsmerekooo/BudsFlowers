@@ -28,6 +28,3 @@ window.addEventListener('load', function () {
     new SmartPhoto(".js-img-viewer");
     new SmartPhoto(".js-img-viewer-fit");
 });
-$(function() {
-    $('#pick-date').pickadate(); 
-});

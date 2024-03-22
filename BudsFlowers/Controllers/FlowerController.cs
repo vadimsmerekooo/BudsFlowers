@@ -18,6 +18,13 @@ namespace BudsFlowers.Controllers
         {
             FlowerViewModel model = new FlowerViewModel();
             model.Flower = await _context.Flowers.Include(r => r.Reviews).Include(c => c.Category).FirstOrDefaultAsync(f => f.Id == id);
+            model.Other = await _context.Flowers
+                .Where(s => s.Status == TypeStatus.Опубликовано 
+                && s.IsInStock 
+                && (s.TypeCategory == TypeCategory.Игрушки 
+                || s.TypeCategory == TypeCategory.Конфеты))
+                .Take(6)
+                .ToListAsync();
             return View(model);
         }
 

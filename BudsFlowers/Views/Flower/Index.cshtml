@@ -83,13 +83,13 @@
                             onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
                         -
                     </button>
-                    <input type="number" min="1" max="100" value="1" readonly class="bg-transparent text-light">
+                    <input id="countField" type="number" min="1" max="100" value="1" readonly class="bg-transparent text-light">
                     <button class="number-plus" type="button"
                             onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
                         +
                     </button>
                 </div>
-                <a class="btn btn-outline-color color mt-auto" href="#">
+                <a class="btn btn-outline-color color mt-auto" href="javascript:addBasket(`@Model.Flower.Id`, `document.getElementById('countField');`);">
                     В корзину
                 </a>
                 <br>
@@ -246,17 +246,20 @@
                                         Оставить отзыв
                                     </div>
                                     <div class="card-body">
-                                        <div class="row mb-3">
-                                            <div class="col ">
-                                                <label class="form-label">Имя (необязательно)</label>
-                                                <input type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="row mb-3">
+                                                <div class="col ">
+                                                    <label class="form-label">Имя (необязательно)</label>
+                                                    <input type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+                                                </div>
+                                                <div class="col ">
+                                                    <label class="form-label">Email для обратной связи<sup class="text-danger ">*</sup></label>
+                                                    <input type="email" class="form-control" id="exampleFormControlInput1"
+                                                           placeholder="name@gmail.com">
+                                                </div>
                                             </div>
-                                            <div class="col ">
-                                                <label class="form-label">Email для обратной связи<sup class="text-danger ">*</sup></label>
-                                                <input type="email" class="form-control" id="exampleFormControlInput1"
-                                                       placeholder="name@gmail.com">
-                                            </div>
-                                        </div>
+                                        }
                                         <div class="mb-3">
                                             <label class="form-label">Текст<sup class="text-danger ">*</sup></label>
                                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>

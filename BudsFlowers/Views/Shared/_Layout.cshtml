@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="~/favicon.ico" rel="icon" type="image/x-icon">
     <link rel="stylesheet" href="~/css/smartphoto.min.css">
+    <link rel="stylesheet" href="~/css/picker.date.css" />
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -78,6 +79,22 @@
 
     @RenderBody()
 
+
+
+    <div class="position-fixed right-0 p-3" style="z-index: 5; right: 0; top: 100px;">
+        <div id="successAddFlower" class="bg-success toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+            <div class="toast-header">
+                <i class="bi bi-check-square text-success"></i>
+                <strong class="mr-auto pl-1">Добавлено в корзину</strong>
+            </div>
+        </div>
+        <div id="errorAddFlower" class="bg-danger toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+            <div class="toast-header">
+                <i class="bi bi-x-square check-square text-warning"></i>
+                <strong class="mr-auto pl-1">Ошибка добавления в карзину</strong>
+            </div>
+        </div>
+    </div>
 
     <footer class="container bg-dark d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-3 d-flex align-items-center">
@@ -154,7 +171,7 @@
         var multipleCardCarousel = document.querySelector(
             "#carouselExampleControls"
         );
-        if (window.matchMedia("(min-width: 768px)").matches) {
+        if (window.matchMedia("(min-width: 768px)" && multipleCardCarousel).matches) {
             var carousel = new bootstrap.Carousel(multipleCardCarousel, {
                 interval: false,
             });
@@ -205,8 +222,8 @@
             else {
                 document.getElementById("searchBox").classList.remove("d-none");
                 searchBox.innerHTML = `
-                                            <li class="text-center"><div id="loadSpinner" class="spinner-border color" role="status">
-                                                </div></li>`;
+                                                                            <li class="text-center"><div id="loadSpinner" class="spinner-border color" role="status">
+                                                                                </div></li>`;
                 setTimeout(
                     () => {
                         $('#searchBox').load('@Url.ActionLink("Search", "Catalog")/' + search.trim(), function (response, status, xhr) {
@@ -217,24 +234,76 @@
             }
         }
         function addBasket(flowerId, count) {
-            console.log(flowerId);
-            console.log(count);
             $.ajax({
-                url: "/basket/Add/" + flowerId + "/" + co,
+                url: "/basket/Add/" + flowerId + "/" + count,
                 data: { flowerId: flowerId, count: count },
                 method: "GET",
                 dataType: "json",
                 success: function (e) {
-                    console.log("success");
-
-
+                    $('#successAddFlower').toast('show');
+                    $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")/');
                 },
                 error: function (e) {
-                    console.log("error");
+                    $('#errorAddFlower').toast('show');
                 }
-            }
+            });
         }
+
+        function plusBasket(flowerId) {
+            $.ajax({
+                url: "/basket/plus/" + flowerId,
+                data: { flowerId: flowerId },
+                method: "GET",
+                dataType: "json",
+                success: function (e) {
+                    updateBasket();
+                }
+            });
+        }
+        function minusBasket(flowerId) {
+            $.ajax({
+                url: "/basket/minus/" + flowerId,
+                data: { flowerId: flowerId },
+                method: "GET",
+                dataType: "json",
+                success: function (e) {
+                    updateBasket();
+                }
+            });
+        }
+        function deleteBasket(flowerId) {
+            $.ajax({
+                url: "/basket/delete/" + flowerId,
+                data: { flowerId: flowerId, },
+                method: "GET",
+                dataType: "json",
+                success: function (e) {
+                    updateBasket();
+                },
+                error: function (e) {
+                    updateBasket();
+                }
+            });
+        }
+        function updateBasket() {
+            const basketBox = document.getElementById('basketBox');
+            basketBox.innerHTML = `<li class="text-center"><div id="loadSpinner" class="spinner-border color" role="status"></div></li>`;
+            setTimeout(
+                () => {
+                    $('#basketBox').load('@Url.ActionLink("IndexPartial", "Basket")');
+                    $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")');
+                    $('#pick-date').pickadate();
+                },
+                0.2 * 1000
+            );
+        }
+        $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")');
+        $(function () {
+            $('#pick-date').pickadate();
+        });
     </script>
+    <script src="~/js/picker.js"></script>
+    <script src="~/js/picker.date.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 

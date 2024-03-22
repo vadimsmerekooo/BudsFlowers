@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBasket xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Basket>
+    <Code>1</Code>
+    <City>Гродно</City>
+    <Flowers>
+      <BasketFlower>
+        <FlowerId>7f641ed6-1b94-4899-8a95-0e0e9823063c</FlowerId>
+        <Count>1</Count>
+      </BasketFlower>
+      <BasketFlower>
+        <FlowerId>0821531b-92a7-4ce9-b36d-9953044cd5d7</FlowerId>
+        <Count>1</Count>
+      </BasketFlower>
+      <BasketFlower>
+        <FlowerId>3312ba80-d375-4088-aa65-7a44f54fbdc7</FlowerId>
+        <Count>1</Count>
+      </BasketFlower>
+      <BasketFlower>
+        <FlowerId>52be669d-b2c4-4475-8ec0-e5bace3d86c5</FlowerId>
+        <Count>1</Count>
+      </BasketFlower>
+    </Flowers>
+  </Basket>
+</ArrayOfBasket>
