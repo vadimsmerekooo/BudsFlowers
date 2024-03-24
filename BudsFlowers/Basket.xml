@@ -18,8 +18,27 @@
       </BasketFlower>
       <BasketFlower>
         <FlowerId>52be669d-b2c4-4475-8ec0-e5bace3d86c5</FlowerId>
+        <Count>2</Count>
+      </BasketFlower>
+    </Flowers>
+  </Basket>
+  <Basket>
+    <Code>2</Code>
+    <City>Гродно</City>
+    <Flowers>
+      <BasketFlower>
+        <FlowerId>03619e2c-dc48-4a6e-8685-193a9444acf5</FlowerId>
+        <Count>2</Count>
+      </BasketFlower>
+      <BasketFlower>
+        <FlowerId>6efbcc63-025d-4d3d-b893-a54f277db4e5</FlowerId>
         <Count>1</Count>
       </BasketFlower>
     </Flowers>
+  </Basket>
+  <Basket>
+    <Code>3</Code>
+    <City>Гродно</City>
+    <Flowers />
   </Basket>
 </ArrayOfBasket>

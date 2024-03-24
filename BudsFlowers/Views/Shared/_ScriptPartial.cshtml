@@ -1,0 +1,180 @@
+﻿<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/bootstrap.js"></script>
+<script src="~/js/smartphoto.js?v=1"></script>
+<script src="~/js/picker.js"></script>
+<script src="~/js/picker.date.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+<script src="~/js/script.js"></script>
+<script>
+    var multipleCardCarousel = document.querySelector(
+        "#carouselExampleControls"
+    );
+    if (window.matchMedia("(min-width: 768px)").matches && multipleCardCarousel) {
+        var carousel = new bootstrap.Carousel(multipleCardCarousel, {
+            interval: false,
+        });
+        var carouselWidth = $(".carousel-inner")[0].scrollWidth;
+        var cardWidth = $(".carousel-item").width();
+        var scrollPosition = 0;
+        $("#carouselExampleControls .carousel-control-next").on("click", function () {
+            if (scrollPosition < carouselWidth - cardWidth * 3) {
+                scrollPosition += cardWidth * 3;
+                $("#carouselExampleControls .carousel-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+            else {
+                scrollPosition = 0;
+                $("#carouselExampleControls .carousel-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+        $("#carouselExampleControls .carousel-control-prev").on("click", function () {
+            if (scrollPosition > 0) {
+                scrollPosition -= cardWidth * 3;
+                $("#carouselExampleControls .carousel-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+            else {
+                scrollPosition = carouselWidth;
+                $("#carouselExampleControls .carousel-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+    } else {
+        $(multipleCardCarousel).addClass("slide");
+    }
+
+    function search() {
+        const search = document.getElementById('searchInput').value;
+        const searchBox = document.getElementById('searchBox');
+        if (search.trim() == "") {
+            document.getElementById("searchBox").classList.add("d-none");
+        }
+        else {
+            document.getElementById("searchBox").classList.remove("d-none");
+            searchBox.innerHTML = `<li class="text-center"><div id="loadSpinner" class="spinner-border color" role="status"></div></li>`;
+            setTimeout(
+                () => {
+                    $('#searchBox').load('@Url.ActionLink("Search", "Catalog")/' + search.trim(), function (response, status, xhr) {
+                    });
+                },
+                0.5 * 1000
+            );
+        }
+    }
+    function sort(id) {
+        const flowerBox = document.getElementById('listFlower');
+        const min = document.getElementById('price_min').value;
+        const max = document.getElementById('price_max').value;
+        const type = document.getElementById('type_sort').value;
+
+
+        flowerBox.innerHTML = `<div id="loadSpinner" class="spinner-border color text-center" role="status"></div>`;
+        setTimeout(
+            () => {
+                $('#listFlower').load('@Url.ActionLink("Sort", "Catalog")/' + id + "/1/" + min + "/" + max + "/" + type,  function (response, status, xhr) {
+                });
+            },
+            0.5 * 1000
+        );
+    }
+    function sortPagination(id, page) {
+        const flowerBox = document.getElementById('listFlower');
+        const min = document.getElementById('price_min').value;
+        const max = document.getElementById('price_max').value;
+        const type = document.getElementById('type_sort').value;
+
+
+        flowerBox.innerHTML = `<div id="loadSpinner" class="spinner-border color text-center" role="status"></div>`;
+        setTimeout(
+            () => {
+                $('#listFlower').load('@Url.ActionLink("Sort", "Catalog")/' + id + "/" + page + "/" + min + "/" + max + "/" + type, function (response, status, xhr) {
+                });
+            },
+            0.5 * 1000
+        );
+    }
+
+    function addBasket(flowerId, count) {
+        $.ajax({
+            url: "/basket/Add/" + flowerId + "/" + count,
+            data: { flowerId: flowerId, count: count },
+            method: "GET",
+            dataType: "json",
+            success: function (e) {
+                $('#successAddFlower').toast('show');
+                $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")/');
+            },
+            error: function (e) {
+                $('#errorAddFlower').toast('show');
+            }
+        });
+    }
+
+    function plusBasket(flowerId) {
+        $.ajax({
+            url: "/basket/plus/" + flowerId,
+            data: { flowerId: flowerId },
+            method: "GET",
+            dataType: "json",
+            success: function (e) {
+                updateBasket();
+            }
+        });
+    }
+
+    function minusBasket(flowerId) {
+        $.ajax({
+            url: "/basket/minus/" + flowerId,
+            data: { flowerId: flowerId },
+            method: "GET",
+            dataType: "json",
+            success: function (e) {
+                updateBasket();
+            }
+        });
+    }
+
+    function deleteBasket(flowerId) {
+        $.ajax({
+            url: "/basket/delete/" + flowerId,
+            data: { flowerId: flowerId, },
+            method: "GET",
+            dataType: "json",
+            success: function (e) {
+                updateBasket();
+            },
+            error: function (e) {
+                updateBasket();
+            }
+        });
+    }
+
+    function updateBasket() {
+        const basketBox = document.getElementById('basketBox');
+        basketBox.innerHTML = `<div id="loadSpinner" class="spinner-border color text-center" role="status"></div>`;
+        setTimeout(
+            () => {
+                $('#basketBox').load('@Url.ActionLink("IndexPartial", "Basket")');
+                $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")');
+                $('#pick-date').pickadate();
+            },
+            0.2 * 1000
+        );
+    }
+
+    $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")');
+
+    $(function () {
+        $('#pick-date').pickadate();
+    });
+</script>

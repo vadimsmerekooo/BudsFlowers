@@ -5,7 +5,7 @@
     <div class="carousel-inner py-3">
         @foreach (var item in Model.Flowers)
         {
-            <div class="carousel-item active">
+            <div class="carousel-item">
                 <div class="card flowers-card shadow-sm text-center justify-content-end" style="width: 250px;">
                     <a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id" class="flowers category-link text-dark text-decoration-none">
                         @if (item.IsSale())
@@ -62,10 +62,10 @@
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Предыдущее</span>
+        <span class="visually-hidden">Prev</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Следующее</span>
+        <span class="visually-hidden">Next</span>
     </button>
 </div>

@@ -1,0 +1,71 @@
+﻿@model CatalogViewModel
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3 py-3">
+    @foreach (var flower in Model.Category.Flowers)
+    {
+        <div class="col">
+            <a asp-controller="Flower" asp-action="Index" asp-route-id="@flower.Id" class="flowers category-link text-dark text-decoration-none position-relative">
+                <div class="card flowers-card shadow-sm text-center justify-content-end">
+                    @if (flower.IsSale())
+                    {
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem; z-index: 9999;">
+                            Скидка
+                        </div>
+                    }
+                    @if (flower.IsPopular)
+                    {
+                        @if (flower.IsSale())
+                        {
+                            <div class="badge bg-warning  text-white position-absolute"
+                                 style="top: 2rem; right: 0.5rem; z-index: 9999;">
+                                Популярное
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="badge bg-warning  text-white position-absolute"
+                                 style="top: 0.5rem; right: 0.5rem; z-index: 9999;">
+                                Популярное
+                            </div>
+                        }
+                    }
+                    <div class="card-img-top overflow-hidden justify-content-center">
+                        <img src="@flower.PhotoPath" class="h-100 w-100" style=" margin: 0 -100%;"
+                             role="img" focusable="false">
+                    </div>
+                    <div class="card-body px-0">
+                        <h6>@flower.Title</h6>
+                        <span class="d-flex text-warning justify-content-center">
+                            <partial name="../Partials/_StarPartial" model="@flower.GetStar()" />  @($" - {flower.Reviews.Count()} отзыва")
+                        </span>
+                        <p class="text-danger fw-bold">
+                            @if (flower.IsSale())
+                            {
+                                <span class="text-muted text-decoration-line-through">@(flower.Price) руб.</span>
+
+                                @Html.Raw($"{flower.GetTotalPrice()} руб.")
+                            }
+                            else
+                            {
+                                @Html.Raw($"{flower.Price} руб.")
+                            }
+                        </p>
+                        @if (flower.IsInStock)
+                        {
+                            <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                        }
+                        else
+                        {
+                            <p class="text-danger fw-bold">Нет в наличии</p>
+                        }
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    @if (Model.Category.Flowers.Count == 0)
+    {
+        <h6 class="text-center">По вашему запросу ничего не найдено (</h6>
+    }
+</div>
+<partial name="../Partials/_PaginationPartial" model="Model.PageViewModel" />

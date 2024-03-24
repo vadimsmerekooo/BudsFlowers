@@ -1,4 +1,5 @@
-﻿@model CatalogViewModel
+﻿@using BudsFlowers.Areas.Identity.Data;
+@model CatalogViewModel
 @{
     ViewData["Title"] = Model.Category.Title;
 }
@@ -31,105 +32,21 @@
                     </div>
                     <div class="col">
                         <label class="form-label">Цена от: </label>
-                        <input type="number" class="form__field text-light" placeholder="@Model.PriceMin" min="@Model.PriceMin" name="price_min"
+                        <input type="number" class="form__field text-light" value="@Model.PriceMin" min="@Model.PriceMin" onchange="sort('@Model.Category.Id');" name="price_min"
                                id='price_min' required style="width: 50px;" />
                         <label class="form-label">до: </label>
-                        <input type="number" class="form__field text-light" placeholder="@Model.PriceMax" max="@Model.PriceMax" name="price_max"
+                        <input type="number" class="form__field text-light" value="@Model.PriceMax" max="@Model.PriceMax" onchange="sort('@Model.Category.Id');" name="price_max"
                                id='price_max' required style="width: 50px;" />
                     </div>
                     <div class="col justify-content-end text-end">
                         <label class="form-label">Сортировать по: </label>
-                        <select class="form__field w-50 ms-2 float-end text-center  text-light">
-                            <option selected>По умолчанию</option>
-                            <option value="1">Сначала дешевле</option>
-                            <option value="2">Сначала дороже</option>
+                        <select id="type_sort" onchange="sort('@Model.Category.Id');" class="form__field w-50 ms-2 float-end text-center  text-light" asp-items="Html.GetEnumSelectList<TypeSort>()">
                         </select>
                     </div>
                 </div>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3 py-3">
-                    @foreach (var flower in Model.Category.Flowers.Where(s => s.Status is BudsFlowers.Areas.Identity.Data.TypeStatus.Опубликовано).OrderByDescending(p => p.IsPopular))
-                    {
-                        <div class="col">
-                            <a asp-controller="Flower" asp-action="Index" asp-route-id="@flower.Id" class="flowers category-link text-dark text-decoration-none position-relative">
-                                <div class="card flowers-card shadow-sm text-center justify-content-end">
-                                    @if (flower.IsSale())
-                                    {
-                                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem; z-index: 9999;">
-                                            Скидка
-                                        </div>
-                                    }
-                                    @if (flower.IsPopular)
-                                    {
-                                        @if (flower.IsSale())
-                                        {
-                                            <div class="badge bg-warning  text-white position-absolute"
-                                                 style="top: 2rem; right: 0.5rem; z-index: 9999;">
-                                                Популярное
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge bg-warning  text-white position-absolute"
-                                                 style="top: 0.5rem; right: 0.5rem; z-index: 9999;">
-                                                Популярное
-                                            </div>
-                                        }
-                                    }
-                                    <div class="card-img-top overflow-hidden justify-content-center">
-                                        <img src="@flower.PhotoPath" class="h-100 w-100" style=" margin: 0 -100%;"
-                                             role="img" focusable="false">
-                                    </div>
-                                    <div class="card-body px-0">
-                                        <h6>@flower.Title</h6>
-                                        <span class="d-flex text-warning justify-content-center">
-                                            <partial name="../Partials/_StarPartial" model="@flower.GetStar()" />  @($" - {flower.Reviews.Count()} отзыва")
-                                        </span>
-                                        <p class="text-danger fw-bold">
-                                            @if (flower.IsSale())
-                                            {
-                                                <span class="text-muted text-decoration-line-through">@(flower.Price) руб.</span>
-
-                                                @Html.Raw($"{flower.GetTotalPrice()} руб.")
-                                            }
-                                            else
-                                            {
-                                                @Html.Raw($"{flower.Price} руб.")
-                                            }
-                                        </p>
-                                        @if (flower.IsInStock)
-                                        {
-                                            <a class="btn btn-outline-color color mt-auto" >Добавить в корзину</a>
-                                        }
-                                        else
-                                        {
-                                            <p class="text-danger fw-bold">Нет в наличии</p>
-                                        }
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    }
-
+                <div id="listFlower" class="container-fluid">
+                    <partial name="../Partials/_FLowersListPartial" />
                 </div>
-                <nav>
-                    <ul class="pagination pagination-sm  justify-content-center">
-                        <li class="page-item disabled ">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item active" aria-current="page">
-                            <span class="page-link">1</span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>

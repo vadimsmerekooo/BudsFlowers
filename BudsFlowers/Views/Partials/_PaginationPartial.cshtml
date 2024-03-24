@@ -1,0 +1,55 @@
+﻿@model PageViewModel
+
+@if(Model.TotalPages >= 1)
+{
+    @if (Model.IsSort)
+    {
+        <nav>
+            <ul class="pagination pagination-sm  justify-content-center">
+                <li class="page-item  @(!Model.HasPreviousPage ?"disabled":"")">
+                    <a class="page-link" href="javascript:sortPagination('@Model.Id', '1');" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.PageNumber == i ?"active":"")" aria-current="page">
+                        <a class="page-link" href="javascript:sortPagination('@Model.Id', '@i');">
+                            @i
+                        </a>
+                    </li>
+                }
+                <li class="page-item @(!Model.HasNextPage ?"disabled":"")">
+                    <a class="page-link" href="javascript:sortPagination('@Model.Id', '@Model.TotalPages');" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <nav>
+            <ul class="pagination pagination-sm  justify-content-center">
+                <li class="page-item  @(!Model.HasPreviousPage ?"disabled":"")">
+                    <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-id="@Model.Id" asp-route-page="1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.PageNumber == i ?"active":"")" aria-current="page">
+                        <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-id="@Model.Id" asp-route-page="@i">
+                            @i
+                        </a>
+                    </li>
+                }
+                <li class="page-item @(!Model.HasNextPage ?"disabled":"")">
+                    <a class="page-link" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-route-id="@Model.Id" asp-route-page="@Model.TotalPages" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+}
