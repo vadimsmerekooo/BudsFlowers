@@ -48,22 +48,22 @@ namespace BudsFlowers.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Введите Имя.")]
             [StringLength(50, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 3)]
             [Display(Name = "Имя")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Введите почту.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Введите телефон.")]
             [Phone]
             [Display(Name = "Телефон")]
             public string Phone { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Введите пароль.")]
             [StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]

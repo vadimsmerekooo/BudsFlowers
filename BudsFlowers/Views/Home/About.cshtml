@@ -1,4 +1,6 @@
-﻿@{
+﻿@using BudsFlowers.Areas.Identity.Data
+@model Message
+@{
     ViewData["Title"] = "Контакты";
 }
 
@@ -22,28 +24,30 @@
         <div class="card-header text-start ">
             Задать вопрос
         </div>
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col ">
-                    <label class="form-label">Имя<sup class="text-danger ">*</sup></label>
-                    <input type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+        <form asp-controller="Home" asp-action="SendMessage">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col ">
+                        <label class="form-label">Имя<sup class="text-danger ">*</sup></label>
+                        <input asp-for="FirstName" type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+                    </div>
+                    <div class="col ">
+                        <label class="form-label">Email<sup class="text-danger ">*</sup></label>
+                        <input asp-for="Email" type="email" class="form-control"
+                               placeholder="name@gmail.com">
+                    </div>
+                    <div class="col ">
+                        <label class="form-label">Телефон<sup class="text-danger ">*</sup></label>
+                        <input asp-for="Phone" type="text" class="form-control"
+                               placeholder="+_(__)_______">
+                    </div>
                 </div>
-                <div class="col ">
-                    <label class="form-label">Email<sup class="text-danger ">*</sup></label>
-                    <input type="email" class="form-control"
-                           placeholder="name@gmail.com">
-                </div>
-                <div class="col ">
-                    <label class="form-label">Телефон<sup class="text-danger ">*</sup></label>
-                    <input type="text" class="form-control"
-                           placeholder="+_(__)_______">
+                <div class="mb-3">
+                    <label class="form-label">Текст сообщения<sup class="text-danger ">*</sup></label>
+                    <textarea asp-for="Text" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Текст сообщения<sup class="text-danger ">*</sup></label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-            </div>
-        </div>
-        <a class="btn btn-outline-color color mt-auto" href="#">Отправить</a>
+            <button class="btn btn-outline-color color mt-auto" type="submit">Отправить</button>
+        </form>
     </div>
 </div>

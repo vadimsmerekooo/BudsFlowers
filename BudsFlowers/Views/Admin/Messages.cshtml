@@ -1,5 +1,6 @@
-﻿@using BudsFlowers.Views.Admin
-
+﻿@using BudsFlowers.Areas.Identity.Data
+@using BudsFlowers.Views.Admin
+@model List<Message>
 @{
     ViewData["Title"] = "Сообщения";
     ViewData["ActivePage"] = AdminNavPages.Messages;
@@ -25,9 +26,6 @@
                                 <th>Почта</th>
                                 <th>Телефон</th>
                                 <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -36,12 +34,21 @@
                                 <th>Почта</th>
                                 <th>Телефон</th>
                                 <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
-                                <th></th>
                             </tr>
                         </tfoot>
                         <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th>@item.FirstName</th>
+                                    <th>
+                                        @item.Email
+                                    </th>
+                                    <th>@item.Phone</th>
+                                    <th>@item.Text</th>
+                                   
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

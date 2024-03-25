@@ -1,15 +1,57 @@
 ﻿@page "/account/orders"
-@model IndexModel
+@model OrdersModel
 @{
     ViewData["Title"] = "Заказы";
-    ViewData["ActivePage"] = ManageNavPages.Index;
+    ViewData["ActivePage"] = ManageNavPages.Orders;
 }
 
 <h6>@ViewData["Title"]</h6>
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-
+<div class="row px-3">
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            @ViewData["Title"]
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Дата оформления</th>
+                        <th>Кол-во товаров</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Дата оформления</th>
+                        <th>Кол-во товаров</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model.Orders)
+                    {
+                        <tr>
+                            <th>@item.Number</th>
+                            <th>@item.DateCreate</th>
+                            <th>@item.Flowers.Count()</th>
+                            <th>@item.GetTotalPrice()</th>
+                            <th>-</th>
+                            <th>
+                                -
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

@@ -496,9 +496,10 @@ namespace BudsFlowers.Controllers
 
         #region Messages
         [Route("admin/messages")]
-        public ActionResult Messages()
+        public async Task<IActionResult> Messages()
         {
-            return View();
+
+            return View(await _context.Messages.ToListAsync());
         }
         #endregion
 

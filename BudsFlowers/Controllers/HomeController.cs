@@ -1,5 +1,6 @@
 ﻿using BudsFlowers.Areas.Identity.Data;
 using BudsFlowers.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -9,10 +10,12 @@ namespace BudsFlowers.Controllers
     public class HomeController : Controller
     {
         private readonly BudsContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(BudsContext context)
+        public HomeController(BudsContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [Route("")]
@@ -45,8 +48,27 @@ namespace BudsFlowers.Controllers
         [Route("about")]
         public async Task<IActionResult> About()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                Message model = new Message()
+                {
+                    FirstName = user.UserName,
+                    Email = user.Email
+                };
+                return View(model);
+            }
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SendMessage(Message model)
+        {
+            await _context.Messages.AddAsync(model);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         [Route("blog")]
         public async Task<IActionResult> Blog()
         {
@@ -58,10 +80,6 @@ namespace BudsFlowers.Controllers
             return View();
         }
 
-        public void AddBasket()
-        {
-
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
