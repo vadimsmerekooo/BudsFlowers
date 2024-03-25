@@ -32,20 +32,19 @@
   </Basket>
   <Basket>
     <Code>2</Code>
+    <FirstName>Адмнистратор</FirstName>
+    <Email>budsflowers.grodno@gmail.com</Email>
+    <Phone>+375298670467</Phone>
     <City>Гродно</City>
-    <Flowers>
-      <BasketFlower>
-        <FlowerId>03619e2c-dc48-4a6e-8685-193a9444acf5</FlowerId>
-        <Count>2</Count>
-      </BasketFlower>
-      <BasketFlower>
-        <FlowerId>6efbcc63-025d-4d3d-b893-a54f277db4e5</FlowerId>
-        <Count>1</Count>
-      </BasketFlower>
-    </Flowers>
+    <Flowers />
   </Basket>
   <Basket>
     <Code>3</Code>
+    <City>Гродно</City>
+    <Flowers />
+  </Basket>
+  <Basket>
+    <Code>4</Code>
     <City>Гродно</City>
     <Flowers />
   </Basket>

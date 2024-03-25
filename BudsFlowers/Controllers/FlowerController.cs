@@ -3,6 +3,7 @@ using BudsFlowers.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BudsFlowers.Controllers
 {
@@ -41,6 +42,11 @@ namespace BudsFlowers.Controllers
                 model.Review.User = await _userManager.GetUserAsync(User);
                 model.Review.FirstName = model.Review.User.UserName;
                 model.Review.Email = model.Review.User.Email;
+            }
+            else
+            {
+                if (model.Review.FirstName.IsNullOrEmpty())
+                    model.Review.FirstName = "Аноним";
             }
             await _context.Reviews.AddAsync(model.Review);
             await _context.SaveChangesAsync();

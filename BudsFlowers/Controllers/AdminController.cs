@@ -39,9 +39,21 @@ namespace BudsFlowers.Controllers
         }
         #region Orders
         [Route("admin/orders")]
-        public ActionResult Orders()
+        public async Task<IActionResult> Orders()
         {
-            return View();
+            return View(await _context.Orders.Include(i => i.Flowers).ThenInclude(f => f.Flower).Include(s => s.User).AsSplitQuery().OrderByDescending(d => d.DateCreate).ToListAsync());
+        }
+        [Route("admin/order/info/{id}")]
+        public async Task<IActionResult> OrderInfo(string id)
+        {
+            Order order = await _context.Orders.Include(f => f.Flowers).ThenInclude(p => p.Flower).ThenInclude(r => r.Reviews).Include(u => u.User).AsSplitQuery().FirstOrDefaultAsync(u => u.Id == id);
+            if (order == null)
+            {
+                StatusMessage = "Ошибка Заказ не найден!";
+                return RedirectToPage("Orders");
+            }
+            return View(order);
+
         }
         #endregion
 
@@ -51,7 +63,7 @@ namespace BudsFlowers.Controllers
         {
             FlowersCategoryViewModel model = new FlowersCategoryViewModel()
             {
-                Flowers = await _context.Flowers.Include(c => c.Category).Where(t => t.TypeCategory == type).OrderBy(a => a.Article).ToListAsync(),
+                Flowers = await _context.Flowers.Include(r => r.Reviews).Include(c => c.Category).Where(t => t.TypeCategory == type).OrderBy(a => a.Article).AsSplitQuery().ToListAsync(),
                 TypeCategory = type
             };
             return View(model);
@@ -498,8 +510,7 @@ namespace BudsFlowers.Controllers
         [Route("admin/messages")]
         public async Task<IActionResult> Messages()
         {
-
-            return View(await _context.Messages.ToListAsync());
+            return View(await _context.Messages.OrderByDescending(d => d.Date).ToListAsync());
         }
         #endregion
 

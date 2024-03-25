@@ -1,5 +1,6 @@
-﻿@using BudsFlowers.Views.Admin
-
+﻿@using BudsFlowers.Areas.Identity.Data;
+@using BudsFlowers.Views.Admin;
+@model List<Order>
 @{
     ViewData["Title"] = "Заказы";
     ViewData["ActivePage"] = AdminNavPages.Orders;
@@ -21,27 +22,48 @@
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>Номер</th>
                                 <th>Имя</th>
                                 <th>Почта</th>
                                 <th>Телефон</th>
-                                <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
+                                <th>Адрес</th>
+                                <th>Кол-во товаров</th>
+                                <th>Дата оформления</th>
+                                <th>Дата доставки</th>
+                                <th>Сумма</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>Номер</th>
                                 <th>Имя</th>
                                 <th>Почта</th>
                                 <th>Телефон</th>
-                                <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
+                                <th>Адрес</th>
+                                <th>Кол-во товаров</th>
+                                <th>Дата оформления</th>
+                                <th>Дата доставки</th>
+                                <th>Сумма</th>
                                 <th></th>
                             </tr>
                         </tfoot>
                         <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th><a asp-controller="Admin" asp-action="OrderInfo" asp-route-id="@item.Id">#@item.Number</a></th>
+                                    <th>@item.FirstName</th>
+                                    <th>@item.Email</th>
+                                    <th>@item.Phone</th>
+                                    <th>ул. @item.Street , д. @item.HomeNumber</th>
+                                    <th>@item.Flowers.Count()</th>
+                                    <th>@item.DateCreate</th>
+                                    <th>@item.DeliveryDate , @item.DeliveryTime</th>
+                                    <th>@item.TotalSale руб.</th>
+                                    <th></th>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

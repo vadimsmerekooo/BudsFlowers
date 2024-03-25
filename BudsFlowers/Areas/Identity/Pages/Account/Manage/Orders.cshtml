@@ -20,7 +20,8 @@
                         <th>Номер</th>
                         <th>Дата оформления</th>
                         <th>Кол-во товаров</th>
-                        <th>Сумма</th>
+                        <th>Сумма без скидки</th>
+                        <th>Итоговая сумма</th>
                         <th>Статус</th>
                         <th></th>
                     </tr>
@@ -30,7 +31,8 @@
                         <th>Номер</th>
                         <th>Дата оформления</th>
                         <th>Кол-во товаров</th>
-                        <th>Сумма</th>
+                        <th>Сумма без скидки</th>
+                        <th>Итоговая сумма</th>
                         <th>Статус</th>
                         <th></th>
                     </tr>
@@ -39,10 +41,11 @@
                     @foreach (var item in Model.Orders)
                     {
                         <tr>
-                            <th>@item.Number</th>
+                            <th><a asp-area="Identity" asp-page="/Account/Manage/OrderInfo" asp-route-id="@item.Id">#@item.Number</a></th>
                             <th>@item.DateCreate</th>
                             <th>@item.Flowers.Count()</th>
-                            <th>@item.GetTotalPrice()</th>
+                            <th>@item.TotalPrice руб.</th>
+                            <th>@item.TotalSale руб.</th>
                             <th>-</th>
                             <th>
                                 -

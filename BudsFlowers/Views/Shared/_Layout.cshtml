@@ -28,6 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Home" asp-action="Reviews">Отзывы</a>
                 </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#orderNumberSearchModal">
+                        Поиск заказа
+                    </button>
+                </li>
             </ul>
             <hr>
             <ul class="nav">
@@ -114,6 +119,11 @@
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Home" asp-action="Reviews">Отзывы</a>
             </li>
+            <li class="nav-item">
+                <button type="button" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#orderNumberSearchModal">
+                    Поиск заказа
+                </button>
+            </li>
         </ul>
 
         <ul class="nav col-md-3 justify-content-end list-unstyled d-flex">
@@ -137,7 +147,26 @@
             </li>
         </ul>
     </footer>
-
+    <div class="modal text-dark fade" id="orderNumberSearchModal" tabindex="99999" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index:99999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Поиск заказа</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="get" asp-controller="Home" asp-action="OrderInfo">
+                    <div class="modal-body">
+                        <label class="form-label">Введите номер заказа</label>
+                        <input id="orderNumber" name="orderNumber" type="text" class="form-control" placeholder="Номер заказа" aria-label="Номер заказа">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button class="btn btn-outline-color" type="submit"><i class="bi bi-search"></i>Поиск </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <style>
         .nav-pills .nav-link.active {
             background-color: #BF608C;

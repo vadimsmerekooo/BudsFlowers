@@ -1,0 +1,160 @@
+﻿@using BudsFlowers.Areas.Identity.Data;
+@using BudsFlowers.Views.Admin;
+@model Order
+@{
+    ViewData["Title"] = "Заказ #"+Model.Number;
+    ViewData["ActivePage"] = AdminNavPages.Orders;
+}
+
+<div class="p-3">
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AdminNavPartial" />
+        </div>
+        <div class="col-md-9 border-start text-white py-2">
+
+            <div class="row px-3">
+                <div class="row d-flex justify-content-center my-4">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header py-3">
+                                <h5 class="mb-0">@ViewData["Title"] - @Model.Flowers.Count() позиции</h5>
+                            </div>
+                            <div class="card-body">
+                                @foreach (var item in Model.Flowers)
+                                {
+                                    <div class="row position-relative">
+                                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                            <div class="rounded">
+                                                <a id="@item.Flower.Id" href="@item.Flower.PhotoPath" class="js-img-viewer-fit" data-caption="@(item.Flower.Title)" data-id="@(item.Flower.Id)">
+                                                    <img src="@item.Flower.PhotoPath" class="w-100 " style="max-height: 150px;" alt="..." />
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                            <a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Flower.Id"><strong>@item.Flower.Title</strong></a>
+                                            <h6 class="text-danger fw-bold ">
+                                                @if (item.Flower.IsSale())
+                                                {
+                                                    <span class="text-muted text-decoration-line-through me-2">
+                                                        @item.Flower.Price
+                                                        руб.
+                                                    </span>
+                                                }
+                                                @(item.Flower.GetTotalPrice() + " руб.")
+                                            </h6>
+                                            <small class="text-secondary ">Артикул: @item.Flower.Article</small>
+                                            <br>
+                                            <span class="d-flex text-warning">
+                                                <partial name="../Partials/_StarPartial" model="@item.Flower.GetStar()">  - @item.Flower.Reviews.Count() отзывов
+                                            </span>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 text-center ">
+                                            Количество: @item.Count
+                                            <br />
+                                            Итого:
+                                            <h6 class="fw-bold ">@item.GetTotalPrice() руб.</h6>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <form method="post" asp-action="OrderCreate">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <p><strong>Время доставки</strong></p>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            @Model.DeliveryDate
+                                        </div>
+                                        <div class="col">
+                                            @Model.DeliveryTime
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="mb-0">Информация о заказчике</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item justify-content-between align-items-center border-0 px-0 pb-0">
+                                            <label asp-for="FirstName" class="form-label"></label>
+                                            : <b>@Model.FirstName</b>
+                                        </li>
+                                        <li class="list-group-item justify-content-between align-items-center border-0 px-0 pb-0">
+                                            <label asp-for="Email" class="form-label"></label>
+                                            : <b>@Model.Email</b>
+                                        </li>
+                                        <li class="list-group-item justify-content-between align-items-center border-0 px-0 pb-0">
+                                            <label asp-for="Phone" class="form-label"></label>
+                                            : <b>@Model.Phone</b>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="mb-0">Адрес</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item justify-content-between align-items-center border-0 px-0 pb-0">
+                                            <label asp-for="Street" class="form-label"></label>
+                                            : <b>@Model.Street</b>
+                                        </li>
+                                        <li class="list-group-item justify-content-between align-items-center border-0 px-0 pb-0">
+                                            <label asp-for="HomeNumber" class="form-label"></label>
+                                            : <b>@Model.HomeNumber</b>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="mb-0">Итого</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                            Стоимость
+                                            <h6 class="text-danger fw-bold ">
+                                                @if (Model.TotalPrice != Model.TotalSale)
+                                                {
+                                                    <span class="text-muted text-decoration-line-through me-2">
+                                                        @Model.TotalPrice
+                                                        руб.
+                                                    </span>
+                                                }
+                                                @Model.TotalSale руб.
+                                            </h6>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                            Доставка
+                                            <span>4.00 руб.</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                            <div>
+                                                <strong>Итоговая стоимость</strong>
+                                            </div>
+                                            <span><strong>@(Model.TotalSale + 4) руб.</strong></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

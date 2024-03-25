@@ -173,7 +173,6 @@
     function clearBasket() {
         $.ajax({
             url: "/basket/clear",
-            data: { flowerId: flowerId, },
             method: "GET",
             dataType: "json",
             success: function (e) {

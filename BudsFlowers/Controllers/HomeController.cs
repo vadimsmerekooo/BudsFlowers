@@ -17,6 +17,8 @@ namespace BudsFlowers.Controllers
             _context = context;
             _userManager = userManager;
         }
+        [TempData]
+        public string StatusMessage { get; set; }
 
         [Route("")]
         public async Task<IActionResult> Index()
@@ -80,6 +82,18 @@ namespace BudsFlowers.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("order/info")]
+        public async Task<IActionResult> OrderInfo(long orderNumber)
+        {
+            Order order = await _context.Orders.Include(f => f.Flowers).ThenInclude(p => p.Flower).ThenInclude(r => r.Reviews).Include(u => u.User).AsSplitQuery().FirstOrDefaultAsync(u => u.Number == orderNumber);
+            if(order is null)
+            {
+                StatusMessage = $"Ошибка Заказ #{orderNumber} не найден.";
+                return RedirectToAction("Index");
+            }
+            return View(order);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

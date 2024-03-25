@@ -197,6 +197,23 @@ namespace BudsFlowers.Services
         public static Basket GetBasketByCode(long code) => Baskets.FirstOrDefault(c => c.Code.Equals(code));
         public static int GetBasketCount(long code) => Baskets.Any(c => c.Code == code) ? Baskets.FirstOrDefault(c => c.Code == code).Flowers.Sum(s => s.Count) : 0;
         public static int Count() => Baskets.Count();
+        public static List<BasketFlower> GetBasketFlower(long code)
+        {
+            try
+            {
+                if (Baskets.Any(b => b.Code.Equals(code)))
+                {
+                    return Baskets.FirstOrDefault(c => c.Code.Equals(code)).Flowers;
+
+                }
+                return new List<BasketFlower>();
+            }
+            catch
+            {
+
+            }
+            return new List<BasketFlower>();
+        }
 
         static async Task<bool> Serialize()
         {

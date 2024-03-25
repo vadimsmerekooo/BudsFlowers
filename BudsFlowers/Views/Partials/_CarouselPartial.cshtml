@@ -5,7 +5,7 @@
     <div class="carousel-inner py-3">
         @foreach (var item in Model.Flowers)
         {
-            <div class="carousel-item">
+            <div class="carousel-item @(Model.Flowers.First().Id == item.Id ? "active" : "")">
                 <div class="card flowers-card shadow-sm text-center justify-content-end" style="width: 250px;">
                     <a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id" class="flowers category-link text-dark text-decoration-none">
                         @if (item.IsSale())

@@ -1,20 +1,28 @@
 ﻿using BudsFlowers.Areas.Identity.Data;
 using BudsFlowers.Models;
 using BudsFlowers.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Encodings.Web;
 
 namespace BudsFlowers.Controllers
 {
     public class BasketController : Controller
     {
         private readonly BudsContext _context;
-        public BasketController(BudsContext context)
+        private readonly UserManager<User> _userManager;
+
+        public BasketController(BudsContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        [TempData]
+        public string StatusMessage { get; set; }
 
 
         [Route("basket")]
@@ -44,12 +52,89 @@ namespace BudsFlowers.Controllers
                 {
                     Basket = basket,
                 };
+                if (User.Identity.IsAuthenticated)
+                {
+                    var user = await _userManager.GetUserAsync(User);
+                    model.Basket.FirstName = user.UserName;
+                    model.Basket.Email = user.Email;
+                    model.Basket.Phone = user.PhoneNumber;
+                }
 
                 return View(model);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> OrderCreate(BasketViewModel model)
+        {
+            if (Request.Cookies.ContainsKey("basket"))
+            {
+                long code = long.Parse(Request.Cookies["basket"]);
+                long number = new Random().Next(1, 999999999);
+                DateTime dateTimeNow = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                DateTime dateDelivery = Convert.ToDateTime(model.Basket.DeliveryDate);
+
+                if(dateDelivery.Date <= DateTime.Now.Date)
+                {
+                    StatusMessage = "Ошибка Некорректно выбрана дата. Оформление заказа возможно за одни сутки до доставки курьером.";
+                    return RedirectToAction(nameof(Index), model);
+                }
+                Order order = new Order()
+                {
+                    FirstName = model.Basket.FirstName,
+                    Email = model.Basket.Email,
+                    Phone = model.Basket.Phone,
+                    City = model.Basket.City,
+                    Street = model.Basket.Street,
+                    HomeNumber = model.Basket.HomeNumber,
+                    Code = model.Basket.Code,
+                    DeliveryDate = model.Basket.DeliveryDate,
+                    DeliveryTime = model.Basket.DeliveryTime,
+                    Number = number
+                };
+                var user = await _userManager.FindByEmailAsync(order.Email);
+                if (user != null)
+                {
+                    order.User = user;
+                }
+
+                List<BasketFlower> flowers = BasketService.GetBasketFlower(code);
+
+                foreach (var flower in flowers)
+                {
+                    Flower flowerContext = await _context.Flowers.FirstOrDefaultAsync(f => f.Id == flower.FlowerId);
+                    order.Flowers.Add(new OrderItem()
+                    {
+                        Flower = flowerContext,
+                        Count = flower.Count,
+                        Price = flowerContext.Price,
+                        Sale = flowerContext.GetTotalPrice()
+                    });
+                    flowerContext.Orders = flowerContext.Orders + 1;
+                    _context.Flowers.Update(flowerContext);
+                    await _context.SaveChangesAsync();
+                }
+                order.TotalPrice = order.Flowers.Sum(s => s.GetPrice());
+                order.TotalSale = order.Flowers.Sum(s => s.GetTotalPrice());
+
+                await _context.Orders.AddAsync(order);
+                await _context.SaveChangesAsync();
+
+                Clear();
+                EmailService emailService = new EmailService();
+                await emailService.SendEmailAsync(order.Email.Trim(), $"Заказ #{number}", $"Заказ #{number} на сумму {order.TotalSale} руб., успешно оформлен. Отслеживайте статус заказ по ссылке: {Url.ActionLink("Home", "OrderInfo", new { number = number })}"); ;
+
+                StatusMessage = $"Заказ #{number} на сумму {order.TotalSale} руб., успешно оформлен. Отслеживайте статус заказ по ссылке: {Url.ActionLink("Home", "OrderInfo", new { number = number})}";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                StatusMessage = "Ошибка Заказ не оформлен. Побробуйте еще раз!";
+                return RedirectToAction(nameof(Index), model);
             }
         }
 
@@ -65,7 +150,7 @@ namespace BudsFlowers.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                if(basket.Flowers is null)
+                if (basket.Flowers is null)
                 {
                     basket.Flowers = new List<BasketFlower>();
                 }
@@ -189,7 +274,7 @@ namespace BudsFlowers.Controllers
             if (Request.Cookies.ContainsKey("basket"))
             {
                 long code = long.Parse(Request.Cookies["basket"]);
-                if(await BasketService.Delete(code, flowerId))
+                if (await BasketService.Delete(code, flowerId))
                 {
                     return Json(new { success = true, error = false });
                 }

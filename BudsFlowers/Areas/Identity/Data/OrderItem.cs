@@ -13,5 +13,7 @@ namespace BudsFlowers.Areas.Identity.Data
         public double Sale { get; set; }
         public virtual Order Order { get; set; }
         public virtual Flower Flower { get; set; }
+        public double GetPrice() => Price * Count;
+        public double GetTotalPrice() => Sale * Count;
     }
 }

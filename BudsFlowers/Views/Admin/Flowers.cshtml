@@ -52,14 +52,14 @@
                             @foreach (var item in Model.Flowers)
                             {
                                 <tr>
-                                    <th>@item.Article</th>
+                                    <th><a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id">@item.Article</a></th>
                                     <th>
                                         <a href="#" onclick="PhotoLoad('@(item.Id)');">
                                             <img src="@(item.PhotoPath)" width="45" alt="" />
                                         </a>
                                     </th>
-                                    <th>@item.Title</th>
-                                    <th>@item.Category.Title</th>
+                                    <th><a asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id">@item.Title</a></th>
+                                    <th><a asp-controller="Catalog" asp-action="List" asp-route-id="@item.Category.Id">@item.Category.Title</a></th>
                                     <th>@item.Orders</th>
                                     <th>
                                         @(item.IsInStock ? "В наличии" : "Нет в наличии")
