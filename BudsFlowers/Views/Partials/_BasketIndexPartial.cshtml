@@ -5,6 +5,7 @@
         <div class="card mb-4">
             <div class="card-header py-3">
                 <h5 class="mb-0">@Model.Basket.Flowers.Count() позиции</h5>
+                <a class="text-danger" href="javascript:clearBasket();">Очистить корзину</a>
             </div>
             <div class="card-body">
                 @foreach (var item in Model.Basket.Flowers)

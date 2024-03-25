@@ -20,14 +20,15 @@
         $("#carouselExampleControls .carousel-control-next").on("click", function () {
             if (scrollPosition < carouselWidth - cardWidth * 3) {
                 scrollPosition += cardWidth * 3;
-                $("#carouselExampleControls .carousel-inner").animate(
+
+                $(this).siblings('.carousel-inner').animate(
                     { scrollLeft: scrollPosition },
                     600
                 );
             }
             else {
                 scrollPosition = 0;
-                $("#carouselExampleControls .carousel-inner").animate(
+                $(this).siblings('.carousel-inner').animate(
                     { scrollLeft: scrollPosition },
                     600
                 );
@@ -36,14 +37,14 @@
         $("#carouselExampleControls .carousel-control-prev").on("click", function () {
             if (scrollPosition > 0) {
                 scrollPosition -= cardWidth * 3;
-                $("#carouselExampleControls .carousel-inner").animate(
+                $(this).siblings('.carousel-inner').animate(
                     { scrollLeft: scrollPosition },
                     600
                 );
             }
             else {
                 scrollPosition = carouselWidth;
-                $("#carouselExampleControls .carousel-inner").animate(
+                $(this).siblings('.carousel-inner').animate(
                     { scrollLeft: scrollPosition },
                     600
                 );
@@ -81,7 +82,7 @@
         flowerBox.innerHTML = `<div id="loadSpinner" class="spinner-border color text-center" role="status"></div>`;
         setTimeout(
             () => {
-                $('#listFlower').load('@Url.ActionLink("Sort", "Catalog")/' + id + "/1/" + min + "/" + max + "/" + type,  function (response, status, xhr) {
+                $('#listFlower').load('@Url.ActionLink("Sort", "Catalog")/' + id + "/1/" + min + "/" + max + "/" + type, function (response, status, xhr) {
                 });
             },
             0.5 * 1000
@@ -118,6 +119,15 @@
                 $('#errorAddFlower').toast('show');
             }
         });
+    }
+    function addBasketCount(flowerId, field) {
+        const count = document.getElementById(field).value;
+        if (count && count >= 1) {
+            addBasket(flowerId, count);
+        }
+        else {
+            $('#errorAddFlower').toast('show');
+        }
     }
 
     function plusBasket(flowerId) {
@@ -159,6 +169,21 @@
         });
     }
 
+
+    function clearBasket() {
+        $.ajax({
+            url: "/basket/clear",
+            data: { flowerId: flowerId, },
+            method: "GET",
+            dataType: "json",
+            success: function (e) {
+                updateBasket();
+            },
+            error: function (e) {
+                updateBasket();
+            }
+        });
+    }
     function updateBasket() {
         const basketBox = document.getElementById('basketBox');
         basketBox.innerHTML = `<div id="loadSpinner" class="spinner-border color text-center" role="status"></div>`;

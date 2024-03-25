@@ -52,7 +52,7 @@
                         </p>
                         @if (flower.IsInStock)
                         {
-                            <a class="btn btn-outline-color color mt-auto">Добавить в корзину</a>
+                            <a class="btn btn-outline-color color mt-auto" href="javascript:addBasket(`@flower.Id`, `1`);">Добавить в корзину</a>
                         }
                         else
                         {

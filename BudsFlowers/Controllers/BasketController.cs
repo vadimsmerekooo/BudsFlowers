@@ -200,5 +200,23 @@ namespace BudsFlowers.Controllers
             }
             return Json(new { success = false, error = true });
         }
+        [HttpGet]
+        [Route("basket/clear")]
+        public async Task<IActionResult> Clear()
+        {
+            if (Request.Cookies.ContainsKey("basket"))
+            {
+                long code = long.Parse(Request.Cookies["basket"]);
+                if (await BasketService.ClearBasket(code))
+                {
+                    return Json(new { success = true, error = false });
+                }
+                else
+                {
+                    return Json(new { success = false, error = true });
+                }
+            }
+            return Json(new { success = false, error = true });
+        }
     }
 }

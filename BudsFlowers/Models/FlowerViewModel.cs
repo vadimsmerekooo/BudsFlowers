@@ -6,5 +6,6 @@ namespace BudsFlowers.Models
     {
         public Flower Flower { get; set; }
         public List<Flower> Other { get; set; }
+        public Review Review { get; set; }
     }
 }

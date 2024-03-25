@@ -41,9 +41,18 @@
                 }
                 @if (Model.Flower.IsPopular)
                 {
-                    <div class="badge bg-warning text-white position-absolute" style="top: 2rem; right: 1rem">
-                        Популярное
-                    </div>
+                    @if (Model.Flower.IsSale())
+                    {
+                        <div class="badge bg-warning text-white position-absolute" style="top: 2rem; right: 1rem">
+                            Популярное
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="badge bg-warning text-white position-absolute" style="top: 0.5rem; right: 1rem">
+                            Популярное
+                        </div>
+                    }
                 }
             </div>
             <div class="col-7 px-2">
@@ -78,20 +87,23 @@
                 </h4>
                 <h6>Состав: @Model.Flower.Compound</h6>
                 <h6 class="text-secondary ">Артикул: @Model.Flower.Article</h6>
-                <div class="number my-3">
-                    <button class="number-minus" type="button"
-                            onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
-                        -
-                    </button>
-                    <input id="countField" type="number" min="1" max="100" value="1" readonly class="bg-transparent text-light">
-                    <button class="number-plus" type="button"
-                            onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
-                        +
-                    </button>
-                </div>
-                <a class="btn btn-outline-color color mt-auto" href="javascript:addBasket(`@Model.Flower.Id`, `document.getElementById('countField');`);">
-                    В корзину
-                </a>
+                @if (Model.Flower.IsInStock)
+                {
+                    <div class="number my-3">
+                        <button class="number-minus" type="button"
+                                onclick="this.nextElementSibling.stepDown();">
+                            -
+                        </button>
+                        <input id="countField@(Model.Flower.Id)" type="number" min="1" max="100" value="1" readonly class="bg-transparent text-light">
+                        <button class="number-plus" type="button"
+                                onclick="this.previousElementSibling.stepUp();">
+                            +
+                        </button>
+                    </div>
+                    <a class="btn btn-outline-color color mt-auto" href="javascript:addBasketCount(`@Model.Flower.Id`, `countField@(Model.Flower.Id)`);">
+                        В корзину
+                    </a>
+                }
                 <br>
                 <span class="d-flex text-warning">
                     <partial name="../Partials/_StarPartial" model="@Model.Flower.GetStar()" /> - @Model.Flower.Reviews.Count отзыва
@@ -109,99 +121,37 @@
                             <div class="accordion-body">
                                 <table class="table m-0 p-0">
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="../../resources/bear.jpg" class="js-img-viewer-fit"
-                                                   data-caption="Bear" data-id="bear">
-                                                    <img src="../../resources/bear.jpg" width="45" height="45"
-                                                         alt="" />
-                                                </a>
-                                            </td>
-                                            <td class="text-secondary fw-bold">Мишка 100 см</td>
-                                            <td class="fw-bold text-danger">110 руб.</td>
-                                            <td class="text-end">
-                                                <form>
+                                        @foreach (var item in Model.Other)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a href="@item.PhotoPath" class="js-img-viewer-fit"
+                                                       data-caption="@item.Title" data-id="@item.Id">
+                                                        <img src="@item.PhotoPath" width="45" height="45"
+                                                             alt="@item.Title" />
+                                                    </a>
+                                                </td>
+                                                <td class="text-secondary fw-bold">@item.Title</td>
+                                                <td class="fw-bold text-danger">@item.GetTotalPrice() руб.</td>
+                                                <td class="text-end">
                                                     <div class="number">
                                                         <button class="number-minus" type="button"
-                                                                onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
+                                                                onclick="this.nextElementSibling.stepDown();">
                                                             -
                                                         </button>
-                                                        <input type="number" min="1" max="100" value="1"
+                                                        <input id="countField@(item.Id)" type="number" min="1" max="100" value="1"
                                                                readonly>
                                                         <button class="number-plus" type="button"
-                                                                onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
+                                                                onclick="this.previousElementSibling.stepUp();">
                                                             +
                                                         </button>
                                                     </div>
-                                                    <a class="btn btn-outline-color color" href="#">
-                                                        В
-                                                        корзину
+                                                    <a class="btn btn-outline-color color mt-auto" href="javascript:addBasketCount(`@item.Id`, `countField@(item.Id)`);">
+                                                        В корзину
                                                     </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="../../resources/bear.jpg" class="js-img-viewer-fit"
-                                                   data-caption="Bear" data-id="bear">
-                                                    <img src="../../resources/bear.jpg" width="45" height="45"
-                                                         alt="" />
-                                                </a>
-                                            </td>
-                                            <td class="text-secondary fw-bold">Мишка 100 см</td>
-                                            <td class="fw-bold text-danger">110 руб.</td>
-                                            <td class="text-end">
-                                                <form>
-                                                    <div class="number">
-                                                        <button class="number-minus" type="button"
-                                                                onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
-                                                            -
-                                                        </button>
-                                                        <input type="number" min="1" max="100" value="1"
-                                                               readonly>
-                                                        <button class="number-plus" type="button"
-                                                                onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
-                                                            +
-                                                        </button>
-                                                    </div>
-                                                    <a class="btn btn-outline-color color" href="#">
-                                                        В
-                                                        корзину
-                                                    </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="../../resources/bear.jpg" class="js-img-viewer-fit"
-                                                   data-caption="Bear" data-id="bear">
-                                                    <img src="../../resources/bear.jpg" width="45" height="45"
-                                                         alt="" />
-                                                </a>
-                                            </td>
-                                            <td class="text-secondary fw-bold">Мишка 100 см</td>
-                                            <td class="fw-bold text-danger">110 руб.</td>
-                                            <td class="text-end">
-                                                <form>
-                                                    <div class="number">
-                                                        <button class="number-minus" type="button"
-                                                                onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">
-                                                            -
-                                                        </button>
-                                                        <input type="number" min="1" max="100" value="1"
-                                                               readonly>
-                                                        <button class="number-plus" type="button"
-                                                                onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">
-                                                            +
-                                                        </button>
-                                                    </div>
-                                                    <a class="btn btn-outline-color color" href="#">
-                                                        В
-                                                        корзину
-                                                    </a>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -225,7 +175,7 @@
                                                 <div class="d-flex justify-content-between ">
                                                     <h5 class="card-title">
                                                         @review.FirstName
-                                                        <span class="align-middle ">
+                                                        <span class="align-middle d-flex">
                                                             <partial name="../Partials/_StarPartial" model="@review.Star" />
                                                         </span>
                                                     </h5>
@@ -245,27 +195,32 @@
                                     <div class="card-header text-start ">
                                         Оставить отзыв
                                     </div>
-                                    <div class="card-body">
-                                        @if (User.Identity.IsAuthenticated)
-                                        {
-                                            <div class="row mb-3">
-                                                <div class="col ">
-                                                    <label class="form-label">Имя (необязательно)</label>
-                                                    <input type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+                                    <form method="post" asp-controller="Flower" asp-action="SendReview">
+                                        <input type="text" class="form-control d-none" asp-for="Flower.Id">
+                                        <div class="card-body">
+                                            @if (!User.Identity.IsAuthenticated)
+                                            {
+                                                <div class="row mb-3">
+                                                    <div class="col ">
+                                                        <label class="form-label" asp-for="Review.FirstName">Имя (необязательно)</label>
+                                                        <input type="text" class="form-control" placeholder="Имя" aria-label="Имя" asp-for="Review.FirstName">
+                                                    </div>
+                                                    <div class="col ">
+                                                        <label class="form-label" asp-for="Review.Email">Email для обратной связи<sup class="text-danger ">*</sup></label>
+                                                        <input asp-for="Review.Email" type="email" class="form-control" placeholder="name@gmail.com">
+                                                    </div>
                                                 </div>
-                                                <div class="col ">
-                                                    <label class="form-label">Email для обратной связи<sup class="text-danger ">*</sup></label>
-                                                    <input type="email" class="form-control" id="exampleFormControlInput1"
-                                                           placeholder="name@gmail.com">
-                                                </div>
+                                            }
+                                            <div class="mb-3">
+                                                <partial name="../Partials/_SetStarPartial"/>
                                             </div>
-                                        }
-                                        <div class="mb-3">
-                                            <label class="form-label">Текст<sup class="text-danger ">*</sup></label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                            <div class="mb-3">
+                                                <label class="form-label" asp-for="Review.Description">Текст<sup class="text-danger ">*</sup></label>
+                                                <textarea class="form-control" id="reviewDescription" rows="5" asp-for="Review.Description"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <a class="btn btn-outline-color color mt-auto" href="#">Отправить</a>
+                                        <button class="btn btn-outline-color color mt-auto" type="submit">Отправить</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
