@@ -33,12 +33,12 @@ namespace BudsFlowers.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Заполните поле")]
             [DataType(DataType.Password)]
             [Display(Name = "Старый пароль")]
             public string OldPassword { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Заполните поле")]
             [StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Новый пароль")]

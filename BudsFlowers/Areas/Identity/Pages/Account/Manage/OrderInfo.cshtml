@@ -12,6 +12,7 @@
             <div class="card mb-4">
                 <div class="card-header py-3">
                     <h5 class="mb-0">@ViewData["Title"] - @Model.Order.Flowers.Count() позиции</h5>
+                    <h6>Статус: @Model.Order.Status</h6>
                 </div>
                 <div class="card-body">
                     @foreach (var item in Model.Order.Flowers)

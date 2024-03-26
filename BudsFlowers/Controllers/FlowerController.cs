@@ -37,6 +37,8 @@ namespace BudsFlowers.Controllers
         {
             model.Review.Star = Convert.ToInt32(rate);
             model.Review.Flower = await _context.Flowers.FirstOrDefaultAsync(f => f.Id == model.Flower.Id);
+            model.Review.Status = TypeStatus.Опубликовано;
+            model.Review.Type = TypeReview.Flower;
             if (User.Identity.IsAuthenticated)
             {
                 model.Review.User = await _userManager.GetUserAsync(User);

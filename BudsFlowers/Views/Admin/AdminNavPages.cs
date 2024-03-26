@@ -12,7 +12,6 @@ namespace BudsFlowers.Views.Admin
         public static string Candies => "Candies";
         public static string Other => "Other";
         public static string Categoryes => "Categoryes";
-        public static string Blog => "Blog";
         public static string Reviews => "Reviews";
         public static string Users => "Users";
         public static string Messages => "Messages";
@@ -24,7 +23,6 @@ namespace BudsFlowers.Views.Admin
         public static string CandiesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Candies);
         public static string OtherNavClass(ViewContext viewContext) => PageNavClass(viewContext, Other);
         public static string CategoryesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Categoryes);
-        public static string BlogNavClass(ViewContext viewContext) => PageNavClass(viewContext, Blog);
         public static string ReviewsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Reviews);
         public static string UsersNavClass(ViewContext viewContext) => PageNavClass(viewContext, Users);
         public static string MessagesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Messages);

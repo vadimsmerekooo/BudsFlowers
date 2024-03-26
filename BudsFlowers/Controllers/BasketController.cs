@@ -126,9 +126,9 @@ namespace BudsFlowers.Controllers
 
                 Clear();
                 EmailService emailService = new EmailService();
-                await emailService.SendEmailAsync(order.Email.Trim(), $"Заказ #{number}", $"Заказ #{number} на сумму {order.TotalSale} руб., успешно оформлен. Отслеживайте статус заказ по ссылке: {Url.ActionLink("Home", "OrderInfo", new { number = number })}"); ;
+                await emailService.SendEmailAsync(order.Email.Trim(), $"Заказ #{number}", $"Заказ #{number} на сумму {order.TotalSale} руб., успешно оформлен. Отслеживайте статус заказ по ссылке: {Url.ActionLink("OrderInfo", "Home", new { number = number })}"); ;
 
-                StatusMessage = $"Заказ #{number} на сумму {order.TotalSale} руб., успешно оформлен. Отслеживайте статус заказ по ссылке: {Url.ActionLink("Home", "OrderInfo", new { number = number})}";
+                StatusMessage = $"Заказ #{number} на сумму {order.TotalSale} руб., успешно оформлен. Отслеживайте статус заказ по ссылке: <a href=\"{Url.ActionLink("OrderInfo", "Home", new { number = number })}\">#{number}</a>";
                 return RedirectToAction("Index", "Home");
             }
             else

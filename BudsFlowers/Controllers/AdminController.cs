@@ -33,15 +33,63 @@ namespace BudsFlowers.Controllers
 
 
         [Route("admin/new")]
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IndexAdminViewModel model = new IndexAdminViewModel()
+            {
+                Orders = await _context.Orders.Include(i => i.Flowers).ThenInclude(f => f.Flower).Include(s => s.User).Where(s => s.Status == TypeOrderStatus.Обработка).AsSplitQuery().OrderByDescending(d => d.DateCreate).ToListAsync(),
+                Messages = await _context.Messages.OrderByDescending(d => d.Date).Take(10).ToListAsync(),
+                Reviews = await _context.Reviews.OrderByDescending(d => d.Date).Take(10).ToListAsync()
+            };
+            return View(model);
         }
         #region Orders
         [Route("admin/orders")]
         public async Task<IActionResult> Orders()
         {
             return View(await _context.Orders.Include(i => i.Flowers).ThenInclude(f => f.Flower).Include(s => s.User).AsSplitQuery().OrderByDescending(d => d.DateCreate).ToListAsync());
+        }
+        [Route("admin/order/change-status")]
+        public async Task<IActionResult> ChangeStatusOrder(string id)
+        {
+            Order order = await _context.Orders.Include(i => i.Flowers).ThenInclude(f => f.Flower).Include(s => s.User).AsSplitQuery().FirstOrDefaultAsync(o => o.Id == id);
+            if(order is null)
+            {
+                StatusMessage = "Ошибка Заказ не найден";
+                return RedirectToAction(nameof(Orders));
+            }
+            switch (order.Status)
+            {
+                case TypeOrderStatus.Обработка:
+                    order.Status = TypeOrderStatus.Принят;
+                    break;
+                case TypeOrderStatus.Принят:
+                    order.Status = TypeOrderStatus.Собирается;
+                    break;
+                case TypeOrderStatus.Собирается:
+                    order.Status = TypeOrderStatus.Доставлено;
+                    break;
+            }
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+            StatusMessage = $"Заказ #{order.Number} успешно применил статус: {order.Status}";
+            return RedirectToAction(nameof(Orders));
+        }
+        [Route("admin/order/refusal")]
+        public async Task<IActionResult> RefusalOrder(string id)
+        {
+            Order order = await _context.Orders.Include(i => i.Flowers).ThenInclude(f => f.Flower).Include(s => s.User).AsSplitQuery().FirstOrDefaultAsync(o => o.Id == id);
+            if (order is null)
+            {
+                StatusMessage = "Ошибка Заказ не найден";
+                return RedirectToAction(nameof(Orders));
+            }
+            order.Status = TypeOrderStatus.Отказ;
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+            StatusMessage = $"Заказ #{order.Number} успешно применил статус: {order.Status}";
+            return RedirectToAction(nameof(Orders));
+
         }
         [Route("admin/order/info/{id}")]
         public async Task<IActionResult> OrderInfo(string id)
@@ -73,7 +121,7 @@ namespace BudsFlowers.Controllers
         {
             List<FlowerCategory> categories = await _context.FlowerCategories.Where(t => t.TypeCategory == type).ToListAsync();
             long lastArticle = _context.Flowers.OrderByDescending(a => a.Article).First().Article;
-            ViewBag.Categories = new SelectList(categories, "Id", "Title");            
+            ViewBag.Categories = new SelectList(categories, "Id", "Title");
             return View(new Flower() { TypeCategory = type, Categories = categories, Article = lastArticle + 1 });
         }
         [Route("admin/flowers/add/model")]
@@ -125,7 +173,7 @@ namespace BudsFlowers.Controllers
                 StatusMessage = $"{model.TypeCategory} {model.Title} успешно добавлены!";
 
 
-                return RedirectToAction(nameof(Flowers), new { type = model.TypeCategory } );
+                return RedirectToAction(nameof(Flowers), new { type = model.TypeCategory });
             }
             catch
             {
@@ -402,19 +450,24 @@ namespace BudsFlowers.Controllers
         }
         #endregion
 
-        #region Blog
-        [Route("admin/blog")]
-        public ActionResult Blog()
-        {
-            return View();
-        }
-        #endregion
-
         #region Reviews
         [Route("admin/reviews")]
-        public ActionResult Reviews()
+        public async Task<IActionResult> Reviews()
         {
-            return View();
+            return View(await _context.Reviews.OrderByDescending(d => d.Date).ToListAsync());
+        }
+        public async Task<IActionResult> DeleteReview(string id)
+        {
+            Review review = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
+            if (review != null)
+            {
+                _context.Reviews.Remove(review);
+                await _context.SaveChangesAsync();
+                StatusMessage = "Отзыв успешно удален!";
+                return RedirectToAction(nameof(Reviews));
+            }
+            StatusMessage = "Ошибка Отзыв не удален.";
+            return RedirectToAction(nameof(Reviews));
         }
         #endregion
 

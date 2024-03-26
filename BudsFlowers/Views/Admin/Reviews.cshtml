@@ -1,5 +1,6 @@
-﻿@using BudsFlowers.Views.Admin
-
+﻿@using BudsFlowers.Areas.Identity.Data
+@using BudsFlowers.Views.Admin
+@model List<Review>
 @{
     ViewData["Title"] = "Отзывы";
     ViewData["ActivePage"] = AdminNavPages.Reviews;
@@ -21,27 +22,41 @@
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>Дата</th>
                                 <th>Имя</th>
                                 <th>Почта</th>
-                                <th>Телефон</th>
-                                <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
+                                <th>Тип</th>
+                                <th>Оценка</th>
+                                <th>Текст</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>Дата</th>
                                 <th>Имя</th>
                                 <th>Почта</th>
-                                <th>Телефон</th>
-                                <th>Заказы</th>
-                                <th>Отзывы</th>
-                                <th></th>
+                                <th>Тип</th>
+                                <th>Оценка</th>
+                                <th>Текст</th>
                                 <th></th>
                             </tr>
                         </tfoot>
                         <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th>@item.Date</th>
+                                    <th>@item.FirstName</th>
+                                    <th>@item.Email</th>
+                                    <th>@item.Type</th>
+                                    <th class="d-flex"><partial name="../Partials/_StarPartial" model="@item.Star" /></th>
+                                    <th>@item.Description</th>
+                                    <td>
+                                        <a asp-controller="Admin" asp-action="DeleteReview" asp-route-id="@item.Id" class="btn btn-danger" title="Удалить"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

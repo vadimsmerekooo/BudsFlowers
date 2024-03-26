@@ -167,7 +167,7 @@
                         <div id="collapseTwo" class="accordion-collapse collapse"
                              data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                @foreach (var review in Model.Flower.Reviews)
+                                @foreach (var review in Model.Flower.Reviews.OrderByDescending(d => d.Date).Take(10))
                                 {
                                     <div class="card">
                                         <div class="row g-0">

@@ -3,6 +3,7 @@ using BudsFlowers.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 namespace BudsFlowers.Controllers
@@ -68,7 +69,23 @@ namespace BudsFlowers.Controllers
         {
             await _context.Messages.AddAsync(model);
             await _context.SaveChangesAsync();
+            StatusMessage = "Сообщение успешно отправлено. Ожидайте ответа на указанную почту.";
             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendReview(ReviewsViewModel model, string rate)
+        {
+            if (model.Review.FirstName.IsNullOrEmpty())
+            {
+                model.Review.FirstName = "Аноним";
+            }
+            model.Review.Status = TypeStatus.Опубликовано;
+            model.Review.Type = TypeReview.All;
+            model.Review.Star = Convert.ToInt32(rate);
+            await _context.Reviews.AddAsync(model.Review);
+            await _context.SaveChangesAsync();
+            StatusMessage = "Отзыв успешно зарегестрирован. Спасибо, что Вы с нами!";
+            return RedirectToAction(nameof(Reviews));
         }
 
         [Route("blog")]
@@ -79,7 +96,21 @@ namespace BudsFlowers.Controllers
         [Route("reviews")]
         public async Task<IActionResult> Reviews()
         {
-            return View();
+            ReviewsViewModel model = new ReviewsViewModel()
+            {
+                Reviews = await _context.Reviews.Include(f => f.Flower).Where(r => r.Status == TypeStatus.Опубликовано && r.Type == TypeReview.All).ToListAsync()
+            };
+            if (User.Identity.IsAuthenticated)
+            {
+                User user = await _userManager.GetUserAsync(User);
+                model.Review = new Review()
+                {
+                    Email = user.Email,
+                    FirstName = user.UserName
+                };
+            }
+
+            return View(model);
         }
 
         [HttpGet]
@@ -87,7 +118,7 @@ namespace BudsFlowers.Controllers
         public async Task<IActionResult> OrderInfo(long orderNumber)
         {
             Order order = await _context.Orders.Include(f => f.Flowers).ThenInclude(p => p.Flower).ThenInclude(r => r.Reviews).Include(u => u.User).AsSplitQuery().FirstOrDefaultAsync(u => u.Number == orderNumber);
-            if(order is null)
+            if (order is null)
             {
                 StatusMessage = $"Ошибка Заказ #{orderNumber} не найден.";
                 return RedirectToAction("Index");

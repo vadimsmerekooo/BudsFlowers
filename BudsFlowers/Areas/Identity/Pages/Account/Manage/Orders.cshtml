@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th>Номер</th>
+                        <th>Статус</th>
                         <th>Дата оформления</th>
                         <th>Кол-во товаров</th>
                         <th>Сумма без скидки</th>
@@ -29,6 +30,7 @@
                 <tfoot>
                     <tr>
                         <th>Номер</th>
+                        <th>Статус</th>
                         <th>Дата оформления</th>
                         <th>Кол-во товаров</th>
                         <th>Сумма без скидки</th>
@@ -42,6 +44,7 @@
                     {
                         <tr>
                             <th><a asp-area="Identity" asp-page="/Account/Manage/OrderInfo" asp-route-id="@item.Id">#@item.Number</a></th>
+                            <th>@item.Status</th>
                             <th>@item.DateCreate</th>
                             <th>@item.Flowers.Count()</th>
                             <th>@item.TotalPrice руб.</th>

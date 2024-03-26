@@ -1,5 +1,6 @@
-﻿@using BudsFlowers.Views.Admin
-
+﻿@using BudsFlowers.Areas.Identity.Data
+@using BudsFlowers.Views.Admin
+@model IndexAdminViewModel
 @{
     ViewData["Title"] = "Панель администрирования";
     ViewData["ActivePage"] = AdminNavPages.Index;
@@ -16,25 +17,65 @@
             <div class="card">
                 <div class="card-body">
                     <h6>Новые заказы</h6>
-                    <table class="table">
+                    <table class="table table-sm" style="font-size: 12px;">
                         <thead>
                             <tr>
-                                <th scope="col">Код</th>
-                                <th scope="col">Кол-во позиций</th>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Телефон</th>
-                                <th scope="col">Адрес</th>
-                                <th scope="col">Сумма</th>
-                                <th scope="col">Скидка</th>
+                                <th>Номер</th>
+                                <th>Статус</th>
+                                <th>Имя</th>
+                                <th>Почта</th>
+                                <th>Телефон</th>
+                                <th>Адрес</th>
+                                <th>Кол-во товаров</th>
+                                <th>Дата оформления</th>
+                                <th>Дата доставки</th>
+                                <th>Сумма</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>3</td>
-                            </tr>
+                            @foreach (var item in Model.Orders)
+                            {
+                                <tr>
+                                    <th><a asp-controller="Admin" asp-action="OrderInfo" asp-route-id="@item.Id">#@item.Number</a></th>
+                                    <th><p>@item.Status</p>
+
+                                </th>
+                                    <th>@item.FirstName</th>
+                                    <th>@item.Email</th>
+                                    <th>@item.Phone</th>
+                                    <th>ул. @item.Street , д. @item.HomeNumber</th>
+                                    <th>@item.Flowers.Count()</th>
+                                    <th>@item.DateCreate</th>
+                                    <th>@item.DeliveryDate , @item.DeliveryTime</th>
+                                    <th>@item.TotalSale руб.</th>
+                                    <th>
+                                        @{
+                                            switch (item.Status)
+                                            {
+                                                case TypeOrderStatus.Обработка:
+                                                    <a class="btn btn-sm btn-success" asp-action="ChangeStatusOrder" asp-route-id="@item.Id">Принять</a>
+                                                    <a class="btn btn-sm btn-danger" asp-action="RefusalOrder" asp-route-id="@item.Id">Отказать</a>
+                                                    break;
+                                                case TypeOrderStatus.Принят:
+                                                    <a class="btn btn-sm btn-warning" asp-action="ChangeStatusOrder" asp-route-id="@item.Id">Собирается</a>
+                                                    <a class="btn btn-sm btn-danger" asp-action="RefusalOrder" asp-route-id="@item.Id">Отказать</a>
+                                                    break;
+                                                case TypeOrderStatus.Собирается:
+                                                    <a class="btn btn-sm btn-primary" asp-action="ChangeStatusOrder" asp-route-id="@item.Id">Отправлено</a>
+                                                    <a class="btn btn-sm btn-danger" asp-action="RefusalOrder" asp-route-id="@item.Id">Отказать</a>
+                                                    break;
+                                            }
+                                        }
+                                    </th>
+                                </tr>
+                            }
+                            @if(Model.Orders.Count == 0)
+                            {
+                                <tr>
+                                    <th>Нет заказов</th>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -43,22 +84,35 @@
             <div class="card">
                 <div class="card-body">
                     <h6>Новые сообщения</h6>
-                    <table class="table">
+                    <table class="table table-sm" style="font-size: 12px;">
                         <thead>
                             <tr>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Почта</th>
-                                <th scope="col">Телефон</th>
-                                <th scope="col">Текст</th>
+                                <th>Дата</th>
+                                <th>Имя</th>
+                                <th>Почта</th>
+                                <th>Телефон</th>
+                                <th>Текст</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">Vad</th>
-                                <td>213123</td>
-                                <td>444444</td>
-                                <td>asdasdasdasdas</td>
-                            </tr>
+                            @foreach (var item in Model.Messages)
+                            {
+                                <tr>
+                                    <th>@item.Date</th>
+                                    <th>@item.FirstName</th>
+                                    <th>
+                                        @item.Email
+                                    </th>
+                                    <th>@item.Phone</th>
+                                    <th class="text-wrap">@item.Text</th>
+                                </tr>
+                            }
+                            @if(Model.Messages.Count == 0)
+                            {
+                                <tr>
+                                    <th>Нет сообщений</th>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -69,26 +123,33 @@
             <div class="card">
                 <div class="card-body">
                     <h6>Новые отзывы</h6>
-                    <table class="table">
+                    <table class="table table-sm" style="font-size: 12px;">
                         <thead>
                             <tr>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Почта</th>
-                                <th scope="col">Телефон</th>
-                                <th scope="col">Оценка</th>
-                                <th scope="col">Текст</th>
+                                <th>Дата</th>
+                                <th>Имя</th>
+                                <th>Почта</th>
+                                <th>Тип</th>
+                                <th>Оценка</th>
+                                <th>Текст</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">Vad</th>
-                                <td>213123</td>
-                                <td>444444</td>
-                                <td class="d-flex">
-                                    <partial name="../Partials/_StarPartial.cshtml" model="3" />
-                                </td>
-                                <td>asdasdasdasdas</td>
-                            </tr>
+                            @foreach (var item in Model.Reviews)
+                            {
+                                <tr>
+                                    <th><p>@item.Date</p></th>
+                                    <th>@item.FirstName</th>
+                                    <th>@item.Email</th>
+                                    <th>@item.Type</th>
+                                    <th class="d-flex"><partial name="../Partials/_StarPartial" model="@item.Star" /></th>
+                                    <th>@item.Description</th>
+                                    <td>
+                                        <a asp-controller="Admin" asp-action="DeleteReview" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Удалить"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

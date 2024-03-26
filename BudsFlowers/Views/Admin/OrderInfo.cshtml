@@ -17,8 +17,26 @@
                 <div class="row d-flex justify-content-center my-4">
                     <div class="col-md-8">
                         <div class="card mb-4">
-                            <div class="card-header py-3">
+                            <div class="card-header py-3 justify-content-between">
                                 <h5 class="mb-0">@ViewData["Title"] - @Model.Flowers.Count() позиции</h5>
+                                <h6>Статус: @Model.Status</h6>
+                                @{
+                                    switch (Model.Status)
+                                    {
+                                        case TypeOrderStatus.Обработка:
+                                            <a class="btn btn-success" asp-action="ChangeStatusOrder" asp-route-id="@Model.Id">Принять</a>
+                                            <a class="btn btn-danger" asp-action="RefusalOrder" asp-route-id="@Model.Id">Отказать</a>
+                                            break;
+                                        case TypeOrderStatus.Принят:
+                                            <a class="btn btn-warning" asp-action="ChangeStatusOrder" asp-route-id="@Model.Id">Собирается</a>
+                                            <a class="btn btn-danger" asp-action="RefusalOrder" asp-route-id="@Model.Id">Отказать</a>
+                                            break;
+                                        case TypeOrderStatus.Собирается:
+                                            <a class="btn btn-primary" asp-action="ChangeStatusOrder" asp-route-id="@Model.Id">Отправлено</a>
+                                            <a class="btn btn-danger" asp-action="RefusalOrder" asp-route-id="@Model.Id">Отказать</a>
+                                            break;
+                                    }
+                                }
                             </div>
                             <div class="card-body">
                                 @foreach (var item in Model.Flowers)

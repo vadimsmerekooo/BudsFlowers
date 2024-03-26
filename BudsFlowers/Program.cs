@@ -33,7 +33,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/access-denied";
     options.Cookie.Name = "budsflowers";
     options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(4320);
     options.LoginPath = "/account/signin";    
     options.SlidingExpiration = true;
 });

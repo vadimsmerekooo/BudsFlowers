@@ -22,7 +22,7 @@ namespace BudsFlowers.Areas.Identity.Data
         [Required(ErrorMessage = "Введите почту.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Введите сообщение.")]
-        [StringLength(50, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 3)]
+        [StringLength(2000, ErrorMessage = "Длина {0} должна быть не менее {2} и не более {1} символов.", MinimumLength = 3)]
         [Display(Name = "Текст сообщения")]
         public string Text { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;

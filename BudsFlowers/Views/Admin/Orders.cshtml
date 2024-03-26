@@ -23,6 +23,7 @@
                         <thead>
                             <tr>
                                 <th>Номер</th>
+                                <th>Статус</th>
                                 <th>Имя</th>
                                 <th>Почта</th>
                                 <th>Телефон</th>
@@ -37,6 +38,7 @@
                         <tfoot>
                             <tr>
                                 <th>Номер</th>
+                                <th>Статус</th>
                                 <th>Имя</th>
                                 <th>Почта</th>
                                 <th>Телефон</th>
@@ -53,6 +55,7 @@
                             {
                                 <tr>
                                     <th><a asp-controller="Admin" asp-action="OrderInfo" asp-route-id="@item.Id">#@item.Number</a></th>
+                                    <th>@item.Status</th>
                                     <th>@item.FirstName</th>
                                     <th>@item.Email</th>
                                     <th>@item.Phone</th>
@@ -61,7 +64,25 @@
                                     <th>@item.DateCreate</th>
                                     <th>@item.DeliveryDate , @item.DeliveryTime</th>
                                     <th>@item.TotalSale руб.</th>
-                                    <th></th>
+                                    <th>
+                                        @{
+                                            switch (item.Status)
+                                            {
+                                                case TypeOrderStatus.Обработка:
+                                                    <a class="btn btn-success" asp-action="ChangeStatusOrder" asp-route-id="@item.Id">Принять</a>
+                                                    <a class="btn btn-danger" asp-action="RefusalOrder" asp-route-id="@item.Id">Отказать</a>
+                                                    break;
+                                                case TypeOrderStatus.Принят:
+                                                    <a class="btn btn-warning" asp-action="ChangeStatusOrder" asp-route-id="@item.Id">Собирается</a>
+                                                    <a class="btn btn-danger" asp-action="RefusalOrder" asp-route-id="@item.Id">Отказать</a>
+                                                break;
+                                                case TypeOrderStatus.Собирается:
+                                                    <a class="btn btn-primary" asp-action="ChangeStatusOrder" asp-route-id="@item.Id">Отправлено</a>
+                                                    <a class="btn btn-danger" asp-action="RefusalOrder" asp-route-id="@item.Id">Отказать</a>
+                                                    break;
+                                            }
+                                        }
+                                    </th>
                                 </tr>
                             }
                         </tbody>

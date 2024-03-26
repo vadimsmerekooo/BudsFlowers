@@ -13,6 +13,7 @@ namespace BudsFlowers.Areas.Identity.Data
         public double TotalSale { get; set; }
         public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime DateClose { get; set; }
+        public TypeOrderStatus Status { get; set; } = TypeOrderStatus.Обработка;
 
         public virtual List<OrderItem> Flowers { get; set; } = new List<OrderItem>();
         public virtual User? User { get; set; }
