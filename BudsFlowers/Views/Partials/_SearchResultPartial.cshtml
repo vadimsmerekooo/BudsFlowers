@@ -5,12 +5,12 @@
 {
     <li>
         <a class="dropdown-item d-flex " asp-controller="Flower" asp-action="Index" asp-route-id="@item.Id">
-            <div class="col-md-1">
+            <div class="col col-sm-2">
                 <img src="@item.PhotoPath" class="img-fluid rounded" alt="...">
             </div>
-            <div class="col ms-3">
+            <div class="col ps-2 text-wrap">
                 <h5 class="card-title align-middle ">@item.Title</h5>
-                <span class="d-flex text-warning">
+                <span class="d-lg-flex text-warning">
                     <partial name="../Partials/_StarPartial" model="@item.GetStar()" /> - @item.Reviews.Count() отзыва
                 </span>
 

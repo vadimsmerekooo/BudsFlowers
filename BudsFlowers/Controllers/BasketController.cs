@@ -44,7 +44,9 @@ namespace BudsFlowers.Controllers
                 {
                     foreach (var flower in basket.Flowers)
                     {
-                        flower.Flower = await _context.Flowers.Include(r => r.Reviews).FirstOrDefaultAsync(f => f.Id == flower.FlowerId);
+                        Flower flowerConext = await _context.Flowers.Include(r => r.Reviews).FirstOrDefaultAsync(f => f.Id == flower.FlowerId);
+
+                        flower.Flower = flowerConext;
                     }
                 }
 
@@ -107,16 +109,19 @@ namespace BudsFlowers.Controllers
                 foreach (var flower in flowers)
                 {
                     Flower flowerContext = await _context.Flowers.FirstOrDefaultAsync(f => f.Id == flower.FlowerId);
-                    order.Flowers.Add(new OrderItem()
+                    if(flowerContext.IsInStock && flowerContext.Status == TypeStatus.Опубликовано)
                     {
-                        Flower = flowerContext,
-                        Count = flower.Count,
-                        Price = flowerContext.Price,
-                        Sale = flowerContext.GetTotalPrice()
-                    });
-                    flowerContext.Orders = flowerContext.Orders + 1;
-                    _context.Flowers.Update(flowerContext);
-                    await _context.SaveChangesAsync();
+                        order.Flowers.Add(new OrderItem()
+                        {
+                            Flower = flowerContext,
+                            Count = flower.Count,
+                            Price = flowerContext.Price,
+                            Sale = flowerContext.GetTotalPrice()
+                        });
+                        flowerContext.Orders = flowerContext.Orders + 1;
+                        _context.Flowers.Update(flowerContext);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 order.TotalPrice = order.Flowers.Sum(s => s.GetPrice());
                 order.TotalSale = order.Flowers.Sum(s => s.GetTotalPrice());
@@ -158,7 +163,8 @@ namespace BudsFlowers.Controllers
                 {
                     foreach (var flower in basket.Flowers)
                     {
-                        flower.Flower = await _context.Flowers.Include(r => r.Reviews).FirstOrDefaultAsync(f => f.Id == flower.FlowerId);
+                        Flower flowerConext = await _context.Flowers.Include(r => r.Reviews).FirstOrDefaultAsync(f => f.Id == flower.FlowerId);
+                        flower.Flower = flowerConext;
                     }
                 }
 
@@ -181,9 +187,9 @@ namespace BudsFlowers.Controllers
         {
             try
             {
-                if (Request.Cookies.ContainsKey("basket"))
+                long code;
+                if (Request.Cookies.ContainsKey("basket") && long.TryParse(Request.Cookies["basket"], out code))
                 {
-                    long code = long.Parse(Request.Cookies["basket"]);
                     if (_context.Flowers.Any(c => c.Id == flowerId))
                     {
                         BasketFlower flower = new BasketFlower()
@@ -197,6 +203,28 @@ namespace BudsFlowers.Controllers
                         }
                     }
 
+                }
+                else
+                {
+
+                    code = BasketService.SetId();
+                    if (code != 0)
+                    {
+                        this.Response.Cookies.Delete("basket");
+                        this.Response.Cookies.Append("basket", code.ToString());
+                        if (_context.Flowers.Any(c => c.Id == flowerId))
+                        {
+                            BasketFlower flower = new BasketFlower()
+                            {
+                                Count = count,
+                                FlowerId = flowerId
+                            };
+                            if (await BasketService.AddItem(code, flower))
+                            {
+                                return Json(new { success = true, error = false });
+                            }
+                        }
+                    }
                 }
                 return Json(new { success = false, error = true });
             }

@@ -110,10 +110,15 @@
             url: "/basket/Add/" + flowerId + "/" + count,
             data: { flowerId: flowerId, count: count },
             method: "GET",
-            dataType: "json",
+            dataType: 'json',
             success: function (e) {
-                $('#successAddFlower').toast('show');
-                $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")/');
+                if (e.success) {
+                    $('#successAddFlower').toast('show');
+                    $('#basketCount').load('@Url.ActionLink("GetBasketCount", "Basket")/');
+                }
+                else {
+                    $('#errorAddFlower').toast('show');
+                }
             },
             error: function (e) {
                 $('#errorAddFlower').toast('show');
@@ -135,7 +140,6 @@
             url: "/basket/plus/" + flowerId,
             data: { flowerId: flowerId },
             method: "GET",
-            dataType: "json",
             success: function (e) {
                 updateBasket();
             }
@@ -147,7 +151,6 @@
             url: "/basket/minus/" + flowerId,
             data: { flowerId: flowerId },
             method: "GET",
-            dataType: "json",
             success: function (e) {
                 updateBasket();
             }
@@ -159,7 +162,6 @@
             url: "/basket/delete/" + flowerId,
             data: { flowerId: flowerId, },
             method: "GET",
-            dataType: "json",
             success: function (e) {
                 updateBasket();
             },
@@ -174,7 +176,6 @@
         $.ajax({
             url: "/basket/clear",
             method: "GET",
-            dataType: "json",
             success: function (e) {
                 updateBasket();
             },

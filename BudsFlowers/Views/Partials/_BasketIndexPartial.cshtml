@@ -15,7 +15,7 @@
                         <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                             <div class="rounded">
                                 <a id="@item.Flower.Id" href="@item.Flower.PhotoPath" class="js-img-viewer-fit" data-caption="@(item.Flower.Title)" data-id="@(item.Flower.Id)">
-                                    <img src="@item.Flower.PhotoPath" class="w-100 " style="max-height: 150px;" alt="..." />
+                                    <img src="@item.Flower.PhotoPath" class="" style="max-height: 150px;" alt="..." />
                                 </a>
                             </div>
                         </div>
@@ -51,31 +51,34 @@
                             </span>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 text-center ">
-                            <div class="d-flex mb-4 w-100 justify-content-center ">
-                                <div class="number">
-                                    <button class="number-minus" type="button"
-                                            onclick="this.nextElementSibling.stepDown(); minusBasket(`@item.FlowerId`);">
-                                        -
-                                    </button>
-                                    <input type="number" min="1" max="100" value="@item.Count" readonly>
-                                    <button class="number-plus" type="button"
-                                            onclick="this.previousElementSibling.stepUp();  plusBasket(`@item.FlowerId`);">
-                                        +
-                                    </button>
+                        @if (item.Flower.IsInStock)
+                        {
+                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 text-center ">
+                                <div class="d-flex mb-4 w-100 justify-content-center ">
+                                    <div class="number">
+                                        <button class="number-minus" type="button"
+                                                onclick="this.nextElementSibling.stepDown(); minusBasket(`@item.FlowerId`);">
+                                            -
+                                        </button>
+                                        <input type="number" min="1" max="100" value="@item.Count" readonly>
+                                        <button class="number-plus" type="button"
+                                                onclick="this.previousElementSibling.stepUp();  plusBasket(`@item.FlowerId`);">
+                                            +
+                                        </button>
+                                    </div>
                                 </div>
+
+                                Итого:
+                                <h6 class="fw-bold ">@item.GetTotalPrice() руб.</h6>
                             </div>
 
-                            Итого:
-                            <h6 class="fw-bold ">@item.GetTotalPrice() руб.</h6>
-                        </div>
-
-                        <a href="javascript:deleteBasket(`@item.FlowerId`);" title="Убрать с корзины">
-                            <div class="badge bg-dark text-white position-absolute"
-                                 style="top: 0rem; right: 0.5rem">
-                                <i class="bi bi-x"></i>
-                            </div>
-                        </a>
+                            <a href="javascript:deleteBasket(`@item.FlowerId`);" title="Убрать с корзины">
+                                <div class="badge bg-dark text-white position-absolute"
+                                     style="top: 0rem; right: 0.5rem">
+                                    <i class="bi bi-x"></i>
+                                </div>
+                            </a>
+                        }
                     </div>
 
                     <hr class="my-4" />

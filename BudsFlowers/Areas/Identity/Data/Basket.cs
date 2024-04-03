@@ -32,8 +32,8 @@ namespace BudsFlowers.Areas.Identity.Data
         public string DeliveryTime { get; set; }
 
         public List<BasketFlower> Flowers { get; set; } = new List<BasketFlower>();
-        public double GetPrice() => Flowers.Sum(f => f.GetPrice());
-        public double GetTotalPrice() => Flowers.Sum(f => f.GetTotalPrice());
+        public double GetPrice() => Flowers.Where(f => f.Flower.IsInStock && f.Flower.Status == TypeStatus.Опубликовано).Sum(f => f.GetPrice());
+        public double GetTotalPrice() => Flowers.Where(f => f.Flower.IsInStock && f.Flower.Status == TypeStatus.Опубликовано).Sum(f => f.GetTotalPrice());
 
     }
 }

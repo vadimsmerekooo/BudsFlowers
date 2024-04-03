@@ -17,16 +17,16 @@
         <Count>1</Count>
       </BasketFlower>
       <BasketFlower>
-        <FlowerId>52be669d-b2c4-4475-8ec0-e5bace3d86c5</FlowerId>
-        <Count>2</Count>
-      </BasketFlower>
-      <BasketFlower>
         <FlowerId>6301a576-06ea-4f26-9e96-173e750c5d32</FlowerId>
         <Count>1</Count>
       </BasketFlower>
       <BasketFlower>
         <FlowerId>ddc210a0-eac7-4c63-99cf-6115c7d81032</FlowerId>
         <Count>4</Count>
+      </BasketFlower>
+      <BasketFlower>
+        <FlowerId>57abf95c-8113-4d96-9c74-434240b2f36f</FlowerId>
+        <Count>1</Count>
       </BasketFlower>
     </Flowers>
   </Basket>
@@ -47,5 +47,29 @@
     <Code>4</Code>
     <City>Гродно</City>
     <Flowers />
+  </Basket>
+  <Basket>
+    <Code>5</Code>
+    <City>Гродно</City>
+    <Flowers>
+      <BasketFlower>
+        <FlowerId>3312ba80-d375-4088-aa65-7a44f54fbdc7</FlowerId>
+        <Count>1</Count>
+      </BasketFlower>
+      <BasketFlower>
+        <FlowerId>8ce16dc1-8352-4999-82eb-4f38ede8fe80</FlowerId>
+        <Count>1</Count>
+      </BasketFlower>
+    </Flowers>
+  </Basket>
+  <Basket>
+    <Code>6</Code>
+    <City>Гродно</City>
+    <Flowers>
+      <BasketFlower>
+        <FlowerId>3312ba80-d375-4088-aa65-7a44f54fbdc7</FlowerId>
+        <Count>1</Count>
+      </BasketFlower>
+    </Flowers>
   </Basket>
 </ArrayOfBasket>
